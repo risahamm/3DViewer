@@ -18,6 +18,7 @@ namespace s21 {
      * @param path путь к файлу
      */
     void Parser(std::string path);
+    void ReadVertex(std::string &str);
 
     private:
         std::vector<double> vertex_;
