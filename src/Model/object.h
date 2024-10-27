@@ -8,6 +8,11 @@
 
 namespace s21 {
 
+    struct Point {
+        double x;
+        double y;
+        double z;
+    };
 
     class Object {
     public:
@@ -19,11 +24,11 @@ namespace s21 {
      */
     void Parser(std::string path);
     void ReadVertex(std::string &str);
+//    void ReadFacet(std::string &str);
 
     private:
-        std::vector<double> vertex_;
-        std::vector<int> facet_;
-        std::vector<int> vertex_count_;
+        std::vector<Point> vertex_;
+        std::vector<std::vector<double>> facet_;
     };
 
 } // namespace s21
