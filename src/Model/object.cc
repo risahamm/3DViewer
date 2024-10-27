@@ -32,12 +32,16 @@ if (!my_file.is_open()) {
 void s21::Object::ReadVertex(std::string &str) {
 
     std::string::const_iterator ch = str.cbegin()+2;
-    const char *newstr = str.c_str();
+//    const char *newstr = str.c_str();
     std::string sub2 = str.substr(2);
     std::istringstream iss(sub2);
-    newstr = newstr + 2;
-    char *next;
-    double x;
+//    int i = 0; // счетчик элементов структуры Point
+    Point point1;
+
+
+//    newstr = newstr + 2;
+//    char *next;
+//    double x;
 //                while (*newstr != '\0') {
 //                    if (std::isdigit(*newstr) || (*newstr) == '-') {
 //                        std::string sub1 = str.substr(2);
@@ -50,11 +54,12 @@ void s21::Object::ReadVertex(std::string &str) {
 //                    }
 //                    break;
 //                }
-while (iss >> x) {
-    vertex_.push_back(x);
-
+if (iss >> point1.x >> point1.y >> point1.z) {
+    vertex_.push_back(point1);
 }
-for (double i : vertex_) {
-    std::cout<<"VERTEX_::"<<i<<std::endl;
+
+
+for (Point i : vertex_) {
+    std::cout << "VERTEX_::"<< i.x << " " << i.y << " " << i.z << std::endl;
     }
 }

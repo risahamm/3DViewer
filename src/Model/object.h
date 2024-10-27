@@ -10,11 +10,11 @@
 
 namespace s21 {
 
-//    struct Point {
-//        double x;
-//        double y;
-//        double z;
-//    };
+    struct Point {
+        double x;
+        double y;
+        double z;
+    };
 
     class Object {
     public:
@@ -29,8 +29,8 @@ namespace s21 {
 //    void ReadFacet(std::string &str);
 
     private:
-//        std::vector<Point> vertex_;
-        std::vector<double> vertex_;
+        std::vector<Point> vertex_;
+//        std::vector<double> vertex_;
         std::vector<std::vector<double>> facet_;
     };
 
