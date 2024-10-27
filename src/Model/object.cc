@@ -10,7 +10,7 @@ if (!my_file.is_open()) {
     std::string str;
     while (!my_file.eof()) {
         std::getline(my_file, str, '\n');
-    std::cout<<"STR:"<<str<<std::endl;
+//    std::cout<<"STR:"<<str<<std::endl;
         std::string::const_iterator ch = str.cbegin();
         while (ch != str.end()) { // TODO starts_with
             if (*ch == 'v') {
@@ -18,6 +18,7 @@ if (!my_file.is_open()) {
                     ReadVertex(str);
                 }
             }
+            break;
             if (*ch == 'f') { // TODO starts_with
                 if (*(++ch) == ' ') {
 //                    ReadFacet(str);
@@ -29,15 +30,31 @@ if (!my_file.is_open()) {
 };
 
 void s21::Object::ReadVertex(std::string &str) {
-    std::string::const_iterator ch = str.cbegin()+2;
-    double x = 0;
-                while (ch != str.end()) {
-                    if (std::isdigit(*ch) || (*ch) == '-') {
-                        std::string sub1 = str.substr(2);
-                        x = std::stod(sub1);
-                        std::cout<<"STOD:"<<x<<std::endl;
 
-                    }
-                    break;
-                }
+    std::string::const_iterator ch = str.cbegin()+2;
+    const char *newstr = str.c_str();
+    std::string sub2 = str.substr(2);
+    std::istringstream iss(sub2);
+    newstr = newstr + 2;
+    char *next;
+    double x;
+//                while (*newstr != '\0') {
+//                    if (std::isdigit(*newstr) || (*newstr) == '-') {
+//                        std::string sub1 = str.substr(2);
+//                        x = std::stod(sub1);
+//                        std::cout<<"STOD:"<<x<<std::endl;
+//                    }
+//                    ch++;
+//                    if ((*ch) == ' ') {
+//
+//                    }
+//                    break;
+//                }
+while (iss >> x) {
+    vertex_.push_back(x);
+
+}
+for (double i : vertex_) {
+    std::cout<<"VERTEX_::"<<i<<std::endl;
+    }
 }
