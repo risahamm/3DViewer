@@ -7,10 +7,10 @@ void s21::Object::Parser(std::string path) {
     std::cout << "File is not opened" << std::endl;  // TODO throw exception
   } else {
     std::string str;
-    while (!my_file.eof()) {
-      std::getline(my_file, str, '\n');
+    // while (!my_file.eof()) {
+      while(std::getline(my_file, str, '\n')) {
       std::string::const_iterator ch = str.cbegin();
-      while (ch != str.end()) {  // TODO starts_with
+      // while (ch != str.end()) {  // TODO starts_with
         if (*ch == 'v') {
           if (*(++ch) == ' ') {
             ReadVertex(str);
@@ -22,8 +22,9 @@ void s21::Object::Parser(std::string path) {
             ReadFacet(str);
           }
         }
-      }
-      break;
+        // break;
+      // }
+      // break;
     }
     my_file.close();
   }  // file is opened
@@ -55,16 +56,18 @@ void s21::Object::PrintVertices() {
         std::cout << "Vertex number " << number++ << ":" << "\t" << i.x << "\t" << i.y << "\t"
                   << i.z << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void s21::Object::PrintFacets() {
     int number = 1;
     for (std::vector<double> i : facet_) {
-        std::cout << "Facet number " << number++ << ". ";
+        std::cout << "Facet number " << number++ << ". Vertices:";
         for (double j : i) {
-            std::cout << "Vertices:" << "\t" << j << " ";
+            std::cout << "\t" << j << " ";
         }
         std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
 

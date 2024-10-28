@@ -9,7 +9,7 @@ int main()
     Obj.Parser(str);
 
     Obj.PrintVertices();
-    // Obj.PrintFacets();
+    Obj.PrintFacets();
 
     return 0;
 }
