@@ -11,11 +11,6 @@ int main() {
   //    std::cout << std::stod(str2) << endl;
 }
 
-//#include <iostream>
-//#include <sstream>
-//#include <vector>
-//#include <string>
-
 // int main() {
 //     std::string input;
 //     std::cout << "Введите числа через пробел: ";

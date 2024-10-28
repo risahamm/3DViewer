@@ -17,15 +17,16 @@ void s21::Object::Parser(std::string path) {
             ReadVertex(str);
           }
         }
-//        break;
+        //        break;
         if (*ch == 'f') {  // TODO starts_with
           if (*(++ch) == ' ') {
-              ReadFacet(str);
+            ReadFacet(str);
           }
         }
       }
-        break;
+      break;
     }
+    my_file.close();
   }  // file is opened
 };
 
@@ -38,28 +39,30 @@ void s21::Object::ReadVertex(std::string &str) {
   }
 
   for (Point i : vertex_) {
-      int number = 0;
-    std::cout << "VERTEX_ number:" << number << " " << i.x << " " << i.y << " " << i.z << std::endl;
+    int number = 0;
+    std::cout << "VERTEX_ number:" << number << " " << i.x << " " << i.y << " "
+              << i.z << std::endl;
     number++;
   }
 }
 
 void s21::Object::ReadFacet(std::string &str) {
-    std::string sub2 = str.substr(2);
-    std::istringstream iss(sub2);
-    std::vector<double> facet1;
-    double vertex_number;
-    while (iss >> vertex_number) {
-        facet1.push_back(vertex_number);
-    }
-    facet_.push_back(facet1);
+  std::string sub2 = str.substr(2);
+  std::istringstream iss(sub2);
+  std::vector<double> facet1;
+  double vertex_number;
+  while (iss >> vertex_number) {
+    facet1.push_back(vertex_number);
+  }
+  facet_.push_back(facet1);
 
-    for (std::vector<double> i : facet_) {
-        int number = 0;
-        std::cout << "Facet_number:" << number << std::endl;
-        for ( double j : i) {
-            std::cout << "vertex_number:" << j << std::endl;
-        }
-        number++;
+
+  for (std::vector<double> i : facet_) {
+    int number = 0;
+    std::cout << "Facet_number:" << number << std::endl;
+    for (double j : i) {
+      std::cout << "vertex_number:" << j << std::endl;
     }
+    number++;
+  }
 }
