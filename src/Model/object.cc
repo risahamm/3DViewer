@@ -6,7 +6,6 @@ void s21::Object::Parser(std::string path) {
   if (!my_file.is_open()) {
     std::cout << "File is not opened" << std::endl;  // TODO throw exception
   } else {
-    //    std::cout << "MYPATH:" << path << std::endl;
     std::string str;
     while (!my_file.eof()) {
       std::getline(my_file, str, '\n');
@@ -17,7 +16,7 @@ void s21::Object::Parser(std::string path) {
             ReadVertex(str);
           }
         }
-        //        break;
+        // break;
         if (*ch == 'f') {  // TODO starts_with
           if (*(++ch) == ' ') {
             ReadFacet(str);
@@ -33,36 +32,39 @@ void s21::Object::Parser(std::string path) {
 void s21::Object::ReadVertex(std::string &str) {
   std::string sub2 = str.substr(2);
   std::istringstream iss(sub2);
-  Point point1;
-  if (iss >> point1.x >> point1.y >> point1.z) {
-    vertex_.push_back(point1);
-  }
-
-  for (Point i : vertex_) {
-    int number = 0;
-    std::cout << "VERTEX_ number:" << number << " " << i.x << " " << i.y << " "
-              << i.z << std::endl;
-    number++;
+  Point point;
+  if (iss >> point.x >> point.y >> point.z) {
+    vertex_.push_back(point);
   }
 }
 
 void s21::Object::ReadFacet(std::string &str) {
   std::string sub2 = str.substr(2);
   std::istringstream iss(sub2);
-  std::vector<double> facet1;
+  std::vector<double> facet;
   double vertex_number;
   while (iss >> vertex_number) {
-    facet1.push_back(vertex_number);
+    facet.push_back(vertex_number);
   }
-  facet_.push_back(facet1);
-
-
-  for (std::vector<double> i : facet_) {
-    int number = 0;
-    std::cout << "Facet_number:" << number << std::endl;
-    for (double j : i) {
-      std::cout << "vertex_number:" << j << std::endl;
-    }
-    number++;
-  }
+  facet_.push_back(facet);
 }
+
+void s21::Object::PrintVertices() {
+    int number = 1;
+    for (Point i : vertex_) {
+        std::cout << "Vertex number " << number++ << ":" << "\t" << i.x << "\t" << i.y << "\t"
+                  << i.z << std::endl;
+    }
+}
+
+void s21::Object::PrintFacets() {
+    int number = 1;
+    for (std::vector<double> i : facet_) {
+        std::cout << "Facet number " << number++ << ". ";
+        for (double j : i) {
+            std::cout << "Vertices:" << "\t" << j << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+

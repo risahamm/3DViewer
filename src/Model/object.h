@@ -19,6 +19,8 @@ class Object {
  public:
   Object() = default;
   ~Object() = default;
+
+
   /**
    *
    * @param path путь к файлу
@@ -26,6 +28,10 @@ class Object {
   void Parser(std::string path);
   void ReadVertex(std::string &str);
   void ReadFacet(std::string &str);
+
+  /* служебные методы */
+  void PrintVertices();
+  void PrintFacets();
 
  private:
   std::vector<Point> vertex_;

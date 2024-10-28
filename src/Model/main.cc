@@ -2,37 +2,16 @@
 
 using namespace std;
 
-int main() {
-  string str = "../object_files/test21.obj";
-  s21::Object Obj;
-  Obj.Parser(str);
-  //    string str2 = "1.000000";
-  //    std::stod(str2);
-  //    std::cout << std::stod(str2) << endl;
-}
+int main()
+{
+    string str = "../src/object_files/test21.obj";
+    s21::Object Obj;
+    Obj.Parser(str);
 
-// int main() {
-//     std::string input;
-//     std::cout << "Введите числа через пробел: ";
-//     std::getline(std::cin, input); // Ввод строки
-//
-//     std::istringstream iss(input); // Создаем поток из строки
-//     std::vector<double> numbers; // Вектор для хранения чисел
-//     double number;
-//
-//     // Читаем числа из потока
-//     while (iss >> number) {
-//         numbers.push_back(number); // Добавляем число в вектор
-//     }
-//
-//     // Выводим считанные числа
-//     std::cout << "Считанные числа: ";
-//     for (const auto& num : numbers) {
-//         std::cout << num << " ";
-//     }
-//     std::cout << std::endl;
-//
-//     return 0;
-// }
+    Obj.PrintVertices();
+    // Obj.PrintFacets();
+
+    return 0;
+}
 
 // clang-format -style=Google -i *.cc *.h
