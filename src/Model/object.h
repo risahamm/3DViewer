@@ -25,7 +25,7 @@ class Object {
    */
   void Parser(std::string path);
   void ReadVertex(std::string &str);
-//      void ReadFacet(std::string &str);
+  void ReadFacet(std::string &str);
 
  private:
   std::vector<Point> vertex_;
