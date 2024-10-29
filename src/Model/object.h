@@ -20,7 +20,6 @@ class Object {
   Object() = default;
   ~Object() = default;
 
-
   /**
    *
    * @param path путь к файлу
@@ -35,7 +34,7 @@ class Object {
 
  private:
   std::vector<Point> vertex_;
-  std::vector<std::vector<double>> facet_;
+  std::vector<std::vector<int>> facet_;
   int vertex_count_ = 0;
 };
 
