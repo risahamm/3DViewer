@@ -7,5 +7,4 @@ add_executable(3DViewer
         src/Model/object.cc
         src/Model/object.h
         src/Model/main.cc
-        src/object_files/test21.obj
 )
