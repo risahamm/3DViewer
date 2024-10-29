@@ -36,6 +36,7 @@ void s21::Object::ReadVertex(std::string &str) {
   Point point;
   if (iss >> point.x >> point.y >> point.z) {
     vertex_.push_back(point);
+    vertex_count_++;
   }
 }
 

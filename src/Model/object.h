@@ -35,8 +35,8 @@ class Object {
 
  private:
   std::vector<Point> vertex_;
-  //        std::vector<double> vertex_;
   std::vector<std::vector<double>> facet_;
+  int vertex_count_ = 0;
 };
 
 }  // namespace s21
