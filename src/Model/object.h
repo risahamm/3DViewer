@@ -17,7 +17,13 @@ struct Point {
 
 class Object {
  public:
-  Object() = default;
+  Object() {
+      Point point;
+      point.x = 0;
+      point.y = 0;
+      point.z = 0;
+      vertex_.push_back(point);
+  };
   ~Object() = default;
 
   /**
@@ -36,6 +42,7 @@ class Object {
   std::vector<Point> vertex_;
   std::vector<std::vector<int>> facet_;
   int vertex_count_ = 0;
+  int edge_count = 0;
 };
 
 }  // namespace s21

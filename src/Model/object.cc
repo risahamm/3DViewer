@@ -52,7 +52,7 @@ void s21::Object::ReadFacet(std::string &str) {
 }
 
 void s21::Object::PrintVertices() {
-  int number = 1;
+  int number = 0;
   for (Point i : vertex_) {
     std::cout << "Vertex number " << number++ << ":"
               << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
