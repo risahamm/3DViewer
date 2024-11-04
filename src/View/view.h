@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <opengl_view.h>
 #include <QVBoxLayout>
+#include <QFileDialog> // для открытия файла и чтобы записать путь
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
@@ -16,6 +17,9 @@ class View : public QMainWindow
 public:
     View(QWidget *parent = nullptr);
     ~View();
+
+private slots:
+    void on_Open_clicked();
 
 private:
     Ui::View *ui;
