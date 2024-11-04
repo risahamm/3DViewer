@@ -2,7 +2,7 @@
 #define VIEW_H
 
 #include <QMainWindow>
-#include "opengl_view.h"
+#include <opengl_view.h>
 #include <QVBoxLayout>
 
 QT_BEGIN_NAMESPACE

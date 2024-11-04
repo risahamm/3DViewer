@@ -1,7 +1,7 @@
 #include "opengl_view.h"
 
 Square::Square(QWidget *parent)
-    : QOpenGLWidget(parent)
+        : QOpenGLWidget(parent)
 {
 }
 
