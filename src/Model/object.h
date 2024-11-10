@@ -34,6 +34,19 @@ class Object {
   void Parser(std::string path);
   void ReadVertex(std::string &str);
   void ReadFacet(std::string &str);
+  std::vector<Point> getVertex() {
+      return vertex_;
+  }
+  std::vector<std::vector<int>> getFacet() {
+      return facet_;
+  }
+  int getVertexCount() {
+      return vertex_count_;
+  }
+  int getEdgeCount() {
+      return edge_count_;
+  }
+
 
   /* служебные методы */
   void PrintVertices();

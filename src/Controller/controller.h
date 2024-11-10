@@ -10,6 +10,7 @@ namespace s21 {
     public:
         Controller(Object *obj = nullptr) : object(obj) {}
         ~Controller() {}
+        void OpenFile(const std::string &path);
 
     private:
         Object *object;
