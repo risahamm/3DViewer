@@ -1,28 +1,34 @@
 #include "object.h"
 
 void s21::Object::Parser(std::string path) {
-  std::ifstream my_file;
-  my_file.open(path);
-  if (!my_file.is_open()) {
-    std::cout << "File is not opened" << std::endl;  // TODO throw exception
-  } else {
-    std::string str;
-    while (std::getline(my_file, str, '\n')) {
-      std::string::const_iterator ch = str.cbegin();
-      if (*ch == 'v') {
-        if (*(++ch) == ' ') {
-          ReadVertex(str);
+    std::ifstream my_file;
+    try {
+        my_file.open(path);
+        if (!my_file.is_open()) {
+            throw std::runtime_error("Не удалось открыть файл " + path);
+        } else {
+            std::string str;
+            while (std::getline(my_file, str, '\n')) {
+                std::string::const_iterator ch = str.cbegin();
+                if (*ch == 'v') {
+                    if (*(++ch) == ' ') {
+                        ReadVertex(str);
+                    }
+                }
+                if (*ch == 'f') {  // TODO starts_with
+                    if (*(++ch) == ' ') {
+                        ReadFacet(str);
+                    }
+                }
+            }
+            my_file.close();
         }
-      }
-      if (*ch == 'f') {  // TODO starts_with
-        if (*(++ch) == ' ') {
-          ReadFacet(str);
-        }
-      }
+
+    } catch (const std::runtime_error &e) {
+        std::cerr << "Ошибка: " << e.what() << std::endl;
+        return;
     }
-    my_file.close();
-  }  // file is opened
-};
+}
 
 void s21::Object::ReadVertex(std::string &str) {
   std::string sub2 = str.substr(2);
@@ -50,6 +56,9 @@ void s21::Object::ReadFacet(std::string &str) {
     }
     facet_.push_back(facet);
 }
+
+
+/*--------------------------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
   int number = 0;
