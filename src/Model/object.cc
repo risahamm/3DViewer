@@ -39,6 +39,11 @@ void s21::Object::ReadVertex(std::string &str) {
       max_vertex_x_.first = vertex_count_;
       max_vertex_x_.second = point.x;
     }
+
+    if (point.x < min_vertex_x_.second) {
+      min_vertex_x_.first = vertex_count_;
+      min_vertex_x_.second = point.x;
+    }
   }
 }
 

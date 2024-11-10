@@ -46,12 +46,7 @@ class Object {
   int edge_count_ = 0;
 
   std::pair<int, double> max_vertex_x_ = {0, 0};
-//  int max_vertex_x = 0;
-  int max_vertex_y;
-  int max_vertex_z;
-  int min_vertex_x;
-  int min_vertex_y;
-  int min_vertex_z;
+  std::pair<int, double> min_vertex_x_ = {0, 0};
 };
 
 }  // namespace s21
