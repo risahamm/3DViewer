@@ -47,6 +47,10 @@ class Object {
 
   std::pair<int, double> max_vertex_x_ = {0, 0};
   std::pair<int, double> min_vertex_x_ = {0, 0};
+  std::pair<int, double> max_vertex_y_ = {0, 0};
+  std::pair<int, double> min_vertex_y_ = {0, 0};
+  std::pair<int, double> max_vertex_z_ = {0, 0};
+  std::pair<int, double> min_vertex_z_ = {0, 0};
 };
 
 }  // namespace s21
