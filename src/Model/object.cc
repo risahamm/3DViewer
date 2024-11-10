@@ -49,6 +49,7 @@ void s21::Object::ReadFacet(std::string &str) {
     if (pos != std::string::npos) {
       vertex_number = stoi(single_vertex.substr(0, pos));
       facet.push_back(vertex_number);
+      edge_count_++;
     }
   }
   facet_.push_back(facet);
@@ -62,7 +63,8 @@ void s21::Object::PrintVertices() {
     std::cout << "Vertex number " << number++ << ":"
               << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
   }
-  std::cout << std::endl;
+  std::cout << "Total number of vertices: " << vertex_count_ << std::endl
+            << std::endl;
 }
 
 void s21::Object::PrintFacets() {
@@ -74,5 +76,5 @@ void s21::Object::PrintFacets() {
     }
     std::cout << std::endl;
   }
-  std::cout << std::endl;
+  std::cout << "Total number of edges: " << edge_count_ << std::endl;
 }
