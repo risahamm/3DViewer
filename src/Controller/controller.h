@@ -11,6 +11,10 @@ namespace s21 {
         Controller(Object *obj = nullptr) : object(obj) {}
         ~Controller() {}
         void OpenFile(const std::string &path);
+        std::vector<s21::Point> getVertices();
+        std::vector<std::vector<int>> getFacets();
+        int getVerticesCount();
+        int getEdgesCount();
 
     private:
         Object *object;
