@@ -3,16 +3,16 @@
 
 #include "../Model/object.h"
 
-class 3dViewer;
+//class 3dViewer;
 
 namespace s21 {
     class Controller {
     public:
-        Controller(Model *m = nullptr) : model_(m) {}
+        Controller(Object *obj = nullptr) : object(obj) {}
         ~Controller() {}
 
     private:
-        Model *model_;
+        Object *object;
     };
 } // namespace s21
 

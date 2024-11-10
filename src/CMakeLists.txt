@@ -18,12 +18,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets)
 link_libraries(${OPENGL_LIBRARIES})
 
 set(PROJECT_SOURCES
-        main.cpp
-        view.cc
-        view.h
-        view.ui
-        opengl_view.h
-        opengl_view.cc
+        main.cc
+        View/view.cc
+        View/view.h
+        View/view.ui
+        View/opengl_view.h
+        View/opengl_view.cc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
