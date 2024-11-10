@@ -44,6 +44,27 @@ void s21::Object::ReadVertex(std::string &str) {
       min_vertex_x_.first = vertex_count_;
       min_vertex_x_.second = point.x;
     }
+
+    if (point.y > max_vertex_y_.second) {
+      max_vertex_y_.first = vertex_count_;
+      max_vertex_y_.second = point.y;
+    }
+
+    if (point.y < min_vertex_y_.second) {
+      min_vertex_y_.first = vertex_count_;
+      min_vertex_y_.second = point.y;
+    }
+
+    if (point.z > max_vertex_z_.second) {
+      max_vertex_z_.first = vertex_count_;
+      max_vertex_z_.second = point.z;
+    }
+
+    if (point.z < min_vertex_z_.second) {
+      min_vertex_z_.first = vertex_count_;
+      min_vertex_z_.second = point.z;
+    }
+
   }
 }
 
