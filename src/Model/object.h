@@ -42,7 +42,7 @@ class Object {
   std::vector<Point> vertex_;
   std::vector<std::vector<int>> facet_;
   int vertex_count_ = 0;
-  int edge_count_ = 0; // не реализован подсчет количества ребер
+  int edge_count_ = 0;
 };
 
 }  // namespace s21
