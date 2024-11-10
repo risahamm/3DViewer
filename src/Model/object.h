@@ -18,11 +18,12 @@ struct Point {
 class Object {
  public:
   Object() {
-      Point point;
-      point.x = 0;
-      point.y = 0;
-      point.z = 0;
-      vertex_.push_back(point);
+    Point point;  ///< нулевая вершина-заглушка
+    point.x = 0;
+    point.y = 0;
+    point.z = 0;
+
+    vertex_.push_back(point);
   };
   ~Object() = default;
 
@@ -43,6 +44,14 @@ class Object {
   std::vector<std::vector<int>> facet_;
   int vertex_count_ = 0;
   int edge_count_ = 0;
+
+  std::pair<int, double> max_vertex_x_ = {0, 0};
+//  int max_vertex_x = 0;
+  int max_vertex_y;
+  int max_vertex_z;
+  int min_vertex_x;
+  int min_vertex_y;
+  int min_vertex_z;
 };
 
 }  // namespace s21

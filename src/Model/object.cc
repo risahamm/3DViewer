@@ -30,9 +30,15 @@ void s21::Object::ReadVertex(std::string &str) {
   std::string sub2 = str.substr(2);
   std::istringstream iss(sub2);
   Point point;
+
   if (iss >> point.x >> point.y >> point.z) {
     vertex_.push_back(point);
     vertex_count_++;
+
+    if (point.x > max_vertex_x_.second) {
+      max_vertex_x_.first = vertex_count_;
+      max_vertex_x_.second = point.x;
+    }
   }
 }
 
@@ -63,6 +69,8 @@ void s21::Object::PrintVertices() {
     std::cout << "Vertex number " << number++ << ":"
               << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
   }
+
+  std::cout << "max X vertex number " << max_vertex_x_.first << ": " << max_vertex_x_.second << std::endl;
   std::cout << "Total number of vertices: " << vertex_count_ << std::endl
             << std::endl;
 }
