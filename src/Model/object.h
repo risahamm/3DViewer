@@ -34,6 +34,7 @@ class Object {
   void Parser(std::string path);
   void ReadVertex(std::string &str);
   void ReadFacet(std::string &str);
+
   std::vector<Point> getVertex() {
       return vertex_;
   }
@@ -66,6 +67,9 @@ class Object {
   std::pair<int, double> min_vertex_y_ = {0, 0};
   std::pair<int, double> max_vertex_z_ = {0, 0};
   std::pair<int, double> min_vertex_z_ = {0, 0};
+
+  void CenterObject();
+
 };
 
 }  // namespace s21

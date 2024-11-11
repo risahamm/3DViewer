@@ -23,6 +23,9 @@ void s21::Object::Parser(std::string path) {
     std::cerr << "Ошибка: " << e.what() << std::endl;
     return;
   }
+
+  CenterObject();
+
 }
 
 void s21::Object::ReadVertex(std::string &str) {
@@ -85,6 +88,23 @@ void s21::Object::ReadFacet(std::string &str) {
     }
   }
   facet_.push_back(facet);
+}
+
+void s21::Object::CenterObject() {
+
+    double center_x;
+    double center_y;
+    double center_z;
+
+    center_x = 0 - ((max_vertex_x_.second + min_vertex_x_.second) / 2);
+    center_y = 0 - ((max_vertex_y_.second + min_vertex_y_.second) / 2);
+    center_z = 0 - ((max_vertex_z_.second + min_vertex_z_.second) / 2);
+
+    for (Point i : vertex_) {
+        i.x + center_x;
+        i.y + center_y;
+        i.z + center_z;
+    }
 }
 
 /*----------------------------------------------------------------------------*/
