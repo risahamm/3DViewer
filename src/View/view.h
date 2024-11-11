@@ -5,6 +5,8 @@
 #include "opengl_view.h"
 #include <QVBoxLayout>
 #include <QFileDialog> // для открытия файла и чтобы записать путь
+#include <QString>
+//#include <QObject>
 
 namespace s21 {
 class Controller;

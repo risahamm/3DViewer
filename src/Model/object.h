@@ -40,9 +40,11 @@ class Object {
   std::vector<std::vector<int>> getFacet() {
       return facet_;
   }
+
   int getVertexCount() {
       return vertex_count_;
   }
+
   int getEdgeCount() {
       return edge_count_;
   }

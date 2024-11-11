@@ -19,8 +19,19 @@ void View::on_Open_clicked()
     QString path;
     path = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
     ui->File_path->setText(path);
+
+//    int i = controller_->getVerticesCount();
+//    QString verticesCount = QString::number(i);
+
     QString verticesCount = QString::number(controller_->getVerticesCount());
+
+//    QString verticesCount = QVariant(controller_->getVerticesCount()).toString();
+
+//    QString verticesCount;
+//    verticesCount.setNum(controller_->getVerticesCount());
+
     ui->vertices_amount->setText(verticesCount);
 
+//    ui->vertices_amount->setText(verticesCount.setNum(controller_->getVerticesCount()));
 }
 
