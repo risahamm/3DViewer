@@ -8,4 +8,5 @@ add_executable(3DViewer
         object.h
         main_test.cc
         ../Controller/controller.h
+        ../Controller/controller.cc
 )

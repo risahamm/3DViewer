@@ -27,6 +27,8 @@ class Object {
   };
   ~Object() = default;
 
+  int check = 8;
+
   /**
    *
    * @param path путь к файлу

@@ -1,21 +1,25 @@
 #include "controller.h"
 
+//s21::Controller::Controller(s21::Object *obj) {
+//    object_ = obj;
+//}
+
 void s21::Controller::OpenFile(const std::string &path) {
-    object->Parser(path);
+    object_->Parser(path);
 }
 
 std::vector<s21::Point> s21::Controller::getVertices() {
-    return object->getVertex();
+    return object_->getVertex();
 }
 
 std::vector<std::vector<int>> s21::Controller::getFacets() {
-    return object->getFacet();
+    return object_->getFacet();
 }
 
 int s21::Controller::getVerticesCount() {
-    return object->getVertexCount();
+    return object_->getVertexCount();
 }
 
 int s21::Controller::getEdgesCount() {
-    return object->getEdgeCount();
+    return object_->getEdgeCount();
 }
