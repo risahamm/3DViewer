@@ -17,7 +17,7 @@ void s21::Object::Parser(std::string path) {
         }
       }
       my_file.close();
-        CenterObject();
+      CenterObject();
     }
 
   } catch (const std::runtime_error &e) {
