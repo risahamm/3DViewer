@@ -17,15 +17,13 @@ void s21::Object::Parser(std::string path) {
         }
       }
       my_file.close();
+        CenterObject();
     }
 
   } catch (const std::runtime_error &e) {
     std::cerr << "Ошибка: " << e.what() << std::endl;
     return;
   }
-
-  CenterObject();
-
 }
 
 void s21::Object::ReadVertex(std::string &str) {
