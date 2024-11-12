@@ -11,10 +11,10 @@ namespace s21 {
         Controller(Object *obj = nullptr) : object_(obj) {};
         ~Controller() = default;
         void OpenFile(const std::string &path);
-        std::vector<s21::Point> getVertices();
-        std::vector<std::vector<int>> getFacets();
-        int getVerticesCount();
-        int getEdgesCount();
+        std::vector<s21::Point> getVertices() {return object_->getVertex();};
+        std::vector<std::vector<int>> getFacets() {return object_->getFacet();};
+        int getVerticesCount() {return object_->getVertexCount(); };
+        int getEdgesCount() {return object_->getEdgeCount();};
 
 //        int check1 = object_->check;
 
