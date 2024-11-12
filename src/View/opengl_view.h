@@ -3,19 +3,23 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include "view.h"
 
-class Square : public QOpenGLWidget, protected QOpenGLFunctions
+class Object3d : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 
 public:
-    Square(QWidget *parent = nullptr);
-    ~Square();
+    Object3d(QWidget *parent = nullptr);
+    ~Object3d();
 
 protected:
     void initializeGL() override;
     void paintGL() override;
     void resizeGL(int w, int h) override;
+
+private:
+    View *view_;
 };
 
 #endif // OPENGL_VIEW_H

@@ -2,7 +2,6 @@
 #define VIEW_H
 
 #include <QMainWindow>
-#include "opengl_view.h"
 #include <QVBoxLayout>
 #include <QFileDialog> // для открытия файла и чтобы записать путь
 #include <QString>
@@ -23,12 +22,12 @@ class View : public QMainWindow
 public:
     View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
     ~View();
+    s21::Controller *controller;
 
 private slots:    
     void on_Open_clicked();
 
 private:
-    s21::Controller *controller_;
     Ui::View *ui;
 };
 #endif // VIEW_H

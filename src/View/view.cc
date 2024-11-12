@@ -3,7 +3,7 @@
 #include "Controller/controller.h"
 
 View::View(QWidget *parent, s21::Controller *controller)
-        : QMainWindow(parent), controller_(controller)
+        : QMainWindow(parent), controller(controller)
         , ui(new Ui::View)
 {
 
@@ -20,12 +20,12 @@ void View::on_Open_clicked()
     path = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
     ui->File_path->setText(path);
 
-    controller_->OpenFile(path.toStdString());
+    controller->OpenFile(path.toStdString());
 
-    QString verticesCount = QString::number(controller_->getVerticesCount());
+    QString verticesCount = QString::number(controller->getVerticesCount());
     ui->vertices_amount->setText(verticesCount);
 
-    QString EdgeCount = QString::number(controller_->getEdgesCount());
+    QString EdgeCount = QString::number(controller->getEdgesCount());
     ui->edges_amount->setText(EdgeCount);
 }
 
