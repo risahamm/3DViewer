@@ -20,10 +20,12 @@ void View::on_Open_clicked()
     path = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
     ui->File_path->setText(path);
 
+    controller_->OpenFile(path.toStdString());
+
     QString verticesCount = QString::number(controller_->getVerticesCount());
     ui->vertices_amount->setText(verticesCount);
 
-    QString EdgeCount = QString::number(controller_->getVerticesCount());
+    QString EdgeCount = QString::number(controller_->getEdgesCount());
     ui->edges_amount->setText(EdgeCount);
 }
 

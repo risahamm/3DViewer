@@ -16,8 +16,6 @@ namespace s21 {
         int getVerticesCount() {return object_->getVertexCount(); };
         int getEdgesCount() {return object_->getEdgeCount();};
 
-//        int check1 = object_->check;
-
     private:
         Object *object_;
     };

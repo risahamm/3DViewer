@@ -24,6 +24,11 @@ set(PROJECT_SOURCES
         View/view.ui
         View/opengl_view.h
         View/opengl_view.cc
+        Controller/controller.cc
+        Controller/controller.h
+        Model/object.cc
+        Model/object.h
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
