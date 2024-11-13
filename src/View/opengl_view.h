@@ -10,8 +10,9 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 
 public:
-    Object3d(QWidget *parent = nullptr);
+    Object3d(QWidget *parent = nullptr, View *v = nullptr);
     ~Object3d();
+
 
 protected:
     void initializeGL() override;
@@ -20,6 +21,7 @@ protected:
 
 private:
     View *view_;
+
 };
 
 #endif // OPENGL_VIEW_H
