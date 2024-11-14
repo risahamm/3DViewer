@@ -10,8 +10,10 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions
     Q_OBJECT
 
 public:
-    Object3d(QWidget *parent = nullptr, View *v = nullptr);
+    Object3d(QWidget *parent = nullptr);
     ~Object3d();
+
+    void setApplicationWidgetPtr(View *ptr) {view_ = ptr;};
 
 
 protected:

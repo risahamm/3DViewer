@@ -14,16 +14,6 @@
    <string>View</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="Square" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>90</y>
-      <width>561</width>
-      <height>411</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="Open">
     <property name="geometry">
      <rect>
@@ -334,6 +324,16 @@
     </property>
     <property name="text">
      <string>(edges amount)</string>
+    </property>
+   </widget>
+   <widget class="Square" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>591</width>
+      <height>511</height>
+     </rect>
     </property>
    </widget>
   </widget>

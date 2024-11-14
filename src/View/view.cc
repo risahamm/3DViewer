@@ -8,6 +8,7 @@ View::View(QWidget *parent, s21::Controller *controller)
 {
 
     ui->setupUi(this);
+    ui->widget->setApplicationWidgetPtr(this);
 }
 
 View::~View()

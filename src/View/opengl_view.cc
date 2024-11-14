@@ -2,8 +2,8 @@
 #include "Controller/controller.h"
 #include "Model/object.h"
 
-Object3d::Object3d(QWidget *parent, View *view)
-        : QOpenGLWidget(parent), view_(view)
+Object3d::Object3d(QWidget *parent)
+        : QOpenGLWidget(parent)
 {
 }
 
