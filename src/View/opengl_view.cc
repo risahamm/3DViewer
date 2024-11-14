@@ -50,7 +50,7 @@ void Object3d::paintGL()
 
     std::vector<s21::Point> vertices = view_->controller->getVertices();
     for (s21::Point i : vertices) {
-//            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
+            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
         glVertex3d(i.x, i.y, i.z);
     }
     glEnd();
