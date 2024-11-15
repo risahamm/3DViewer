@@ -27,7 +27,6 @@ class Object {
   };
   ~Object() = default;
 
-  int check = 8;
 
   /**
    *
@@ -36,6 +35,12 @@ class Object {
   void Parser(std::string path);
   void ReadVertex(std::string &str);
   void ReadFacet(std::string &str);
+  double getMaxX() {return max_vertex_x_.second;};
+  double getMinX() {return min_vertex_x_.second;};
+  double getMaxY() {return max_vertex_y_.second;};
+  double getMinY() {return min_vertex_y_.second;};
+  double getMaxZ() {return max_vertex_z_.second;};
+  double getMinZ() {return min_vertex_z_.second;};
 
   std::vector<Point> getVertex() {
       return vertex_;
@@ -71,6 +76,7 @@ class Object {
   std::pair<int, double> min_vertex_z_ = {0, 0};
 
   void CenterObject();
+  void SetMaxCoordinates();
 
 };
 

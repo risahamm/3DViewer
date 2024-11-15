@@ -42,6 +42,7 @@ void Object3d::paintGL()
 //    glVertex2f(-0.5f, 0.5f);  // Левый верхний угол
 //    glEnd();
 
+//    setFixedSize(600, 600);
 
     // Рисуем точки
     glPointSize(5);
@@ -50,26 +51,24 @@ void Object3d::paintGL()
 
     std::vector<s21::Point> vertices = view_->controller->getVertices();
     for (s21::Point i : vertices) {
-            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
+//            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
         glVertex3d(i.x, i.y, i.z);
     }
     glEnd();
 
-
-//    // Рисуем
-//    glBegin(GL_LINE_LOOP);
-//    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
-//    glVertex2f(-0.5f, -0.5f); // Левый нижний угол
-//    glVertex2f(0.5f, -0.5f);  // Правый нижний угол
-//    glVertex2f(0.5f, 0.5f);   // Правый верхний угол
-//    glVertex2f(-0.5f, 0.5f);  // Левый верхний угол
-//    glEnd();
-
+    // Рисуем
+    glBegin(GL_LINE_LOOP);
+    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
+    for (s21::Point i : vertices) {
+    glVertex3d(i.x, i.y, i.z);
+    }
+    glEnd();
 
 }
 
 void Object3d::resizeGL(int w, int h)
-{
+{    
+
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
