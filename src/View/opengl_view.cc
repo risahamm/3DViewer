@@ -50,19 +50,23 @@ void Object3d::paintGL()
     glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
 
     std::vector<s21::Point> vertices = view_->controller->getVertices();
-    for (s21::Point i : vertices) {
+    for (s21::Point &k : vertices) {
 //            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
-        glVertex3d(i.x, i.y, i.z);
+        glVertex3d(k.x, k.y, k.z);
     }
     glEnd();
 
-    // Рисуем
-    glBegin(GL_LINE_LOOP);
-    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
-    for (s21::Point i : vertices) {
-    glVertex3d(i.x, i.y, i.z);
+
+    // Соединяем точки
+    std::vector<std::vector<int>> facets = view_->controller->getFacets();
+    for (std::vector<int> &f : facets)  {
+        glBegin(GL_LINE_LOOP);
+        for (int &f1 : f)  {
+            glVertex3d(vertices[f1].x, vertices[f1].y, vertices[f1].z);
+        }
+        glEnd();
     }
-    glEnd();
+
 
 }
 
