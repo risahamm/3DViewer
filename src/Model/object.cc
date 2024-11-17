@@ -42,6 +42,7 @@ void s21::Object::ReadVertex(std::string &str) {
 }
 
 void s21::Object::ReadFacet(std::string &str) { //TODO обработка отрицательных номеров facets
+    // TODO например, если позиций всего три, то позиция "-1" - это позиция 3. позиция "-2" - это позиция 2. Позиции "-4" быть не может.
   /* сдвигаем строку на 2 */
   std::string sub2 = str.substr(2);
   std::istringstream iss(sub2);

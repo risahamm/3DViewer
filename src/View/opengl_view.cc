@@ -42,7 +42,7 @@ void Object3d::paintGL()
 //    glVertex2f(-0.5f, 0.5f);  // Левый верхний угол
 //    glEnd();
 
-//    setFixedSize(600, 600);
+    setFixedSize(600, 600);
 
     // Рисуем точки
     glPointSize(5);
@@ -75,7 +75,9 @@ void Object3d::resizeGL(int w, int h)
 
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0); // Установка проекции
+    glLoadIdentity();    
+    glOrtho(-10, 10, -10.0, 10.0, -100.0, 0.01); // Установка проекции
+
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
