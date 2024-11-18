@@ -27,7 +27,6 @@ class Object {
   };
   ~Object() = default;
 
-
   /**
    *
    * @param path путь к файлу
@@ -35,28 +34,19 @@ class Object {
   void Parser(std::string path);
   void ReadVertex(std::string &str);
   void ReadFacet(std::string &str);
-  double getMaxX() {return max_vertex_x_.second;};
-  double getMinX() {return min_vertex_x_.second;};
-  double getMaxY() {return max_vertex_y_.second;};
-  double getMinY() {return min_vertex_y_.second;};
-  double getMaxZ() {return max_vertex_z_.second;};
-  double getMinZ() {return min_vertex_z_.second;};
+  double getMaxX() { return max_vertex_x_; };
+  double getMinX() { return min_vertex_x_; };
+  double getMaxY() { return max_vertex_y_; };
+  double getMinY() { return min_vertex_y_; };
+  double getMaxZ() { return max_vertex_z_; };
+  double getMinZ() { return min_vertex_z_; };
 
-  std::vector<Point> getVertex() {
-      return vertex_;
-  }
-  std::vector<std::vector<int>> getFacet() {
-      return facet_;
-  }
+  std::vector<Point> getVertex() { return vertex_; }
+  std::vector<std::vector<int>> getFacet() { return facet_; }
 
-  int getVertexCount() {
-      return vertex_count_;
-  }
+  int getVertexCount() { return vertex_count_; }
 
-  int getEdgeCount() {
-      return edge_count_;
-  }
-
+  int getEdgeCount() { return edge_count_; }
 
   /* служебные методы */
   void PrintVertices();
@@ -68,16 +58,15 @@ class Object {
   int vertex_count_ = 0;
   int edge_count_ = 0;
 
-  std::pair<int, double> max_vertex_x_ = {0, 0};
-  std::pair<int, double> min_vertex_x_ = {0, 0};
-  std::pair<int, double> max_vertex_y_ = {0, 0};
-  std::pair<int, double> min_vertex_y_ = {0, 0};
-  std::pair<int, double> max_vertex_z_ = {0, 0};
-  std::pair<int, double> min_vertex_z_ = {0, 0};
+  double max_vertex_x_;
+  double min_vertex_x_;
+  double max_vertex_y_;
+  double min_vertex_y_;
+  double max_vertex_z_;
+  double min_vertex_z_;
 
   void CenterObject();
   void SetMaxCoordinates();
-
 };
 
 }  // namespace s21

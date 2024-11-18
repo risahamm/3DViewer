@@ -28,5 +28,7 @@ void View::on_Open_clicked()
 
     QString EdgeCount = QString::number(controller->getEdgesCount());
     ui->edges_amount->setText(EdgeCount);
+
+
 }
 

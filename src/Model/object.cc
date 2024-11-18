@@ -17,8 +17,12 @@ void s21::Object::Parser(std::string path) {
         }
       }
       my_file.close();
-      CenterObject();
+      std::cout << "before " << std::endl;
       SetMaxCoordinates();
+      PrintVertices();
+      CenterObject();
+      std::cout << "after " << std::endl;
+      PrintVertices();
     }
 
   } catch (const std::runtime_error &e) {
@@ -38,7 +42,6 @@ void s21::Object::ReadVertex(std::string &str) {
     vertex_count_++;
   }
 
-  SetMaxCoordinates();
 }
 
 void s21::Object::ReadFacet(std::string &str) { //TODO обработка отрицательных номеров facets
@@ -50,6 +53,7 @@ void s21::Object::ReadFacet(std::string &str) { //TODO обработка отр
   int vertex_number;  ///< номер вершины
   std::string single_vertex;  ///< номер вершины, записанный в строку
   while (iss >> single_vertex) {
+
     /* находим первый разделитель '/' или ' ' */
     size_t pos = single_vertex.find('/') || single_vertex.find(' ');
     if (pos != std::string::npos) {
@@ -65,51 +69,57 @@ void s21::Object::CenterObject() {
 
     double center_x;
     double center_y;
-    double center_z;
+//    double center_z;
 
-    center_x = 0 - ((max_vertex_x_.second + min_vertex_x_.second) / 2);
-    center_y = 0 - ((max_vertex_y_.second + min_vertex_y_.second) / 2);
-    center_z = 0 - ((max_vertex_z_.second + min_vertex_z_.second) / 2);
+    center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
+    center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
+//    center_z = 0 - ((max_vertex_z_.second + min_vertex_z_.second) / 2);
 
     for (Point i : vertex_) {
         i.x + center_x;
         i.y + center_y;
-        i.z + center_z;
+//        i.z + center_z;
     }
+
+    SetMaxCoordinates();
 }
 
 void s21::Object::SetMaxCoordinates() {
 
-    for(Point point : vertex_) {
+    max_vertex_x_ = -INFINITY;
+    min_vertex_x_ = INFINITY;
+    max_vertex_y_ = -INFINITY;
+    min_vertex_y_ = INFINITY;
+    max_vertex_z_ = -INFINITY;
+    min_vertex_z_ = INFINITY;
 
-        if (point.x > max_vertex_x_.second) {
-          max_vertex_x_.first = vertex_count_;
-          max_vertex_x_.second = point.x;
+
+
+//    for(Point point : vertex_) {
+      for(int i = 1; i < vertex_.size(); i++) {
+
+        if (vertex_[i].x > max_vertex_x_) {
+          max_vertex_x_ = vertex_[i].x;
         }
 
-        if (point.x < min_vertex_x_.second) {
-          min_vertex_x_.first = vertex_count_;
-          min_vertex_x_.second = point.x;
+        if (vertex_[i].x < min_vertex_x_) {
+          min_vertex_x_= vertex_[i].x;
         }
 
-        if (point.y > max_vertex_y_.second) {
-          max_vertex_y_.first = vertex_count_;
-          max_vertex_y_.second = point.y;
+        if (vertex_[i].y > max_vertex_y_) {
+          max_vertex_y_ = vertex_[i].y;
         }
 
-        if (point.y < min_vertex_y_.second) {
-          min_vertex_y_.first = vertex_count_;
-          min_vertex_y_.second = point.y;
+        if (vertex_[i].y < min_vertex_y_) {
+          min_vertex_y_ = vertex_[i].y;
         }
 
-        if (point.z > max_vertex_z_.second) {
-          max_vertex_z_.first = vertex_count_;
-          max_vertex_z_.second = point.z;
+        if (vertex_[i].z > max_vertex_z_) {
+          max_vertex_z_ = vertex_[i].z;
         }
 
-        if (point.z < min_vertex_z_.second) {
-          min_vertex_z_.first = vertex_count_;
-          min_vertex_z_.second = point.z;
+        if (vertex_[i].z < min_vertex_z_) {
+          min_vertex_z_ = vertex_[i].z;
         }
     }
 }
@@ -117,12 +127,17 @@ void s21::Object::SetMaxCoordinates() {
 
 void s21::Object::PrintVertices() {
   int number = 0;
-  for (Point i : vertex_) {
-    std::cout << "Vertex number " << number++ << ":"
-              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
-  }
+//  for (Point i : vertex_) {
+//    std::cout << "Vertex number " << number++ << ":"
+//              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
+//  }
 
-  std::cout << "max X vertex number " << max_vertex_x_.first << ": " << max_vertex_x_.second << std::endl;
+  std::cout << "max X vertex :" << max_vertex_x_ << std::endl;
+  std::cout << "max Y vertex :" << max_vertex_y_ << std::endl;
+  std::cout << "max Z vertex :" << max_vertex_z_ << std::endl;
+  std::cout << "min X vertex :" << min_vertex_x_ << std::endl;
+  std::cout << "min Y vertex :" << min_vertex_y_ << std::endl;
+  std::cout << "min Z vertex :" << min_vertex_z_ << std::endl;
   std::cout << "Total number of vertices: " << vertex_count_ << std::endl
             << std::endl;
 }
