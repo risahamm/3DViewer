@@ -42,7 +42,7 @@ void Object3d::paintGL()
 //    glVertex2f(-0.5f, 0.5f);  // Левый верхний угол
 //    glEnd();
 
-    setFixedSize(600, 600);
+//    setFixedSize(600, 600);
 
     // Рисуем точки
     glPointSize(5);
@@ -76,8 +76,34 @@ void Object3d::resizeGL(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();    
-    glOrtho(-10, 10, -10.0, 10.0, -100.0, 0.01); // Установка проекции
+    double MAX = FindMaxCoordinate();
+    glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000); // Установка проекции
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
+
+double Object3d::FindMaxCoordinate() {
+    double xMax = view_->controller->getMaxCoordinateX();
+//    double xMin = view_->controller->getMinCoordinateX();
+    double yMax = view_->controller->getMaxCoordinateY();
+//    double yMin = view_->controller->getMinCoordinateY();
+    double zMax = view_->controller->getMaxCoordinateZ();
+//    double zMin = view_->controller->getMinCoordinateZ();
+    QVector<double> coordinates;
+    coordinates.append(xMax);
+//    coordinates.append(xMin);
+    coordinates.append(yMax);
+//    coordinates.append(yMin);
+    coordinates.append(zMax);
+//    coordinates.append(zMin);
+    double MAX = 0.0;
+    for (double i : coordinates) {
+
+        if (i > MAX) {
+            MAX = i;
+        }
+    }
+    MAX *= 3;
+    return MAX;
 }

@@ -15,6 +15,13 @@ namespace s21 {
         std::vector<std::vector<int>> getFacets() {return object_->getFacet();};
         int getVerticesCount() {return object_->getVertexCount(); };
         int getEdgesCount() {return object_->getEdgeCount();};
+        double getMaxCoordinateX() {return object_->getMaxX();};
+        double getMinCoordinateX() {return object_->getMinX();};
+        double getMaxCoordinateY() {return object_->getMaxY();};
+        double getMinCoordinateY() {return object_->getMinY();};
+        double getMaxCoordinateZ() {return object_->getMaxZ();};
+        double getMinCoordinateZ() {return object_->getMinZ();};
+
 
     private:
         Object *object_;

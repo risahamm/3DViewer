@@ -17,11 +17,8 @@ void s21::Object::Parser(std::string path) {
         }
       }
       my_file.close();
-      std::cout << "before " << std::endl;
       SetMaxCoordinates();
-      PrintVertices();
       CenterObject();
-      std::cout << "after " << std::endl;
       PrintVertices();
     }
 
@@ -75,10 +72,9 @@ void s21::Object::CenterObject() {
     center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
 //    center_z = 0 - ((max_vertex_z_.second + min_vertex_z_.second) / 2);
 
-    for (Point i : vertex_) {
-        i.x + center_x;
-        i.y + center_y;
-//        i.z + center_z;
+    for (Point &i : vertex_) {
+        i.x += center_x;
+        i.y += center_y;
     }
 
     SetMaxCoordinates();

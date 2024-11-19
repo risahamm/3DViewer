@@ -7,7 +7,7 @@ int main() {
 //  string str = "../../object_files/test_cube.obj";
   s21::Object Obj;
   Obj.Parser(str);
-//  Obj.PrintVertices();
+  Obj.PrintVertices();
 //  Obj.PrintFacets();
 
   return 0;
