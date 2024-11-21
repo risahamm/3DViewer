@@ -21,27 +21,6 @@ void Object3d::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT); // Очистка цветового буфера
 
-////    Тестовый квадрат:
-//    // Рисуем точки
-//    glPointSize(5);
-//    glBegin(GL_POINTS);
-//    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
-//    glVertex2f(-0.5f, -0.5f); // Левый нижний угол
-//    glVertex2f(0.5f, -0.5f);  // Правый нижний угол
-//    glVertex2f(0.5f, 0.5f);   // Правый верхний угол
-//    glVertex2f(-0.5f, 0.5f);
-//    glEnd();
-
-
-//    // Рисуем
-//    glBegin(GL_LINE_LOOP);
-//    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
-//    glVertex2f(-0.5f, -0.5f); // Левый нижний угол
-//    glVertex2f(0.5f, -0.5f);  // Правый нижний угол
-//    glVertex2f(0.5f, 0.5f);   // Правый верхний угол
-//    glVertex2f(-0.5f, 0.5f);  // Левый верхний угол
-//    glEnd();
-
 //    setFixedSize(600, 600);
 
     // Рисуем точки
@@ -66,19 +45,16 @@ void Object3d::paintGL()
         }
         glEnd();
     }
-
-
 }
 
 void Object3d::resizeGL(int w, int h)
-{    
-
+{
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();    
     double MAX = FindMaxCoordinate();
     glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000); // Установка проекции
-
+std::cout<<"MAX = "<<MAX<<std::endl;
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
@@ -88,22 +64,23 @@ double Object3d::FindMaxCoordinate() {
 //    double xMin = view_->controller->getMinCoordinateX();
     double yMax = view_->controller->getMaxCoordinateY();
 //    double yMin = view_->controller->getMinCoordinateY();
-    double zMax = view_->controller->getMaxCoordinateZ();
+//    double zMax = view_->controller->getMaxCoordinateZ();
 //    double zMin = view_->controller->getMinCoordinateZ();
-    QVector<double> coordinates;
-    coordinates.append(xMax);
+//    QVector<double> coordinates;
+//    coordinates.append(xMax);
 //    coordinates.append(xMin);
-    coordinates.append(yMax);
+//    coordinates.append(yMax);
 //    coordinates.append(yMin);
-    coordinates.append(zMax);
+//    coordinates.append(zMax);
 //    coordinates.append(zMin);
     double MAX = 0.0;
-    for (double i : coordinates) {
-
-        if (i > MAX) {
-            MAX = i;
-        }
-    }
+//    for (double i : coordinates) {
+//        if (i > MAX) {
+//            MAX = i;
+//        }
+//    }
+    if (xMax > yMax) {MAX = xMax;}
+    else {MAX = yMax;};
     MAX *= 3;
     return MAX;
 }

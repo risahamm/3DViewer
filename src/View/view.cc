@@ -30,5 +30,9 @@ void View::on_Open_clicked()
     ui->edges_amount->setText(EdgeCount);
 
 
+        ui->widget->update();
+
+
+
 }
 

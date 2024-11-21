@@ -29,5 +29,6 @@ private slots:
 
 private:
     Ui::View *ui;
+
 };
 #endif // VIEW_H
