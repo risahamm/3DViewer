@@ -67,11 +67,9 @@ void s21::Object::CenterObject() {
 
     double center_x;
     double center_y;
-//    double center_z;
 
     center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
     center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
-//    center_z = 0 - ((max_vertex_z_.second + min_vertex_z_.second) / 2);
 
     for (Point &i : vertex_) {
         i.x += center_x;

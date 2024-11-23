@@ -7,21 +7,28 @@ Object3d::Object3d(QWidget *parent)
 
 Object3d::~Object3d() {}
 
-void Object3d::initializeGL()
-{
+void Object3d::initializeGL() {
     initializeOpenGLFunctions();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Черный фон
 }
 
-void Object3d::paintGL()
-{
-    glClear(GL_COLOR_BUFFER_BIT); // Очистка цветового буфера
+
+/* вызывается каждый раз, когда вызываем update() */
+void Object3d::paintGL() {
+
+    /* если объект не выбран, ничего не рисуем */
+    if (view_->object_path == nullptr) {
+        return;
+    }
+
+    /* Очистка цветового буфера */
+    glClear(GL_COLOR_BUFFER_BIT);
 
     SetUpPerspective();
 
 //    setFixedSize(600, 600);
 
-    // Рисуем точки
+    /* Рисуем точки */
     glPointSize(5);
     glBegin(GL_POINTS);
     glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
@@ -34,7 +41,7 @@ void Object3d::paintGL()
     glEnd();
 
 
-    // Соединяем точки
+    /* Соединяем точки */
     std::vector<std::vector<int>> facets = view_->controller->getFacets();
     for (std::vector<int> &f : facets)  {
         glBegin(GL_LINE_LOOP);
@@ -46,8 +53,8 @@ void Object3d::paintGL()
 
 }
 
-void Object3d::resizeGL(int w, int h)
-{
+/* вызывается только один раз в самом начале при отрисовке виджета */
+void Object3d::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
 
 }
@@ -57,9 +64,9 @@ void Object3d::SetUpPerspective() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
+    /* Установка проекции */
     double MAX = FindMaxCoordinate();
-    glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000); // Установка проекции
-//    glOrtho(-10, 10, -10, 10, 0.01, MAX*1000); // Установка проекции
+    glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

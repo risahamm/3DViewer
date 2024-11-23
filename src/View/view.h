@@ -15,20 +15,25 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
 QT_END_NAMESPACE
 
-class View : public QMainWindow
-{
+class View : public QMainWindow {
     Q_OBJECT
 
 public:
+
     View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
     ~View();
-    s21::Controller *controller;
 
-private slots:    
+    s21::Controller *controller;
+    QString object_path;
+
+private slots:
+
     void on_Open_clicked();
 
 private:
+
     Ui::View *ui;
+
 
 };
 #endif // VIEW_H
