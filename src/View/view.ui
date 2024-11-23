@@ -326,7 +326,7 @@
      <string>(edges amount)</string>
     </property>
    </widget>
-   <widget class="Object3d" name="widget" native="true">
+   <widget class="Object3d" name="GLwidget" native="true">
     <property name="geometry">
      <rect>
       <x>70</x>
