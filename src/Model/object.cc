@@ -18,6 +18,7 @@ void s21::Object::Parser(std::string path) {
       }
       my_file.close();
       SetMaxCoordinates();
+//      PrintVertices();
       CenterObject();
 //      PrintVertices();
     }

@@ -8,7 +8,7 @@ View::View(QWidget *parent, s21::Controller *controller)
 {
 
     ui->setupUi(this);
-    ui->widget->setApplicationWidgetPtr(this);
+    ui->widget->SetApplicationWidgetPtr(this);
 }
 
 View::~View()
@@ -29,10 +29,7 @@ void View::on_Open_clicked()
     QString EdgeCount = QString::number(controller->getEdgesCount());
     ui->edges_amount->setText(EdgeCount);
 
-
-        ui->widget->update();
-
-
+    ui->widget->update();
 
 }
 
