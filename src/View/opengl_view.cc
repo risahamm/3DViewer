@@ -30,7 +30,7 @@ void Object3d::paintGL()
 
     std::vector<s21::Point> vertices = view_->controller->getVertices();
     for (s21::Point &k : vertices) {
-//            std::cout << "Vertex: (" << i.x << ", " << i.y << ", " << i.z << ")" << std::endl;
+
         glVertex3d(k.x, k.y, k.z);
     }
     glEnd();
@@ -54,33 +54,23 @@ void Object3d::resizeGL(int w, int h)
     glLoadIdentity();    
     double MAX = FindMaxCoordinate();
     glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000); // Установка проекции
-std::cout<<"MAX = "<<MAX<<std::endl;
+
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
 double Object3d::FindMaxCoordinate() {
     double xMax = view_->controller->getMaxCoordinateX();
-//    double xMin = view_->controller->getMinCoordinateX();
     double yMax = view_->controller->getMaxCoordinateY();
-//    double yMin = view_->controller->getMinCoordinateY();
-//    double zMax = view_->controller->getMaxCoordinateZ();
-//    double zMin = view_->controller->getMinCoordinateZ();
-//    QVector<double> coordinates;
-//    coordinates.append(xMax);
-//    coordinates.append(xMin);
-//    coordinates.append(yMax);
-//    coordinates.append(yMin);
-//    coordinates.append(zMax);
-//    coordinates.append(zMin);
+
     double MAX = 0.0;
-//    for (double i : coordinates) {
-//        if (i > MAX) {
-//            MAX = i;
-//        }
-//    }
-    if (xMax > yMax) {MAX = xMax;}
-    else {MAX = yMax;};
+
+    if (xMax > yMax) {
+        MAX = xMax;
+    } else {
+        MAX = yMax;
+    };
+
     MAX *= 3;
     return MAX;
 }

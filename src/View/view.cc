@@ -1,6 +1,6 @@
 #include "view.h"
-#include "./ui_view.h"
 #include "Controller/controller.h"
+#include "ui_view.h"
 
 View::View(QWidget *parent, s21::Controller *controller)
         : QMainWindow(parent), controller(controller)

@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 #include <QFileDialog> // для открытия файла и чтобы записать путь
 #include <QString>
-//#include <QObject>
+#include <QObject>
 
 namespace s21 {
 class Controller;

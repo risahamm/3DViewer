@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>917</width>
-    <height>718</height>
+    <width>1442</width>
+    <height>1044</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="Open">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>10</y>
+      <x>1170</x>
+      <y>160</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QPushButton" name="moveXplus">
     <property name="geometry">
      <rect>
-      <x>800</x>
-      <y>180</y>
+      <x>1220</x>
+      <y>330</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QPushButton" name="moveXminus">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>180</y>
+      <x>1100</x>
+      <y>330</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -56,8 +56,8 @@
    <widget class="QPushButton" name="moveYplus">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>140</y>
+      <x>1170</x>
+      <y>290</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -69,8 +69,8 @@
    <widget class="QPushButton" name="moveYminus">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>210</y>
+      <x>1170</x>
+      <y>360</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -82,8 +82,8 @@
    <widget class="QPushButton" name="moveZplus">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>250</y>
+      <x>1170</x>
+      <y>400</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -95,8 +95,8 @@
    <widget class="QPushButton" name="moveZminus">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>280</y>
+      <x>1170</x>
+      <y>430</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -108,8 +108,8 @@
    <widget class="QPushButton" name="rotateXright">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>400</y>
+      <x>1210</x>
+      <y>550</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -121,8 +121,8 @@
    <widget class="QPushButton" name="rotateXleft">
     <property name="geometry">
      <rect>
-      <x>670</x>
-      <y>400</y>
+      <x>1090</x>
+      <y>550</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -134,8 +134,8 @@
    <widget class="QPushButton" name="rotateYup">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>360</y>
+      <x>1170</x>
+      <y>510</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -147,8 +147,8 @@
    <widget class="QPushButton" name="rotateYdown">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>430</y>
+      <x>1160</x>
+      <y>580</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -160,8 +160,8 @@
    <widget class="QPushButton" name="rotateZplus">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>470</y>
+      <x>1160</x>
+      <y>620</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -173,8 +173,8 @@
    <widget class="QPushButton" name="rotateZminus">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>500</y>
+      <x>1160</x>
+      <y>650</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -186,8 +186,8 @@
    <widget class="QPushButton" name="zoom_in">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>600</y>
+      <x>1100</x>
+      <y>750</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -199,8 +199,8 @@
    <widget class="QPushButton" name="zoom_out">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>600</y>
+      <x>1210</x>
+      <y>750</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -212,8 +212,8 @@
    <widget class="QLabel" name="Movements">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>110</y>
+      <x>1180</x>
+      <y>260</y>
       <width>91</width>
       <height>16</height>
      </rect>
@@ -225,8 +225,8 @@
    <widget class="QLabel" name="Rotations">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>340</y>
+      <x>1190</x>
+      <y>490</y>
       <width>81</width>
       <height>16</height>
      </rect>
@@ -238,8 +238,8 @@
    <widget class="QLabel" name="Zoom">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>570</y>
+      <x>1190</x>
+      <y>720</y>
       <width>58</width>
       <height>16</height>
      </rect>
@@ -251,8 +251,8 @@
    <widget class="QLabel" name="File_name">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>50</y>
+      <x>1120</x>
+      <y>200</y>
       <width>161</width>
       <height>20</height>
      </rect>
@@ -277,8 +277,8 @@
    <widget class="QLabel" name="Vertices">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>650</y>
+      <x>1120</x>
+      <y>800</y>
       <width>58</width>
       <height>16</height>
      </rect>
@@ -290,8 +290,8 @@
    <widget class="QLabel" name="Edges">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>680</y>
+      <x>1120</x>
+      <y>830</y>
       <width>58</width>
       <height>16</height>
      </rect>
@@ -303,8 +303,8 @@
    <widget class="QLabel" name="vertices_amount">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>650</y>
+      <x>1190</x>
+      <y>800</y>
       <width>121</width>
       <height>20</height>
      </rect>
@@ -316,8 +316,8 @@
    <widget class="QLabel" name="edges_amount">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>680</y>
+      <x>1190</x>
+      <y>830</y>
       <width>111</width>
       <height>16</height>
      </rect>
@@ -326,13 +326,13 @@
      <string>(edges amount)</string>
     </property>
    </widget>
-   <widget class="Square" name="widget" native="true">
+   <widget class="Object3d" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>100</y>
-      <width>591</width>
-      <height>511</height>
+      <x>70</x>
+      <y>70</y>
+      <width>900</width>
+      <height>900</height>
      </rect>
     </property>
    </widget>
@@ -340,7 +340,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Square</class>
+   <class>Object3d</class>
    <extends>QWidget</extends>
    <header location="global">opengl_view.h</header>
    <container>1</container>
