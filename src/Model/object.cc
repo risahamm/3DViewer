@@ -41,21 +41,37 @@ void s21::Object::ReadVertex(std::string &str) {
   }
 }
 
-void s21::Object::ReadFacet(
-    std::string &str) {  // TODO обработка отрицательных номеров facets
+void s21::Object::ReadFacet(std::string &str) {  // TODO обработка отрицательных номеров facets
   // TODO например, если позиций всего три, то позиция "-1" - это позиция 3.
   // позиция "-2" - это позиция 2. Позиции "-4" быть не может.
+
   /* сдвигаем строку на 2 */
   std::string sub2 = str.substr(2);
+
+  /* создаем поток для считывания */
   std::istringstream iss(sub2);
-  std::vector<int> facet;
+
+  std::vector<int> facet; ///< один полигон
   int vertex_number;  ///< номер вершины
-  std::string single_vertex;  ///< номер вершины, записанный в строку
-  while (iss >> single_vertex) {
+  std::string vertex_str;  ///< номер вершины, записанный в строку
+
+  /* пока есть данные для считывания */
+  while (iss >> vertex_str) {
+
     /* находим первый разделитель '/' или ' ' */
-    size_t pos = single_vertex.find('/') || single_vertex.find(' ');
+    size_t pos = vertex_str.find('/') || vertex_str.find(' ');
+
     if (pos != std::string::npos) {
-      vertex_number = stoi(single_vertex.substr(0, pos));
+
+      vertex_number = stoi(vertex_str.substr(0, pos));
+
+      /* обработка отрицательных вершин */
+      if (vertex_number < 0) {
+
+        int last_idx = facet.size();
+        vertex_number = facet.at(last_idx + vertex_number); // TODO проверить
+      }
+
       facet.push_back(vertex_number);
       edge_count_++;
     }
