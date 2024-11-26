@@ -49,6 +49,8 @@ class Object {
 
   int getEdgeCount() { return edge_count_; }
 
+  void Clear();
+
   /* служебные методы */
   void PrintVertices();
   void PrintFacets();
@@ -68,6 +70,7 @@ class Object {
 
   void CenterObject();
   void SetMaxCoordinates();
+
 };
 
 }  // namespace s21

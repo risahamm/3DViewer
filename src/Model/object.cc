@@ -18,9 +18,9 @@ void s21::Object::Parser(std::string path) {
       }
       my_file.close();
       SetMaxCoordinates();
-//      PrintVertices();
+      //      PrintVertices();
       CenterObject();
-//      PrintVertices();
+      //      PrintVertices();
     }
 
   } catch (const std::runtime_error &e) {
@@ -39,11 +39,12 @@ void s21::Object::ReadVertex(std::string &str) {
     vertex_.push_back(point);
     vertex_count_++;
   }
-
 }
 
-void s21::Object::ReadFacet(std::string &str) { //TODO обработка отрицательных номеров facets
-    // TODO например, если позиций всего три, то позиция "-1" - это позиция 3. позиция "-2" - это позиция 2. Позиции "-4" быть не может.
+void s21::Object::ReadFacet(
+    std::string &str) {  // TODO обработка отрицательных номеров facets
+  // TODO например, если позиций всего три, то позиция "-1" - это позиция 3.
+  // позиция "-2" - это позиция 2. Позиции "-4" быть не может.
   /* сдвигаем строку на 2 */
   std::string sub2 = str.substr(2);
   std::istringstream iss(sub2);
@@ -51,7 +52,6 @@ void s21::Object::ReadFacet(std::string &str) { //TODO обработка отр
   int vertex_number;  ///< номер вершины
   std::string single_vertex;  ///< номер вершины, записанный в строку
   while (iss >> single_vertex) {
-
     /* находим первый разделитель '/' или ' ' */
     size_t pos = single_vertex.find('/') || single_vertex.find(' ');
     if (pos != std::string::npos) {
@@ -64,68 +64,78 @@ void s21::Object::ReadFacet(std::string &str) { //TODO обработка отр
 }
 
 void s21::Object::CenterObject() {
+  double center_x;
+  double center_y;
 
-    double center_x;
-    double center_y;
+  center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
+  center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
 
-    center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
-    center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
+  for (Point &i : vertex_) {
+    i.x += center_x;
+    i.y += center_y;
+  }
 
-    for (Point &i : vertex_) {
-        i.x += center_x;
-        i.y += center_y;
-    }
-
-    SetMaxCoordinates();
+  SetMaxCoordinates();
 }
 
 void s21::Object::SetMaxCoordinates() {
+  max_vertex_x_ = -INFINITY;
+  min_vertex_x_ = INFINITY;
+  max_vertex_y_ = -INFINITY;
+  min_vertex_y_ = INFINITY;
+  max_vertex_z_ = -INFINITY;
+  min_vertex_z_ = INFINITY;
 
-    max_vertex_x_ = -INFINITY;
-    min_vertex_x_ = INFINITY;
-    max_vertex_y_ = -INFINITY;
-    min_vertex_y_ = INFINITY;
-    max_vertex_z_ = -INFINITY;
-    min_vertex_z_ = INFINITY;
-
-
-
-//    for(Point point : vertex_) {
-      for(int i = 1; i < vertex_.size(); i++) {
-
-        if (vertex_[i].x > max_vertex_x_) {
-          max_vertex_x_ = vertex_[i].x;
-        }
-
-        if (vertex_[i].x < min_vertex_x_) {
-          min_vertex_x_= vertex_[i].x;
-        }
-
-        if (vertex_[i].y > max_vertex_y_) {
-          max_vertex_y_ = vertex_[i].y;
-        }
-
-        if (vertex_[i].y < min_vertex_y_) {
-          min_vertex_y_ = vertex_[i].y;
-        }
-
-        if (vertex_[i].z > max_vertex_z_) {
-          max_vertex_z_ = vertex_[i].z;
-        }
-
-        if (vertex_[i].z < min_vertex_z_) {
-          min_vertex_z_ = vertex_[i].z;
-        }
+  //    for(Point point : vertex_) {
+  for (int i = 1; i < vertex_.size(); i++) {
+    if (vertex_[i].x > max_vertex_x_) {
+      max_vertex_x_ = vertex_[i].x;
     }
+
+    if (vertex_[i].x < min_vertex_x_) {
+      min_vertex_x_ = vertex_[i].x;
+    }
+
+    if (vertex_[i].y > max_vertex_y_) {
+      max_vertex_y_ = vertex_[i].y;
+    }
+
+    if (vertex_[i].y < min_vertex_y_) {
+      min_vertex_y_ = vertex_[i].y;
+    }
+
+    if (vertex_[i].z > max_vertex_z_) {
+      max_vertex_z_ = vertex_[i].z;
+    }
+
+    if (vertex_[i].z < min_vertex_z_) {
+      min_vertex_z_ = vertex_[i].z;
+    }
+  }
+}
+
+void s21::Object::Clear() {
+
+  vertex_.clear();
+  facet_.clear();
+  vertex_count_ = 0;
+  edge_count_ = 0;
+
+  max_vertex_x_ = 0;
+  min_vertex_x_ = 0;
+  max_vertex_y_ = 0;
+  min_vertex_y_ = 0;
+  max_vertex_z_ = 0;
+  min_vertex_z_ = 0;
 }
 /*----------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
   int number = 0;
-//  for (Point i : vertex_) {
-//    std::cout << "Vertex number " << number++ << ":"
-//              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
-//  }
+  //  for (Point i : vertex_) {
+  //    std::cout << "Vertex number " << number++ << ":"
+  //              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
+  //  }
 
   std::cout << "max X vertex :" << max_vertex_x_ << std::endl;
   std::cout << "max Y vertex :" << max_vertex_y_ << std::endl;

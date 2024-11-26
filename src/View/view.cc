@@ -17,10 +17,11 @@ View::~View()
 }
 void View::on_Open_clicked()
 {
-//    QString object_path;
 
     object_path = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
     ui->File_path->setText(object_path);
+
+    controller->ClearObject();
 
     controller->OpenFile(object_path.toStdString());
 
