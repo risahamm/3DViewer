@@ -17,15 +17,9 @@ struct Point {
 };
 
 class Object {
- public:
-  Object() {
-    Point point;  ///< нулевая вершина-заглушка
-    point.x = 0;
-    point.y = 0;
-    point.z = 0;
 
-    vertex_.push_back(point);
-  };
+ public:
+  Object() = default;
   ~Object() = default;
 
   /**

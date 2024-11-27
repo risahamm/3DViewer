@@ -30,46 +30,59 @@ void s21::Object::Parser(std::string path) {
 }
 
 void s21::Object::ReadVertex(std::string &str) {
+
   /* сдвигаем строку на 2 */
-  std::string sub2 = str.substr(2);
-  std::istringstream iss(sub2);
+  std::string begin = str.substr(2);
+
+  /* создаем поток для считывания */
+  std::istringstream iss(begin);
   Point point;
 
+  /* считывает по разделителю ' ' и кладем в Point */
   if (iss >> point.x >> point.y >> point.z) {
     vertex_.push_back(point);
     vertex_count_++;
   }
 }
 
-void s21::Object::ReadFacet(std::string &str) {  // TODO обработка отрицательных номеров facets
+void s21::Object::ReadFacet(std::string &str) {
+  // TODO обработка отрицательных номеров facets
   // TODO например, если позиций всего три, то позиция "-1" - это позиция 3.
   // позиция "-2" - это позиция 2. Позиции "-4" быть не может.
 
   /* сдвигаем строку на 2 */
-  std::string sub2 = str.substr(2);
+  std::string begin = str.substr(2);
 
   /* создаем поток для считывания */
-  std::istringstream iss(sub2);
+  std::istringstream iss(begin);
 
-  std::vector<int> facet; ///< один полигон
-  int vertex_number;  ///< номер вершины
+  std::vector<int> facet;  ///< один полигон
+  int vertex_number;       ///< номер вершины
   std::string vertex_str;  ///< номер вершины, записанный в строку
 
   /* пока есть данные для считывания */
   while (iss >> vertex_str) {
 
-    /* находим первый разделитель '/' или ' ' */
-    size_t pos = vertex_str.find('/') || vertex_str.find(' ');
+    /* ищем разделитель '/' или ' ' */
+      size_t pos_slash = vertex_str.find('/');
+      size_t pos_space = vertex_str.find(' ');
+
+      // Находим первый разделитель
+      size_t pos = std::min(pos_slash, pos_space);
 
     if (pos != std::string::npos) {
 
+      /* считываем число от 0 индекса до разделителя */
       vertex_number = stoi(vertex_str.substr(0, pos));
 
       /* обработка отрицательных вершин */
       if (vertex_number < 0) {
 
-        int last_idx = facet.size();
-        vertex_number = facet.at(last_idx + vertex_number); // TODO проверить
+        /* узнаем кол-во вершин */
+        int last_idx = vertex_.size();
+
+        /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
+        vertex_number = last_idx + vertex_number;  // TODO проверить
       }
 
       facet.push_back(vertex_number);
@@ -132,7 +145,15 @@ void s21::Object::SetMaxCoordinates() {
 
 void s21::Object::Clear() {
 
+  /* очистим vertex_ и добавим нулевую вершину */
   vertex_.clear();
+
+  Point zero_point;  ///< нулевая вершина-заглушка
+  zero_point.x = 0;
+  zero_point.y = 0;
+  zero_point.z = 0;
+  vertex_.push_back(zero_point);
+
   facet_.clear();
   vertex_count_ = 0;
   edge_count_ = 0;
