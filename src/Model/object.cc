@@ -1,22 +1,36 @@
 #include "object.h"
 
 void s21::Object::Parser(std::string path) {
+
   std::ifstream my_file;
+
   try {
+
     my_file.open(path);
+
     if (!my_file.is_open()) {
+
       throw std::runtime_error("Не удалось открыть файл " + path);
+
     } else {
+
       std::string str;
+
+      /* считываем построчно */
       while (std::getline(my_file, str, '\n')) {
+
         if (str.find("v ") != std::string::npos) {
+
           ReadVertex(str);
         }
         if (str.find("f ") != std::string::npos) {
+
           ReadFacet(str);
         }
       }
+
       my_file.close();
+
       SetMaxCoordinates();
       //      PrintVertices();
       CenterObject();
@@ -24,6 +38,7 @@ void s21::Object::Parser(std::string path) {
     }
 
   } catch (const std::runtime_error &e) {
+
     std::cerr << "Ошибка: " << e.what() << std::endl;
     return;
   }
@@ -46,9 +61,6 @@ void s21::Object::ReadVertex(std::string &str) {
 }
 
 void s21::Object::ReadFacet(std::string &str) {
-  // TODO обработка отрицательных номеров facets
-  // TODO например, если позиций всего три, то позиция "-1" - это позиция 3.
-  // позиция "-2" - это позиция 2. Позиции "-4" быть не может.
 
   /* сдвигаем строку на 2 */
   std::string begin = str.substr(2);
@@ -82,7 +94,7 @@ void s21::Object::ReadFacet(std::string &str) {
         int last_idx = vertex_.size();
 
         /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
-        vertex_number = last_idx + vertex_number;  // TODO проверить
+        vertex_number = last_idx + vertex_number;
       }
 
       facet.push_back(vertex_number);
