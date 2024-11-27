@@ -105,6 +105,7 @@ void s21::Object::ReadFacet(std::string &str) {
 }
 
 void s21::Object::CenterObject() {
+
   double center_x;
   double center_y;
 
@@ -120,6 +121,7 @@ void s21::Object::CenterObject() {
 }
 
 void s21::Object::SetMaxCoordinates() {
+
   max_vertex_x_ = -INFINITY;
   min_vertex_x_ = INFINITY;
   max_vertex_y_ = -INFINITY;

@@ -8,6 +8,7 @@ Object3d::Object3d(QWidget *parent)
 Object3d::~Object3d() {}
 
 void Object3d::initializeGL() {
+
     initializeOpenGLFunctions();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Черный фон
 }
@@ -55,6 +56,7 @@ void Object3d::paintGL() {
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
 void Object3d::resizeGL(int w, int h) {
+
     glViewport(0, 0, w, h);
 
 }
@@ -87,7 +89,7 @@ double Object3d::FindMaxCoordinate() {
         MAX = yMax;
     };
 
-    MAX *= 3;
+    MAX *= 2;
     return MAX;
 }
 
