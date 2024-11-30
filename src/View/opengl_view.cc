@@ -27,8 +27,6 @@ void Object3d::paintGL() {
 
     SetUpPerspective();
 
-//    setFixedSize(600, 600);
-
     /* Рисуем точки */
     glPointSize(5);
     glBegin(GL_POINTS);

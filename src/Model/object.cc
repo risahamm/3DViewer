@@ -5,26 +5,20 @@ void s21::Object::Parser(std::string path) {
   std::ifstream my_file;
 
   try {
-
     my_file.open(path);
 
     if (!my_file.is_open()) {
-
       throw std::runtime_error("Не удалось открыть файл " + path);
 
     } else {
-
       std::string str;
 
       /* считываем построчно */
       while (std::getline(my_file, str, '\n')) {
-
         if (str.find("v ") != std::string::npos) {
-
           ReadVertex(str);
         }
         if (str.find("f ") != std::string::npos) {
-
           ReadFacet(str);
         }
       }
@@ -38,7 +32,6 @@ void s21::Object::Parser(std::string path) {
     }
 
   } catch (const std::runtime_error &e) {
-
     std::cerr << "Ошибка: " << e.what() << std::endl;
     return;
   }
@@ -53,7 +46,7 @@ void s21::Object::ReadVertex(std::string &str) {
   std::istringstream iss(begin);
   Point point;
 
-  /* считывает по разделителю ' ' и кладем в Point */
+  /* считываем по разделителю ' ' и кладем в Point */
   if (iss >> point.x >> point.y >> point.z) {
     vertex_.push_back(point);
     vertex_count_++;
@@ -74,26 +67,24 @@ void s21::Object::ReadFacet(std::string &str) {
 
   /* пока есть данные для считывания */
   while (iss >> vertex_str) {
-
     /* ищем разделитель '/' или ' ' */
-      size_t pos_slash = vertex_str.find('/');
-      size_t pos_space = vertex_str.find(' ');
+    size_t pos_slash = vertex_str.find('/');
+    size_t pos_space = vertex_str.find(' ');
 
-      // Находим первый разделитель
-      size_t pos = std::min(pos_slash, pos_space);
+    // Находим первый разделитель
+    size_t pos = std::min(pos_slash, pos_space);
 
     if (pos != std::string::npos) {
-
       /* считываем число от 0 индекса до разделителя */
       vertex_number = stoi(vertex_str.substr(0, pos));
 
       /* обработка отрицательных вершин */
       if (vertex_number < 0) {
-
         /* узнаем кол-во вершин */
         int last_idx = vertex_.size();
 
-        /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
+        /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение
+         */
         vertex_number = last_idx + vertex_number;
       }
 
@@ -182,6 +173,7 @@ void s21::Object::Clear() {
 /*----------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
+
   int number = 0;
   //  for (Point i : vertex_) {
   //    std::cout << "Vertex number " << number++ << ":"

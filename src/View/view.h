@@ -6,6 +6,7 @@
 #include <QFileDialog> // для открытия файла и чтобы записать путь
 #include <QString>
 #include <QObject>
+#include "Controller/controller.h"
 
 namespace s21 {
 class Controller;
