@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
         Controller/controller.h
         Model/object.cc
         Model/object.h
+        View/resources.qrc
 
 )
 
