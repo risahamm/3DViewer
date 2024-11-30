@@ -11,11 +11,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widget/s)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
 link_libraries(${OPENGL_LIBRARIES})
+
+include_directories(${CMAKE_SOURCE_DIR}/View)
+include_directories(${CMAKE_SOURCE_DIR}/Model)
+include_directories(${CMAKE_SOURCE_DIR}/Controller)
 
 set(PROJECT_SOURCES
         main.cc

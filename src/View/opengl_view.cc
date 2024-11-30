@@ -30,7 +30,7 @@ void Object3d::paintGL() {
     /* Рисуем точки */
     glPointSize(5);
     glBegin(GL_POINTS);
-    glColor3f(1.0f, 0.0f, 0.0f); // Красный цвет
+    glColor3f(191.0f / 255.0f, 189.0f / 255.0f, 193.0f / 255.0f); // Красный цвет
 
     std::vector<s21::Point> vertices = view_->controller->getVertices();
     for (s21::Point &k : vertices) {
