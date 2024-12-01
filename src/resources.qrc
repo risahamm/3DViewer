@@ -6,5 +6,20 @@
         <file>icons/move_right_icon.png</file>
         <file>icons/move_up_icon.png</file>
         <file>icons/open_file_icon.png</file>
+        <file>icons/zoom_in_icon.png</file>
+        <file>icons/zoom_out_icon.png</file>
+        <file>icons/dashed_line_icon.png</file>
+        <file>icons/line_icon.png</file>
+        <file>icons/ortho_prespective_icon.png</file>
+        <file>icons/parallel_perspective_icon.png</file>
+        <file>icons/dot_vertex_icon.png</file>
+        <file>icons/no_vertex_icon.png</file>
+        <file>icons/square_vertex_icon.png</file>
+        <file>icons/select_color_icon.png</file>
+        <file>icons/paint_icon.png</file>
+        <file>icons/halfturn_left_icon.png</file>
+        <file>icons/halfturn_right_icon.png</file>
+        <file>icons/down_arrow_icon.png</file>
+        <file>icons/up_arrow_icon.png</file>
     </qresource>
 </RCC>
