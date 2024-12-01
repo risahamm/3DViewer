@@ -7,14 +7,15 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/icons/app_icon.png"));
+
     s21::Object object;
     s21::Controller controller(&object);
-    View app(nullptr, &controller);
+    View view(nullptr, &controller);
 
-    app.setWindowIcon(QIcon(":/View/icons/app_icon.png"));
-    app.setWindowTitle("3D Viewer");
+    view.show();
+    view.setWindowTitle("3D Viewer");
 
-    app.show();
-    return a.exec();
+    return app.exec();
 }

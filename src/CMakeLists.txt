@@ -32,8 +32,7 @@ set(PROJECT_SOURCES
         Controller/controller.h
         Model/object.cc
         Model/object.h
-        View/resources.qrc
-
+        resources.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
