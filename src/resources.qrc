@@ -21,5 +21,11 @@
         <file>icons/halfturn_right_icon.png</file>
         <file>icons/down_arrow_icon.png</file>
         <file>icons/up_arrow_icon.png</file>
+        <file>icons/rotate_left_icon.png</file>
+        <file>icons/rotate_left_up_icon.png</file>
+        <file>icons/rotate_right_down_icon.png</file>
+        <file>icons/rotate_right_icon.png</file>
+        <file>icons/rotate_down_icon.png</file>
+        <file>icons/rotate_up_icon.png</file>
     </qresource>
 </RCC>
