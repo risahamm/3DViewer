@@ -13,12 +13,17 @@ void Object3d::initializeGL() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Черный фон
 }
 
+void Object3d::SetApplicationWidgetPtr(View *ptr) {
+
+    view_ = ptr;
+};
+
 
 /* вызывается каждый раз, когда вызываем update() */
 void Object3d::paintGL() {
 
     /* если объект не выбран, ничего не рисуем */
-    if (view_->object_path == nullptr) {
+    if (view_->object_path_ == nullptr) {
         return;
     }
 
@@ -32,16 +37,17 @@ void Object3d::paintGL() {
     glBegin(GL_POINTS);
     glColor3f(191.0f / 255.0f, 189.0f / 255.0f, 193.0f / 255.0f); // Красный цвет
 
-    std::vector<s21::Point> vertices = view_->controller->getVertices();
+    std::vector<s21::Point> vertices = view_->controller_->getVertices();
     for (s21::Point &k : vertices) {
 
         glVertex3d(k.x, k.y, k.z);
     }
     glEnd();
 
+    glLineWidth(2.0f);
 
     /* Соединяем точки */
-    std::vector<std::vector<int>> facets = view_->controller->getFacets();
+    std::vector<std::vector<int>> facets = view_->controller_->getFacets();
     for (std::vector<int> &f : facets)  {
         glBegin(GL_LINE_LOOP);
         for (int &f1 : f)  {
@@ -61,22 +67,58 @@ void Object3d::resizeGL(int w, int h) {
 
 void Object3d::SetUpPerspective() {
 
+    OrthoPerspective();
+}
+
+void Object3d::OrthoPerspective() {
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     /* Установка проекции */
-    double MAX = FindMaxCoordinate();
-    glOrtho(-MAX, MAX, -MAX, MAX, 0.01, MAX*1000);
+    double max = FindMaxCoordinate();
+    double min_z = view_->controller_->getMinCoordinateZ();
+    double max_z = view_->controller_->getMaxCoordinateZ();
+
+    glOrtho(-max, max, -max, max, min_z * 2, max_z * 2);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+}
 
+void Object3d::ParallelPerspective() {
+
+    double max = FindMaxCoordinate();
+    double min_z = view_->controller_->getMinCoordinateZ();
+    double max_z = view_->controller_->getMaxCoordinateZ();
+
+   /* Установка проекции */
+    glFrustum(-max, max, -max, max, min_z, max_z);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+void Object3d::GetSettings() {
+
+//    Perspective perspective;
+//    Line line;
+//    float line_size;
+//    double line_color;
+//    Vertex vertex;
+//    float vertex_size;
+//    double vertex_color;
+//    double background_color;
+
+    current_settings_.perspective = view_->GetPerspectiveType();
+    current_settings_.line = view_->GetLineType();
+//    current_settings_.line_size = view_->ui_->edge_size_slider->getValue(); // не работает
 }
 
 double Object3d::FindMaxCoordinate() {
 
-    double xMax = view_->controller->getMaxCoordinateX();
-    double yMax = view_->controller->getMaxCoordinateY();
+    double xMax = view_->controller_->getMaxCoordinateX();
+    double yMax = view_->controller_->getMaxCoordinateY();
 
     double MAX = 0.0;
 
@@ -90,8 +132,3 @@ double Object3d::FindMaxCoordinate() {
     MAX *= 2;
     return MAX;
 }
-
-void Object3d::SetApplicationWidgetPtr(View *ptr) {
-
-    view_ = ptr;
-};

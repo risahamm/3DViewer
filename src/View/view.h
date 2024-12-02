@@ -7,6 +7,8 @@
 #include <QString>
 #include <QObject>
 #include "Controller/controller.h"
+//#include "opengl_view.h"
+
 
 namespace s21 {
 class Controller;
@@ -21,19 +23,43 @@ class View : public QMainWindow {
 
 public:
 
+    enum class Perspective {
+        ortho,
+        parallel
+    };
+
+    enum class Line {
+        solid,
+        dashed
+    };
+
+    enum class Vertex {
+        dot,
+        square,
+        no_vertex
+    };
+
     View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
     ~View();
 
-    s21::Controller *controller;
-    QString object_path;
+    friend class Object3d;
+
+    Perspective GetPerspectiveType();
+    Line GetLineType();
+
+
 
 private slots:
 
     void on_Open_clicked();
+    void PerspectiveSelected(View::Perspective perspective);
+    void LineViewSelected(View::Line line);
 
 private:
 
-    Ui::View *ui;
+    s21::Controller *controller_;
+    Ui::View *ui_;
+    QString object_path_;
 
 
 };

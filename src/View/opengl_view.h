@@ -6,12 +6,26 @@
 #include "view.h"
 
 class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
+
     Q_OBJECT
 
 public:
 
+    struct Settings {
+        View::Perspective perspective;
+        View::Line line;
+        float line_size;
+        double line_color;
+        View::Vertex vertex;
+        float vertex_size;
+        double vertex_color;
+        double background_color;
+    };
+
     Object3d(QWidget *parent = nullptr);
     ~Object3d();
+
+    friend class View;
 
     void SetApplicationWidgetPtr(View *ptr);
 
@@ -26,8 +40,14 @@ protected:
 private:
 
     View *view_;
+    Settings current_settings_;
 
     void SetUpPerspective();
+
+    void OrthoPerspective();
+    void ParallelPerspective();
+
+    void GetSettings();
 
 };
 
