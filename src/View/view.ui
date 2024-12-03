@@ -612,8 +612,11 @@ QSlider::handle:horizontal {
 	margin-bottom: -5px;
 }</string>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
-     <number>10</number>
+     <number>20</number>
     </property>
     <property name="value">
      <number>2</number>
@@ -674,8 +677,11 @@ QSlider::handle:horizontal {
 	margin-bottom: -5px;
 }</string>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
-     <number>10</number>
+     <number>20</number>
     </property>
     <property name="value">
      <number>2</number>

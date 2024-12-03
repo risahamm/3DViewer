@@ -7,7 +7,6 @@
 #include <QString>
 #include <QObject>
 #include "Controller/controller.h"
-//#include "opengl_view.h"
 
 
 namespace s21 {
@@ -19,6 +18,7 @@ namespace Ui { class View; }
 QT_END_NAMESPACE
 
 class View : public QMainWindow {
+
     Q_OBJECT
 
 public:
@@ -46,6 +46,11 @@ public:
 
     Perspective GetPerspectiveType();
     Line GetLineType();
+    Vertex GetVertexType();
+    double GetVertexSize();
+    double GetLineSize();
+
+    Ui::View* GetUiPtr() { return ui_;}
 
 
 
@@ -54,6 +59,7 @@ private slots:
     void on_Open_clicked();
     void PerspectiveSelected(View::Perspective perspective);
     void LineViewSelected(View::Line line);
+    void VertexViewSelected(View::Vertex vertex);
 
 private:
 

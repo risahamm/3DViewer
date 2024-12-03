@@ -43,6 +43,7 @@ private:
     Settings current_settings_;
 
     void SetUpPerspective();
+    void SetUpBackgroundColor();
 
     void OrthoPerspective();
     void ParallelPerspective();

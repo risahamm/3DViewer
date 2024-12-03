@@ -3,14 +3,15 @@
 #include "Model/object.h"
 
 Object3d::Object3d(QWidget *parent)
-        : QOpenGLWidget(parent) {}
+        : QOpenGLWidget(parent) {
+
+}
 
 Object3d::~Object3d() {}
 
 void Object3d::initializeGL() {
 
     initializeOpenGLFunctions();
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Черный фон
 }
 
 void Object3d::SetApplicationWidgetPtr(View *ptr) {
@@ -30,28 +31,34 @@ void Object3d::paintGL() {
     /* Очистка цветового буфера */
     glClear(GL_COLOR_BUFFER_BIT);
 
+    /* получим текущие настройки */
+    GetSettings();
+
+    SetUpBackgroundColor();
+
     SetUpPerspective();
 
     /* Рисуем точки */
-    glPointSize(5);
+    glPointSize(static_cast<GLfloat>(current_settings_.vertex_size));
     glBegin(GL_POINTS);
     glColor3f(191.0f / 255.0f, 189.0f / 255.0f, 193.0f / 255.0f); // Красный цвет
 
     std::vector<s21::Point> vertices = view_->controller_->getVertices();
-    for (s21::Point &k : vertices) {
+    for (s21::Point &point : vertices) {
 
-        glVertex3d(k.x, k.y, k.z);
+        glVertex3d(point.x, point.y, point.z);
     }
     glEnd();
 
-    glLineWidth(2.0f);
+//    glLineWidth(2.0f);
+    glLineWidth(static_cast<GLfloat>(current_settings_.line_size));
 
     /* Соединяем точки */
     std::vector<std::vector<int>> facets = view_->controller_->getFacets();
-    for (std::vector<int> &f : facets)  {
+    for (std::vector<int> &facet : facets)  {
         glBegin(GL_LINE_LOOP);
-        for (int &f1 : f)  {
-            glVertex3d(vertices[f1].x, vertices[f1].y, vertices[f1].z);
+        for (int &vertex : facet)  {
+            glVertex3d(vertices[vertex].x, vertices[vertex].y, vertices[vertex].z);
         }
         glEnd();
     }
@@ -67,7 +74,18 @@ void Object3d::resizeGL(int w, int h) {
 
 void Object3d::SetUpPerspective() {
 
-    OrthoPerspective();
+    if (current_settings_.perspective == View::Perspective::ortho) {
+        OrthoPerspective();
+
+    } else {
+        ParallelPerspective(); // TODO надо проверить
+    }
+
+}
+
+void Object3d::SetUpBackgroundColor() {
+
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // TODO потом подставить сюда выбор цвета
 }
 
 void Object3d::OrthoPerspective() {
@@ -101,18 +119,14 @@ void Object3d::ParallelPerspective() {
 
 void Object3d::GetSettings() {
 
-//    Perspective perspective;
-//    Line line;
-//    float line_size;
-//    double line_color;
-//    Vertex vertex;
-//    float vertex_size;
-//    double vertex_color;
-//    double background_color;
-
     current_settings_.perspective = view_->GetPerspectiveType();
     current_settings_.line = view_->GetLineType();
-//    current_settings_.line_size = view_->ui_->edge_size_slider->getValue(); // не работает
+    current_settings_.line_size = view_->GetLineSize();
+//    current_settings_.line_color = ;
+    current_settings_.vertex = view_->GetVertexType();
+    current_settings_.vertex_size = view_->GetVertexSize();
+//    current_settings_.vertex_color =
+//    current_settings_.background_color =
 }
 
 double Object3d::FindMaxCoordinate() {
