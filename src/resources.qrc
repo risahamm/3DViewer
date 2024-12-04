@@ -27,5 +27,6 @@
         <file>icons/rotate_right_icon.png</file>
         <file>icons/rotate_down_icon.png</file>
         <file>icons/rotate_up_icon.png</file>
+        <file>icons/color_selection_icon.png</file>
     </qresource>
 </RCC>

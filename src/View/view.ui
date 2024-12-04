@@ -509,7 +509,7 @@ QPushButton::pressed {
    <widget class="Object3d" name="GLwidget" native="true">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>50</x>
       <y>70</y>
       <width>900</width>
       <height>900</height>
@@ -1266,7 +1266,7 @@ QPushButton::checked {
     </property>
     <property name="icon">
      <iconset resource="../resources.qrc">
-      <normaloff>:/icons/select_color_icon.png</normaloff>:/icons/select_color_icon.png</iconset>
+      <normaloff>:/icons/color_selection_icon.png</normaloff>:/icons/color_selection_icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>

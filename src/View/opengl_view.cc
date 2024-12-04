@@ -31,17 +31,14 @@ void Object3d::paintGL() {
     /* Очистка цветового буфера */
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /* получим текущие настройки */
-    GetSettings();
-
     SetUpBackgroundColor();
 
     SetUpPerspective();
 
     /* Рисуем точки */
-    glPointSize(static_cast<GLfloat>(current_settings_.vertex_size));
+    glPointSize(static_cast<GLfloat>(view_->current_settings.vertex_size));
     glBegin(GL_POINTS);
-    glColor3f(191.0f / 255.0f, 189.0f / 255.0f, 193.0f / 255.0f); // Красный цвет
+    SetUpPaintColor(view_->current_settings.vertex_color);
 
     std::vector<s21::Point> vertices = view_->controller_->getVertices();
     for (s21::Point &point : vertices) {
@@ -50,10 +47,10 @@ void Object3d::paintGL() {
     }
     glEnd();
 
-//    glLineWidth(2.0f);
-    glLineWidth(static_cast<GLfloat>(current_settings_.line_size));
 
     /* Соединяем точки */
+    SetUpPaintColor(view_->current_settings.line_color);
+    glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
     std::vector<std::vector<int>> facets = view_->controller_->getFacets();
     for (std::vector<int> &facet : facets)  {
         glBegin(GL_LINE_LOOP);
@@ -74,7 +71,7 @@ void Object3d::resizeGL(int w, int h) {
 
 void Object3d::SetUpPerspective() {
 
-    if (current_settings_.perspective == View::Perspective::ortho) {
+    if (view_->current_settings.perspective == View::Perspective::ortho) {
         OrthoPerspective();
 
     } else {
@@ -85,7 +82,21 @@ void Object3d::SetUpPerspective() {
 
 void Object3d::SetUpBackgroundColor() {
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // TODO потом подставить сюда выбор цвета
+    GLfloat red = static_cast<GLfloat>(view_->current_settings.background_color.red);
+    GLfloat green = static_cast<GLfloat>(view_->current_settings.background_color.green);
+    GLfloat blue = static_cast<GLfloat>(view_->current_settings.background_color.blue);
+    GLfloat alpha = static_cast<GLfloat>(view_->current_settings.background_color.alpha);
+
+    glClearColor(red, green, blue, alpha);
+}
+
+void Object3d::SetUpPaintColor(View::Color color) {
+
+    GLfloat red = static_cast<GLfloat>(color.red);
+    GLfloat green = static_cast<GLfloat>(color.green);
+    GLfloat blue = static_cast<GLfloat>(color.blue);
+
+    glColor3f(red, green, blue);
 }
 
 void Object3d::OrthoPerspective() {
@@ -117,17 +128,6 @@ void Object3d::ParallelPerspective() {
     glLoadIdentity();
 }
 
-void Object3d::GetSettings() {
-
-    current_settings_.perspective = view_->GetPerspectiveType();
-    current_settings_.line = view_->GetLineType();
-    current_settings_.line_size = view_->GetLineSize();
-//    current_settings_.line_color = ;
-    current_settings_.vertex = view_->GetVertexType();
-    current_settings_.vertex_size = view_->GetVertexSize();
-//    current_settings_.vertex_color =
-//    current_settings_.background_color =
-}
 
 double Object3d::FindMaxCoordinate() {
 

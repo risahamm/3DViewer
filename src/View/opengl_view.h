@@ -11,17 +11,6 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
 
 public:
 
-    struct Settings {
-        View::Perspective perspective;
-        View::Line line;
-        float line_size;
-        double line_color;
-        View::Vertex vertex;
-        float vertex_size;
-        double vertex_color;
-        double background_color;
-    };
-
     Object3d(QWidget *parent = nullptr);
     ~Object3d();
 
@@ -40,15 +29,13 @@ protected:
 private:
 
     View *view_;
-    Settings current_settings_;
 
     void SetUpPerspective();
     void SetUpBackgroundColor();
+    void SetUpPaintColor(View::Color color);
 
     void OrthoPerspective();
     void ParallelPerspective();
-
-    void GetSettings();
 
 };
 

@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QVBoxLayout>
-#include <QFileDialog> // для открытия файла и чтобы записать путь
+#include <QFileDialog>
 #include <QString>
 #include <QObject>
+#include <QColor>
+#include <QColorDialog>
 #include "Controller/controller.h"
 
 
@@ -39,16 +41,30 @@ public:
         no_vertex
     };
 
+    struct Color {
+        float red;
+        float green;
+        float blue;
+        float alpha;
+    };
+
+    struct Settings {
+        View::Perspective perspective;
+        View::Line line;
+        float line_size;
+        View::Color line_color;
+        View::Vertex vertex;
+        float vertex_size;
+        View::Color vertex_color;
+        View::Color background_color;
+    };
+
     View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
     ~View();
 
     friend class Object3d;
 
-    Perspective GetPerspectiveType();
-    Line GetLineType();
-    Vertex GetVertexType();
-    double GetVertexSize();
-    double GetLineSize();
+    Settings current_settings; ///< текущие настройки
 
     Ui::View* GetUiPtr() { return ui_;}
 
@@ -60,12 +76,15 @@ private slots:
     void PerspectiveSelected(View::Perspective perspective);
     void LineViewSelected(View::Line line);
     void VertexViewSelected(View::Vertex vertex);
+    View::Color SetColor();
+    View::Color SetColor(QColor color);
 
 private:
 
     s21::Controller *controller_;
     Ui::View *ui_;
     QString object_path_;
+
 
 
 };
