@@ -52,15 +52,20 @@ void Object3d::paintGL() {
     }
 
     /* Рисуем вершины */
-    glPointSize(static_cast<GLfloat>(view_->current_settings.vertex_size));
-    glBegin(GL_POINTS);
-    SetUpPaintColor(view_->current_settings.vertex_color);
+    if (view_->current_settings.vertex == View::Vertex::dot ||
+        view_->current_settings.vertex == View::Vertex::square) {
 
-    for (int i = 1; i < vertices.size(); i++) {
+        glPointSize(static_cast<GLfloat>(view_->current_settings.vertex_size));
+        SetUpVertexStyle();
+        glBegin(GL_POINTS);
+        SetUpPaintColor(view_->current_settings.vertex_color);
 
-        glVertex3d(vertices.at(i).x, vertices.at(i).y, vertices.at(i).z);
+        for (int i = 1; i < vertices.size(); i++) {
+
+            glVertex3d(vertices.at(i).x, vertices.at(i).y, vertices.at(i).z);
+        }
+        glEnd();
     }
-    glEnd();
 }
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
@@ -113,6 +118,15 @@ void Object3d::SetUpLineStyle() {
 
         /* Отключаем режим пунктирной линии */
         glDisable(GL_LINE_STIPPLE);
+    }
+}
+
+void Object3d::SetUpVertexStyle() {
+
+    if (view_->current_settings.vertex == View::Vertex::dot) {
+        glEnable(GL_POINT_SMOOTH);
+    } else {
+        glDisable(GL_POINT_SMOOTH);
     }
 }
 
