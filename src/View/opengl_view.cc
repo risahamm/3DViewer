@@ -28,28 +28,17 @@ void Object3d::paintGL() {
         return;
     }
 
-    /* Очистка цветового буфера */
-    glClear(GL_COLOR_BUFFER_BIT);
 
     SetUpBackgroundColor();
 
-    SetUpPerspective();
+    /* Очистка цветового буфера */
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    /* Рисуем точки */
-    glPointSize(static_cast<GLfloat>(view_->current_settings.vertex_size));
-    glBegin(GL_POINTS);
-    SetUpPaintColor(view_->current_settings.vertex_color);
+    SetUpPerspective();
 
     std::vector<s21::Point> vertices = view_->controller_->getVertices();
 
-    for (int i = 1; i < vertices.size(); i++) {
-
-        glVertex3d(vertices.at(i).x, vertices.at(i).y, vertices.at(i).z);
-    }
-    glEnd();
-
-
-    /* Соединяем точки */
+    /* Сначала соединяем вершины */
     SetUpPaintColor(view_->current_settings.line_color);
     glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
     std::vector<std::vector<int>> facets = view_->controller_->getFacets();
@@ -61,6 +50,16 @@ void Object3d::paintGL() {
         glEnd();
     }
 
+    /* Рисуем вершины */
+    glPointSize(static_cast<GLfloat>(view_->current_settings.vertex_size));
+    glBegin(GL_POINTS);
+    SetUpPaintColor(view_->current_settings.vertex_color);
+
+    for (int i = 1; i < vertices.size(); i++) {
+
+        glVertex3d(vertices.at(i).x, vertices.at(i).y, vertices.at(i).z);
+    }
+    glEnd();
 }
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
