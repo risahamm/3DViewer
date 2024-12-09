@@ -318,7 +318,7 @@ QPushButton::pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="File_name">
+   <widget class="QLabel" name="file_name_label">
     <property name="geometry">
      <rect>
       <x>1080</x>
@@ -1324,25 +1324,25 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>1180</x>
-      <y>490</y>
+      <y>485</y>
       <width>50</width>
-      <height>40</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 	background: #e1e5f2;
-	border-radius: 15%;
+	border-radius: 10%;
 }
 
 QPushButton::hover {
 	background: #d8dbe2;
-	border-radius: 20%;
+	border-radius: 25%;
 }
 
 QPushButton::pressed {
 	background: #a9bcd0;
-	border-radius: 20%;
+	border-radius: 25%;
 }</string>
     </property>
     <property name="text">
@@ -1402,9 +1402,9 @@ QPushButton::pressed {
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>490</y>
+      <y>485</y>
       <width>50</width>
-      <height>40</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -1413,17 +1413,17 @@ QPushButton::pressed {
     <property name="styleSheet">
      <string notr="true">QPushButton {
 	background: #e1e5f2;
-	border-radius: 15%;
+	border-radius: 10%;
 }
 
 QPushButton::hover {
 	background: #d8dbe2;
-	border-radius: 20%;
+	border-radius: 25%;
 }
 
 QPushButton::pressed {
 	background: #a9bcd0;
-	border-radius: 20%;
+	border-radius: 25%;
 }</string>
     </property>
     <property name="text">
@@ -1599,7 +1599,7 @@ QPushButton::pressed {
    <zorder>moveYminus</zorder>
    <zorder>Movements</zorder>
    <zorder>Rotations</zorder>
-   <zorder>File_name</zorder>
+   <zorder>file_name_label</zorder>
    <zorder>File_path</zorder>
    <zorder>Vertices</zorder>
    <zorder>Edges</zorder>

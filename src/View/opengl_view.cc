@@ -31,14 +31,14 @@ void Object3d::paintGL() {
 
     SetUpBackgroundColor();
 
-    /* Очистка цветового буфера */
+    /* очистка цветового буфера */
     glClear(GL_COLOR_BUFFER_BIT);
 
     SetUpPerspective();
 
     std::vector<s21::Point> vertices = view_->controller_->getVertices();
 
-    /* Сначала соединяем вершины */
+    /* сначала соединяем вершины */
     SetUpPaintColor(view_->current_settings.line_color);
     SetUpLineStyle();
     glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
@@ -51,7 +51,7 @@ void Object3d::paintGL() {
         glEnd();
     }
 
-    /* Рисуем вершины */
+    /* рисуем вершины */
     if (view_->current_settings.vertex == View::Vertex::dot ||
         view_->current_settings.vertex == View::Vertex::square) {
 
@@ -111,12 +111,12 @@ void Object3d::SetUpLineStyle() {
 
         glEnable(GL_LINE_STIPPLE);
 
-        /* Устанавливаем паттерн (пунктирная линия) */
+        /* устанавливаем паттерн (пунктирная линия) */
         glLineStipple(1, 0xFF);
 
     } else {
 
-        /* Отключаем режим пунктирной линии */
+        /* отключаем режим пунктирной линии */
         glDisable(GL_LINE_STIPPLE);
     }
 }
@@ -135,7 +135,7 @@ void Object3d::OrthoPerspective() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    /* Установка проекции */
+    /* установка проекции */
     double max = FindMaxCoordinate();
     double min_z = view_->controller_->getMinCoordinateZ();
     double max_z = view_->controller_->getMaxCoordinateZ();
@@ -152,7 +152,7 @@ void Object3d::ParallelPerspective() {
     double min_z = view_->controller_->getMinCoordinateZ();
     double max_z = view_->controller_->getMaxCoordinateZ();
 
-   /* Установка проекции */
+   /* установка проекции */
     glFrustum(-max, max, -max, max, min_z, max_z);
 
     glMatrixMode(GL_MODELVIEW);
