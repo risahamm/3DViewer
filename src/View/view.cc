@@ -49,11 +49,11 @@ View::View(QWidget *parent, s21::Controller *controller)
         VertexViewSelected(View::Vertex::no_vertex);
         ui_->GLwidget->update();
     });
-    connect(ui_->edge_size_slider, &QSlider::sliderReleased, this, [this]() {
+    connect(ui_->edge_size_slider, &QSlider::valueChanged, this, [this]() {
         current_settings.line_size = ui_->edge_size_slider->value();
         ui_->GLwidget->update();
     });
-    connect(ui_->vertex_size_slider, &QSlider::sliderReleased, this, [this]() {
+    connect(ui_->vertex_size_slider, &QSlider::valueChanged, this, [this]() {
         current_settings.vertex_size = ui_->vertex_size_slider->value();
         ui_->GLwidget->update();
     });
