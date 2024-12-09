@@ -40,6 +40,7 @@ void Object3d::paintGL() {
 
     /* Сначала соединяем вершины */
     SetUpPaintColor(view_->current_settings.line_color);
+    SetUpLineStyle();
     glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
     std::vector<std::vector<int>> facets = view_->controller_->getFacets();
     for (std::vector<int> &facet : facets)  {
@@ -97,6 +98,22 @@ void Object3d::SetUpPaintColor(View::Color color) {
     GLfloat blue = static_cast<GLfloat>(color.blue);
 
     glColor3f(red, green, blue);
+}
+
+void Object3d::SetUpLineStyle() {
+
+    if (view_->current_settings.line == View::Line::dashed) {
+
+        glEnable(GL_LINE_STIPPLE);
+
+        /* Устанавливаем паттерн (пунктирная линия) */
+        glLineStipple(1, 0xFF);
+
+    } else {
+
+        /* Отключаем режим пунктирной линии */
+        glDisable(GL_LINE_STIPPLE);
+    }
 }
 
 void Object3d::OrthoPerspective() {

@@ -33,6 +33,7 @@ private:
     void SetUpPerspective();
     void SetUpBackgroundColor();
     void SetUpPaintColor(View::Color color);
+    void SetUpLineStyle();
 
     void OrthoPerspective();
     void ParallelPerspective();
