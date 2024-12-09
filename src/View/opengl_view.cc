@@ -41,9 +41,10 @@ void Object3d::paintGL() {
     SetUpPaintColor(view_->current_settings.vertex_color);
 
     std::vector<s21::Point> vertices = view_->controller_->getVertices();
-    for (s21::Point &point : vertices) {
 
-        glVertex3d(point.x, point.y, point.z);
+    for (int i = 1; i < vertices.size(); i++) {
+
+        glVertex3d(vertices.at(i).x, vertices.at(i).y, vertices.at(i).z);
     }
     glEnd();
 
