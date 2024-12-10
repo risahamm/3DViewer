@@ -1563,7 +1563,7 @@ QPushButton::pressed {
    <widget class="QLabel" name="background_color_label">
     <property name="geometry">
      <rect>
-      <x>1010</x>
+      <x>1130</x>
       <y>980</y>
       <width>131</width>
       <height>20</height>

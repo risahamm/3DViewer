@@ -80,7 +80,7 @@ void View::on_Open_clicked() {
     object_path_ = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
     ui_->File_path->setText(object_path_);
 
-    /* Находим индекс последнего символа '/' */
+    /* находим индекс последнего символа '/' */
     int last_slash_idx = object_path_.lastIndexOf('/');
     ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
 
