@@ -1,5 +1,5 @@
 #include "controller.h"
 
-void s21::Controller::OpenFile(const std::string &path) {
-    object_->Parser(path);
+bool s21::Controller::OpenFile(const std::string &path) {
+    return object_->Parser(path);
 }

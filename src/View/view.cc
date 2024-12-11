@@ -78,7 +78,7 @@ View::~View() {
 void View::on_Open_clicked() {
 
     object_path_ = QFileDialog::getOpenFileName(this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
-    ui_->File_path->setText(object_path_);
+    ui_->message_window->setText(object_path_);
 
     /* находим индекс последнего символа '/' */
     int last_slash_idx = object_path_.lastIndexOf('/');
@@ -86,15 +86,21 @@ void View::on_Open_clicked() {
 
     controller_->ClearObject();
 
-    controller_->OpenFile(object_path_.toStdString());
+    /* если файл обработан успешно */
+    if (controller_->OpenFile(object_path_.toStdString())) {
 
-    QString verticesCount = QString::number(controller_->getVerticesCount());
-    ui_->vertices_amount->setText(verticesCount);
+        QString verticesCount = QString::number(controller_->getVerticesCount());
+        ui_->vertices_amount->setText(verticesCount);
 
-    QString EdgeCount = QString::number(controller_->getEdgesCount());
-    ui_->edges_amount->setText(EdgeCount);
+        QString EdgeCount = QString::number(controller_->getEdgesCount());
+        ui_->edges_amount->setText(EdgeCount);
 
-    ui_->GLwidget->update();
+        ui_->GLwidget->update();
+
+    } else {
+        controller_->ClearObject();
+        ui_->message_window->setText("Error: Invalid object file: " + object_path_);
+    }
 
 }
 

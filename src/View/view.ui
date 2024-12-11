@@ -352,7 +352,7 @@ QPushButton::pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="File_path">
+   <widget class="QLabel" name="message_window">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -1600,7 +1600,7 @@ QPushButton::pressed {
    <zorder>Movements</zorder>
    <zorder>Rotations</zorder>
    <zorder>file_name_label</zorder>
-   <zorder>File_path</zorder>
+   <zorder>message_window</zorder>
    <zorder>Vertices</zorder>
    <zorder>Edges</zorder>
    <zorder>vertices_amount</zorder>

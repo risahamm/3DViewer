@@ -1,11 +1,12 @@
 #include "object.h"
 
-void s21::Object::Parser(std::string path) {
+bool s21::Object::Parser(std::string path) {
 
+  bool ret_code = true;
   std::ifstream my_file;
+  my_file.open(path);
 
   try {
-    my_file.open(path);
 
     if (!my_file.is_open()) {
       throw std::runtime_error("Failed to open file " + path);
@@ -14,12 +15,12 @@ void s21::Object::Parser(std::string path) {
       std::string str;
 
       /* считываем построчно */
-      while (std::getline(my_file, str, '\n')) {
+      while (std::getline(my_file, str, '\n') && ret_code) {
         if (str.find("v ") != std::string::npos) {
           ReadVertex(str);
         }
         if (str.find("f ") != std::string::npos) {
-          ReadFacet(str);
+          ret_code = ReadFacet(str);
         }
       }
 
@@ -31,8 +32,10 @@ void s21::Object::Parser(std::string path) {
 
   } catch (const std::runtime_error &e) {
     std::cerr << "Error: " << e.what() << std::endl;
-    return;
+    return false;
   }
+
+  return ret_code;
 }
 
 void s21::Object::ReadVertex(std::string &str) {
@@ -51,7 +54,7 @@ void s21::Object::ReadVertex(std::string &str) {
   }
 }
 
-void s21::Object::ReadFacet(std::string &str) {
+bool s21::Object::ReadFacet(std::string &str) {
 
   /* сдвигаем строку на 2 */
   std::string begin = str.substr(2);
@@ -79,20 +82,35 @@ void s21::Object::ReadFacet(std::string &str) {
       vertex_number = stoi(vertex_str);
     }
 
-    /* обработка отрицательных вершин */
-    if (vertex_number < 0) {
-    /* узнаем кол-во вершин */
-    int last_idx = vertex_.size();
+    try {
 
-    /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
-    vertex_number = last_idx + vertex_number;
+       if (vertex_number == 0 || vertex_number > vertex_.size()) {
+           throw std::out_of_range("Error: invalid object file");
+
+       } else {
+
+           /* обработка отрицательных вершин */
+           if (vertex_number < 0) {
+           /* узнаем кол-во вершин */
+           int last_idx = vertex_.size();
+
+           /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
+           vertex_number = last_idx + vertex_number;
+           }
+
+           facet.push_back(vertex_number);
+           edge_count_++;
+       }
+
+    } catch (const std::out_of_range &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return false;
     }
 
-    facet.push_back(vertex_number);
-    edge_count_++;
   }
 
   facet_.push_back(facet);
+  return true;
 }
 
 void s21::Object::CenterObject() {

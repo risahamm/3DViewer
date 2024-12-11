@@ -13,7 +13,7 @@ namespace s21 {
         Controller(Object *obj = nullptr) : object_(obj) {};
         ~Controller() = default;
 
-        void OpenFile(const std::string &path);
+        bool OpenFile(const std::string &path);
 
         std::vector<s21::Point> getVertices() {return object_->getVertex();};
         std::vector<std::vector<int>> getFacets() {return object_->getFacet();};

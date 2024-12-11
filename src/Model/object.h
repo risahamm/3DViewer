@@ -26,9 +26,9 @@ class Object {
    *
    * @param path путь к файлу
    */
-  void Parser(std::string path);
+  bool Parser(std::string path);
   void ReadVertex(std::string &str);
-  void ReadFacet(std::string &str);
+  bool ReadFacet(std::string &str);
   double getMaxX() { return max_vertex_x_; };
   double getMinX() { return min_vertex_x_; };
   double getMaxY() { return max_vertex_y_; };
