@@ -9,9 +9,15 @@ int main() {
 //  Obj.Parser(str);
 //  Obj.PrintFacets();
 
-  string vertex_str = "8854/23";
+  string vertex_str = "8854 23/454";
 
-  size_t pos = vertex_str.find('/'); // || vertex_str.find(' ');
+//  size_t pos = vertex_str.find('/'); // || vertex_str.find(' ');
+
+  size_t pos_slash = vertex_str.find('/');
+  size_t pos_space = vertex_str.find(' ');
+
+  // Находим первый разделитель
+  size_t pos = std::min(pos_slash, pos_space);
 
   std::cout << "pos = " << pos << endl;
 

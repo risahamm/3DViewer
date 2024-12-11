@@ -67,31 +67,33 @@ void s21::Object::ReadFacet(std::string &str) {
 
   /* пока есть данные для считывания */
   while (iss >> vertex_str) {
-    /* ищем разделитель '/' или ' ' */
+
+    /* ищем разделитель '/' */
     size_t pos_slash = vertex_str.find('/');
-    size_t pos_space = vertex_str.find(' ');
 
-    // Находим первый разделитель
-    size_t pos = std::min(pos_slash, pos_space);
+    if (pos_slash != std::string::npos) {
 
-    if (pos != std::string::npos) {
       /* считываем число от 0 индекса до разделителя */
-      vertex_number = stoi(vertex_str.substr(0, pos));
+      vertex_number = stoi(vertex_str.substr(0, pos_slash));
 
-      /* обработка отрицательных вершин */
-      if (vertex_number < 0) {
-        /* узнаем кол-во вершин */
-        int last_idx = vertex_.size();
-
-        /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение
-         */
-        vertex_number = last_idx + vertex_number;
-      }
-
-      facet.push_back(vertex_number);
-      edge_count_++;
+      /* если разделителя нет, значит считанное число и есть номер вершины */
+    } else {
+      vertex_number = stoi(vertex_str);
     }
+
+    /* обработка отрицательных вершин */
+    if (vertex_number < 0) {
+    /* узнаем кол-во вершин */
+    int last_idx = vertex_.size();
+
+    /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
+    vertex_number = last_idx + vertex_number;
+    }
+
+    facet.push_back(vertex_number);
+    edge_count_++;
   }
+
   facet_.push_back(facet);
 }
 
