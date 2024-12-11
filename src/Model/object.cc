@@ -26,9 +26,7 @@ void s21::Object::Parser(std::string path) {
       my_file.close();
 
       SetMaxCoordinates();
-      //      PrintVertices();
       CenterObject();
-      //      PrintVertices();
     }
 
   } catch (const std::runtime_error &e) {
@@ -73,7 +71,7 @@ void s21::Object::ReadFacet(std::string &str) {
 
     if (pos_slash != std::string::npos) {
 
-      /* считываем число от 0 индекса до разделителя */
+      /* считываем число от 0-индекса до разделителя */
       vertex_number = stoi(vertex_str.substr(0, pos_slash));
 
       /* если разделителя нет, значит считанное число и есть номер вершины */
@@ -101,13 +99,16 @@ void s21::Object::CenterObject() {
 
   double center_x;
   double center_y;
+  double center_z;
 
   center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
   center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
+  center_z = 0 - ((max_vertex_z_ + min_vertex_z_) / 2);
 
   for (Point &i : vertex_) {
     i.x += center_x;
     i.y += center_y;
+    i.z += center_z;
   }
 
   SetMaxCoordinates();
