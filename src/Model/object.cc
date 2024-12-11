@@ -8,7 +8,7 @@ void s21::Object::Parser(std::string path) {
     my_file.open(path);
 
     if (!my_file.is_open()) {
-      throw std::runtime_error("Не удалось открыть файл " + path);
+      throw std::runtime_error("Failed to open file " + path);
 
     } else {
       std::string str;
@@ -30,7 +30,7 @@ void s21::Object::Parser(std::string path) {
     }
 
   } catch (const std::runtime_error &e) {
-    std::cerr << "Ошибка: " << e.what() << std::endl;
+    std::cerr << "Error: " << e.what() << std::endl;
     return;
   }
 }
@@ -178,7 +178,7 @@ void s21::Object::Clear() {
 void s21::Object::PrintVertices() {
 
   int number = 0;
-  //  for (Point i : vertex_) {
+  //  for (Point &i : vertex_) {
   //    std::cout << "Vertex number " << number++ << ":"
   //              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
   //  }
@@ -195,9 +195,9 @@ void s21::Object::PrintVertices() {
 
 void s21::Object::PrintFacets() {
   int number = 1;
-  for (std::vector<int> i : facet_) {
+  for (std::vector<int> &i : facet_) {
     std::cout << "Facet number " << number++ << ". Vertices:";
-    for (int j : i) {
+    for (int &j : i) {
       std::cout << "\t" << j << " ";
     }
     std::cout << std::endl;
