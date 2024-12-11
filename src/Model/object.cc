@@ -69,43 +69,47 @@ bool s21::Object::ReadFacet(std::string &str) {
   /* пока есть данные для считывания */
   while (iss >> vertex_str) {
 
-    /* ищем разделитель '/' */
-    size_t pos_slash = vertex_str.find('/');
+   /* если в строке находится число */
+   if(std::isdigit(vertex_str.at(0)) || (vertex_str.at(0) == '-' && std::isdigit(vertex_str.at(1)))) {
 
-    if (pos_slash != std::string::npos) {
+        /* ищем разделитель '/' */
+        size_t pos_slash = vertex_str.find('/');
 
-      /* считываем число от 0-индекса до разделителя */
-      vertex_number = stoi(vertex_str.substr(0, pos_slash));
+        if (pos_slash != std::string::npos) {
 
-      /* если разделителя нет, значит считанное число и есть номер вершины */
-    } else {
-      vertex_number = stoi(vertex_str);
-    }
+          /* считываем число от 0-индекса до разделителя */
+          vertex_number = stoi(vertex_str.substr(0, pos_slash));
 
-    try {
+          /* если разделителя нет, значит считанное число и есть номер вершины */
+        } else {
+          vertex_number = stoi(vertex_str);
+        }
 
-       if (vertex_number == 0 || vertex_number > vertex_.size()) {
-           throw std::out_of_range("Error: invalid object file");
+        try {
 
-       } else {
+           if (vertex_number == 0 || vertex_number > vertex_count_) {
+               throw std::out_of_range("Error: invalid object file");
 
-           /* обработка отрицательных вершин */
-           if (vertex_number < 0) {
-           /* узнаем кол-во вершин */
-           int last_idx = vertex_.size();
+           } else {
 
-           /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
-           vertex_number = last_idx + vertex_number;
+               /* обработка отрицательных вершин */
+               if (vertex_number < 0) {
+               /* узнаем кол-во вершин */
+               int last_idx = vertex_.size();
+
+               /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
+               vertex_number = last_idx + vertex_number;
+               }
+
+               facet.push_back(vertex_number);
+               edge_count_++;
            }
 
-           facet.push_back(vertex_number);
-           edge_count_++;
-       }
-
-    } catch (const std::out_of_range &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return false;
-    }
+        } catch (const std::out_of_range &e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            return false;
+        }
+   }
 
   }
 
