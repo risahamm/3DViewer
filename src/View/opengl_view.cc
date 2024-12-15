@@ -88,19 +88,19 @@ void Object3d::SetUpPerspective() {
 
 void Object3d::SetUpBackgroundColor() {
 
-    GLfloat red = static_cast<GLfloat>(view_->current_settings.background_color.red);
-    GLfloat green = static_cast<GLfloat>(view_->current_settings.background_color.green);
-    GLfloat blue = static_cast<GLfloat>(view_->current_settings.background_color.blue);
-    GLfloat alpha = static_cast<GLfloat>(view_->current_settings.background_color.alpha);
+    GLfloat red = static_cast<GLfloat>(view_->current_settings.background_color.redF());
+    GLfloat green = static_cast<GLfloat>(view_->current_settings.background_color.greenF());
+    GLfloat blue = static_cast<GLfloat>(view_->current_settings.background_color.blueF());
+    GLfloat alpha = static_cast<GLfloat>(view_->current_settings.background_color.alphaF());
 
     glClearColor(red, green, blue, alpha);
 }
 
-void Object3d::SetUpPaintColor(View::Color color) {
+void Object3d::SetUpPaintColor(QColor color) {
 
-    GLfloat red = static_cast<GLfloat>(color.red);
-    GLfloat green = static_cast<GLfloat>(color.green);
-    GLfloat blue = static_cast<GLfloat>(color.blue);
+    GLfloat red = static_cast<GLfloat>(color.redF());
+    GLfloat green = static_cast<GLfloat>(color.greenF());
+    GLfloat blue = static_cast<GLfloat>(color.blueF());
 
     glColor3f(red, green, blue);
 }

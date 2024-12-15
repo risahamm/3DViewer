@@ -32,7 +32,7 @@ private:
 
     void SetUpPerspective();
     void SetUpBackgroundColor();
-    void SetUpPaintColor(View::Color color);
+    void SetUpPaintColor(QColor color);
     void SetUpLineStyle();
     void SetUpVertexStyle();
 

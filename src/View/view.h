@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QColor>
 #include <QColorDialog>
+#include <QSettings>
 #include "Controller/controller.h"
 
 
@@ -41,22 +42,15 @@ public:
         no_vertex
     };
 
-    struct Color {
-        float red;
-        float green;
-        float blue;
-        float alpha;
-    };
-
     struct Settings {
         View::Perspective perspective;
         View::Line line;
         float line_size;
-        View::Color line_color;
+        QColor line_color;
         View::Vertex vertex;
         float vertex_size;
-        View::Color vertex_color;
-        View::Color background_color;
+        QColor vertex_color;
+        QColor background_color;
     };
 
     View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
@@ -72,12 +66,11 @@ public:
 
 private slots:
 
-    void on_Open_clicked();
+    void OpenClicked();
     void PerspectiveSelected(View::Perspective perspective);
     void LineViewSelected(View::Line line);
     void VertexViewSelected(View::Vertex vertex);
-    View::Color SetColor();
-    View::Color SetColor(QColor color);
+    QColor SetColor();
 
 private:
 
@@ -85,7 +78,10 @@ private:
     Ui::View *ui_;
     QString object_path_;
 
+    QSettings *app_settings_;
 
+    void SaveSettings();
+    void LoadSettings();
 
 };
 #endif // VIEW_H
