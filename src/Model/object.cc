@@ -72,21 +72,11 @@ bool s21::Object::ReadFacet(std::string &str) {
    /* если в строке находится число */
    if(std::isdigit(vertex_str.at(0)) || (vertex_str.at(0) == '-' && std::isdigit(vertex_str.at(1)))) {
 
-        /* ищем разделитель '/' */
-        size_t pos_slash = vertex_str.find('/');
-
-        if (pos_slash != std::string::npos) {
-
-          /* считываем число от 0-индекса до разделителя */
-          vertex_number = stoi(vertex_str.substr(0, pos_slash));
-
-          /* если разделителя нет, значит считанное число и есть номер вершины */
-        } else {
-          vertex_number = stoi(vertex_str);
-        }
+        vertex_number = stoi(vertex_str);
 
         try {
 
+           /* проевряем, что не индекс вершины не превышает кол-во вершин */
            if (vertex_number == 0 || vertex_number > vertex_count_) {
                throw std::out_of_range("Error: invalid object file");
 
