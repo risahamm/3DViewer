@@ -4,7 +4,7 @@
 View::View(QWidget *parent, s21::Controller *controller)
         : QMainWindow(parent),
           controller_(controller),
-          app_settings_(new QSettings("s21Soft", "3D Viewer")),
+          user_settings_(new QSettings("s21Soft", "3D Viewer")),
           ui_(new Ui::View) {
 
     ui_->setupUi(this);
@@ -164,23 +164,23 @@ QColor View::SetColor() {
 
 void View::SaveSettings() {
 
-    app_settings_->setValue("ortho_proj_button_checked", ui_->ortho_proj_button->isChecked());
-    app_settings_->setValue("parall_proj_button_checked", ui_->parall_proj_button->isChecked());
-    app_settings_->setValue("solid_line_button_checked", ui_->solid_line_button->isChecked());
-    app_settings_->setValue("dashed_line_button_checked", ui_->dashed_line_button->isChecked());
-    app_settings_->setValue("dot_vertex_button_checked", ui_->dot_vertex_button->isChecked());
-    app_settings_->setValue("square_vertex_button_checked", ui_->square_vertex_button->isChecked());
-    app_settings_->setValue("no_vertex_button_checked", ui_->no_vertex_button->isChecked());
+    user_settings_->setValue("ortho_proj_button_checked", ui_->ortho_proj_button->isChecked());
+    user_settings_->setValue("parall_proj_button_checked", ui_->parall_proj_button->isChecked());
+    user_settings_->setValue("solid_line_button_checked", ui_->solid_line_button->isChecked());
+    user_settings_->setValue("dashed_line_button_checked", ui_->dashed_line_button->isChecked());
+    user_settings_->setValue("dot_vertex_button_checked", ui_->dot_vertex_button->isChecked());
+    user_settings_->setValue("square_vertex_button_checked", ui_->square_vertex_button->isChecked());
+    user_settings_->setValue("no_vertex_button_checked", ui_->no_vertex_button->isChecked());
 
-    app_settings_->setValue("projection", static_cast<int>(current_settings.perspective));
-    app_settings_->setValue("line_type", static_cast<int>(current_settings.line));
-    app_settings_->setValue("line_size", ui_->edge_size_slider->value());
-    app_settings_->setValue("vertex_type", static_cast<int>(current_settings.vertex));
-    app_settings_->setValue("vertex_size", ui_->vertex_size_slider->value());
+    user_settings_->setValue("projection", static_cast<int>(current_settings.perspective));
+    user_settings_->setValue("line_type", static_cast<int>(current_settings.line));
+    user_settings_->setValue("line_size", ui_->edge_size_slider->value());
+    user_settings_->setValue("vertex_type", static_cast<int>(current_settings.vertex));
+    user_settings_->setValue("vertex_size", ui_->vertex_size_slider->value());
 
-    app_settings_->setValue("line_color", current_settings.line_color.name());
-    app_settings_->setValue("vertex_color", current_settings.vertex_color.name());
-    app_settings_->setValue("background_color", current_settings.background_color.name());
+    user_settings_->setValue("line_color", current_settings.line_color.name());
+    user_settings_->setValue("vertex_color", current_settings.vertex_color.name());
+    user_settings_->setValue("background_color", current_settings.background_color.name());
 
 }
 
@@ -188,25 +188,25 @@ void View::SaveSettings() {
 void View::LoadSettings() {
 
     /* второй параметр - настройки по умолчанию */
-    ui_->ortho_proj_button->setChecked(app_settings_->value("ortho_proj_button_checked", true).toBool());
-    ui_->parall_proj_button->setChecked(app_settings_->value("parall_proj_button_checked", false).toBool());
-    ui_->solid_line_button->setChecked(app_settings_->value("solid_line_button_checked", true).toBool());
-    ui_->dashed_line_button->setChecked(app_settings_->value("dashed_line_button_checked", false).toBool());
-    ui_->dot_vertex_button->setChecked(app_settings_->value("dot_vertex_button_checked", true).toBool());
-    ui_->square_vertex_button->setChecked(app_settings_->value("square_vertex_button_checked", false).toBool());
-    ui_->no_vertex_button->setChecked(app_settings_->value("no_vertex_button_checked", false).toBool());
+    ui_->ortho_proj_button->setChecked(user_settings_->value("ortho_proj_button_checked", true).toBool());
+    ui_->parall_proj_button->setChecked(user_settings_->value("parall_proj_button_checked", false).toBool());
+    ui_->solid_line_button->setChecked(user_settings_->value("solid_line_button_checked", true).toBool());
+    ui_->dashed_line_button->setChecked(user_settings_->value("dashed_line_button_checked", false).toBool());
+    ui_->dot_vertex_button->setChecked(user_settings_->value("dot_vertex_button_checked", true).toBool());
+    ui_->square_vertex_button->setChecked(user_settings_->value("square_vertex_button_checked", false).toBool());
+    ui_->no_vertex_button->setChecked(user_settings_->value("no_vertex_button_checked", false).toBool());
 
-    current_settings.perspective = static_cast<View::Perspective>(app_settings_->value("projection", static_cast<int>(View::Perspective::ortho)).toInt());
-    current_settings.line = static_cast<View::Line>(app_settings_->value("line_type", static_cast<int>(View::Line::solid)).toInt());
-    current_settings.line_size = app_settings_->value("line_size", 2).toFloat();
-    ui_->edge_size_slider->setValue(app_settings_->value("line_size", 2).toInt());
-    current_settings.vertex = static_cast<View::Vertex>(app_settings_->value("vertex_type", static_cast<int>(View::Vertex::dot)).toInt());
-    current_settings.vertex_size = app_settings_->value("vertex_size", 2).toFloat();
-    ui_->vertex_size_slider->setValue(app_settings_->value("vertex_size", 2).toInt());
+    current_settings.perspective = static_cast<View::Perspective>(user_settings_->value("projection", static_cast<int>(View::Perspective::ortho)).toInt());
+    current_settings.line = static_cast<View::Line>(user_settings_->value("line_type", static_cast<int>(View::Line::solid)).toInt());
+    current_settings.line_size = user_settings_->value("line_size", 2).toFloat();
+    ui_->edge_size_slider->setValue(user_settings_->value("line_size", 2).toInt());
+    current_settings.vertex = static_cast<View::Vertex>(user_settings_->value("vertex_type", static_cast<int>(View::Vertex::dot)).toInt());
+    current_settings.vertex_size = user_settings_->value("vertex_size", 2).toFloat();
+    ui_->vertex_size_slider->setValue(user_settings_->value("vertex_size", 2).toInt());
 
-    current_settings.line_color = QColor(app_settings_->value("line_color", "#FFFFFF").toString()); // white
-    current_settings.vertex_color = QColor(app_settings_->value("vertex_color", "#FFFFFF").toString()); // white
-    current_settings.background_color = QColor(app_settings_->value("background_color", "#000000").toString()); // black
+    current_settings.line_color = QColor(user_settings_->value("line_color", "#FFFFFF").toString()); // white
+    current_settings.vertex_color = QColor(user_settings_->value("vertex_color", "#FFFFFF").toString()); // white
+    current_settings.background_color = QColor(user_settings_->value("background_color", "#000000").toString()); // black
 
 }
 

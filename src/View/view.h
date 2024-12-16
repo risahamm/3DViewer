@@ -78,7 +78,7 @@ private:
     Ui::View *ui_;
     QString object_path_;
 
-    QSettings *app_settings_;
+    QSettings *user_settings_;
 
     void SaveSettings();
     void LoadSettings();
