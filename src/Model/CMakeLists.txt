@@ -9,4 +9,10 @@ add_executable(3DViewer
         main_test.cc
         ../Controller/controller.h
         ../Controller/controller.cc
+        transformations.cc
+        transformations.h
+        move_object.cc
+        move_object.h
+        zoom_object.cc
+        zoom_object.h
 )

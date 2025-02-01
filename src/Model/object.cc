@@ -163,6 +163,12 @@ void s21::Object::SetMaxCoordinates() {
   }
 }
 
+
+void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class, double value_x, double value_y, double value_z) {
+
+  modify_class->Modify(value_x, value_y, value_z);
+}
+
 void s21::Object::Clear() {
 
   /* очистим vertex_ и добавим нулевую вершину */

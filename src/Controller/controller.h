@@ -2,6 +2,9 @@
 #define CONTROLLER_H
 
 #include "../Model/object.h"
+#include "../Model/transformations.h"
+#include "../Model/move_object.h"
+#include "../Model/zoom_object.h"
 
 //class 3dViewer;
 
@@ -28,12 +31,22 @@ namespace s21 {
         double getMaxCoordinateZ() {return object_->getMaxZ();};
         double getMinCoordinateZ() {return object_->getMinZ();};
 
+        void MoveXRight(double value);
+        void MoveXLeft(double value);
+        void MoveYUp(double value);
+        void MoveYDown(double value);
+        void MoveZForward(double value);
+        void MoveZBackward(double value);
+
         void ClearObject() { object_->Clear();}
 
 
     private:
 
+     std::unique_ptr<TransformationsBaseClass> modify_class;
+
         Object *object_;
+
     };
 } // namespace s21
 

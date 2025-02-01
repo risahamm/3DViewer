@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include "transformations.h"
 
 namespace s21 {
 
@@ -29,19 +30,22 @@ class Object {
   bool Parser(std::string path);
   void ReadVertex(std::string &str);
   bool ReadFacet(std::string &str);
-  double getMaxX() { return max_vertex_x_; };
-  double getMinX() { return min_vertex_x_; };
-  double getMaxY() { return max_vertex_y_; };
-  double getMinY() { return min_vertex_y_; };
-  double getMaxZ() { return max_vertex_z_; };
-  double getMinZ() { return min_vertex_z_; };
+
+  double getMaxX() const { return max_vertex_x_; };
+  double getMinX() const { return min_vertex_x_; };
+  double getMaxY() const { return max_vertex_y_; };
+  double getMinY() const { return min_vertex_y_; };
+  double getMaxZ() const { return max_vertex_z_; };
+  double getMinZ() const { return min_vertex_z_; };
 
   std::vector<Point> getVertex() { return vertex_; }
+  std::vector<Point>& getVertexRef() { return vertex_; }
   std::vector<std::vector<int>> getFacet() { return facet_; }
 
-  int getVertexCount() { return vertex_count_; }
+  int getVertexCount() const { return vertex_count_; }
+  int getEdgeCount() const { return edge_count_; }
 
-  int getEdgeCount() { return edge_count_; }
+  void Modify(std::unique_ptr<TransformationsBaseClass> modify_class, double value_x, double value_y, double value_z);
 
   void Clear();
 
