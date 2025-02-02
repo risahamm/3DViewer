@@ -1,13 +1,15 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <memory>
 #include <string>
 #include <vector>
-#include <cmath>
-#include "transformations.h"
+
+#include "Transformations/transformations.h"
 
 namespace s21 {
 
@@ -38,9 +40,9 @@ class Object {
   double getMaxZ() const { return max_vertex_z_; };
   double getMinZ() const { return min_vertex_z_; };
 
-  std::vector<Point> getVertex() { return vertex_; }
-  std::vector<Point>& getVertexRef() { return vertex_; }
-  std::vector<std::vector<int>> getFacet() { return facet_; }
+  std::vector<Point> getVertex() { return vertices_; }
+  std::vector<Point>& getVertexRef() { return vertices_; }
+  std::vector<std::vector<int>> getFacet() { return facets_; }
 
   int getVertexCount() const { return vertex_count_; }
   int getEdgeCount() const { return edge_count_; }
@@ -54,8 +56,8 @@ class Object {
   void PrintFacets();
 
  private:
-  std::vector<Point> vertex_;
-  std::vector<std::vector<int>> facet_;
+  std::vector<Point> vertices_;
+  std::vector<std::vector<int>> facets_;
   int vertex_count_ = 0;
   int edge_count_ = 0;
 

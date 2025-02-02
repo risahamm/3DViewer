@@ -1,19 +1,17 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "../Model/Transformations/move_object.h"
+#include "../Model/Transformations/transformations.h"
+#include "../Model/Transformations/zoom_object.h"
 #include "../Model/object.h"
-#include "../Model/transformations.h"
-#include "../Model/move_object.h"
-#include "../Model/zoom_object.h"
-
-//class 3dViewer;
 
 namespace s21 {
     class Controller {
 
     public:
 
-        Controller(Object *obj = nullptr) : object_(obj) {};
+        explicit Controller(Object *obj = nullptr) : object_(obj) {};
         ~Controller() = default;
 
         bool OpenFile(const std::string &path);
@@ -43,9 +41,7 @@ namespace s21 {
 
     private:
 
-     std::unique_ptr<TransformationsBaseClass> modify_class;
-
-        Object *object_;
+      Object *object_;
 
     };
 } // namespace s21

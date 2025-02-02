@@ -45,11 +45,11 @@ void s21::Object::ReadVertex(std::string &str) {
 
   /* создаем поток для считывания */
   std::istringstream iss(begin);
-  Point point;
+  Point point{};
 
   /* считываем по разделителю ' ' и кладем в Point */
   if (iss >> point.x >> point.y >> point.z) {
-    vertex_.push_back(point);
+    vertices_.push_back(point);
     vertex_count_++;
   }
 }
@@ -85,7 +85,7 @@ bool s21::Object::ReadFacet(std::string &str) {
                /* обработка отрицательных вершин */
                if (vertex_number < 0) {
                /* узнаем кол-во вершин */
-               int last_idx = vertex_.size();
+               int last_idx = vertices_.size();
 
                /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
                vertex_number = last_idx + vertex_number;
@@ -103,21 +103,17 @@ bool s21::Object::ReadFacet(std::string &str) {
 
   }
 
-  facet_.push_back(facet);
+  facets_.push_back(facet);
   return true;
 }
 
 void s21::Object::CenterObject() {
 
-  double center_x;
-  double center_y;
-  double center_z;
+  double center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
+  double center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
+  double center_z = 0 - ((max_vertex_z_ + min_vertex_z_) / 2);
 
-  center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
-  center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
-  center_z = 0 - ((max_vertex_z_ + min_vertex_z_) / 2);
-
-  for (Point &i : vertex_) {
+  for (Point &i : vertices_) {
     i.x += center_x;
     i.y += center_y;
     i.z += center_z;
@@ -136,29 +132,29 @@ void s21::Object::SetMaxCoordinates() {
   min_vertex_z_ = INFINITY;
 
   //    for(Point point : vertex_) {
-  for (int i = 1; i < vertex_.size(); i++) {
-    if (vertex_[i].x > max_vertex_x_) {
-      max_vertex_x_ = vertex_[i].x;
+  for (int i = 1; i < vertices_.size(); i++) {
+    if (vertices_[i].x > max_vertex_x_) {
+      max_vertex_x_ = vertices_[i].x;
     }
 
-    if (vertex_[i].x < min_vertex_x_) {
-      min_vertex_x_ = vertex_[i].x;
+    if (vertices_[i].x < min_vertex_x_) {
+      min_vertex_x_ = vertices_[i].x;
     }
 
-    if (vertex_[i].y > max_vertex_y_) {
-      max_vertex_y_ = vertex_[i].y;
+    if (vertices_[i].y > max_vertex_y_) {
+      max_vertex_y_ = vertices_[i].y;
     }
 
-    if (vertex_[i].y < min_vertex_y_) {
-      min_vertex_y_ = vertex_[i].y;
+    if (vertices_[i].y < min_vertex_y_) {
+      min_vertex_y_ = vertices_[i].y;
     }
 
-    if (vertex_[i].z > max_vertex_z_) {
-      max_vertex_z_ = vertex_[i].z;
+    if (vertices_[i].z > max_vertex_z_) {
+      max_vertex_z_ = vertices_[i].z;
     }
 
-    if (vertex_[i].z < min_vertex_z_) {
-      min_vertex_z_ = vertex_[i].z;
+    if (vertices_[i].z < min_vertex_z_) {
+      min_vertex_z_ = vertices_[i].z;
     }
   }
 }
@@ -172,15 +168,15 @@ void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
 void s21::Object::Clear() {
 
   /* очистим vertex_ и добавим нулевую вершину */
-  vertex_.clear();
+  vertices_.clear();
 
-  Point zero_point;  ///< нулевая вершина-заглушка
+  Point zero_point{};  ///< нулевая вершина-заглушка
   zero_point.x = 0;
   zero_point.y = 0;
   zero_point.z = 0;
-  vertex_.push_back(zero_point);
+  vertices_.push_back(zero_point);
 
-  facet_.clear();
+  facets_.clear();
   vertex_count_ = 0;
   edge_count_ = 0;
 
@@ -213,7 +209,7 @@ void s21::Object::PrintVertices() {
 
 void s21::Object::PrintFacets() {
   int number = 1;
-  for (std::vector<int> &i : facet_) {
+  for (std::vector<int> &i : facets_) {
     std::cout << "Facet number " << number++ << ". Vertices:";
     for (int &j : i) {
       std::cout << "\t" << j << " ";

@@ -1,7 +1,7 @@
 #ifndef VIEWER_TRANSFORMATIONS_H
 #define VIEWER_TRANSFORMATIONS_H
 
-#include "object.h"
+#include "../object.h"
 
 class TransformationsBaseClass {
 

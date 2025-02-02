@@ -6,13 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(3DViewer
         object.cc
         object.h
-        main_test.cc
+        ../main_test.cc
         ../Controller/controller.h
         ../Controller/controller.cc
-        transformations.cc
-        transformations.h
-        move_object.cc
-        move_object.h
-        zoom_object.cc
-        zoom_object.h
+        Transformations/transformations.cc
+        Transformations/transformations.h
+        Transformations/move_object.cc
+        Transformations/move_object.h
+        Transformations/zoom_object.cc
+        Transformations/zoom_object.h
 )

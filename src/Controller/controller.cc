@@ -1,18 +1,36 @@
 #include "controller.h"
 
 bool s21::Controller::OpenFile(const std::string &path) {
-    return object_->Parser(path);
+  return object_->Parser(path);
 }
 
 
 void s21::Controller::MoveXRight(double value) {
-
-    modify_class = std::make_unique<MoveObject>(object_);
-//    object_->Modify(std::make_unique<MoveObject>(this->object_), value, 0, 0);
+  object_->Modify(std::make_unique<MoveObject>(object_), value, 0, 0);
 }
-//void s21::Controller::MoveY(double value) {
-//
-//}
-//void s21::Controller::MoveZ(double value) {
-//
-//}
+
+
+void s21::Controller::MoveXLeft(double value) {
+  object_->Modify(std::make_unique<MoveObject>(object_), -value, 0, 0);
+}
+
+
+void s21::Controller::MoveYUp(double value) {
+  object_->Modify(std::make_unique<MoveObject>(object_), 0, value, 0);
+}
+
+
+void s21::Controller::MoveYDown(double value) {
+  object_->Modify(std::make_unique<MoveObject>(object_), 0, -value, 0);
+}
+
+
+void s21::Controller::MoveZForward(double value) {
+  object_->Modify(std::make_unique<MoveObject>(object_), 0, 0, value);
+}
+
+
+void s21::Controller::MoveZBackward(double value) {
+  object_->Modify(std::make_unique<MoveObject>(object_), 0, 0, -value);
+}
+
