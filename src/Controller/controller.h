@@ -16,8 +16,8 @@ namespace s21 {
 
         bool OpenFile(const std::string &path);
 
-        std::vector<s21::Point> getVertices() {return object_->getVertex();};
-        std::vector<std::vector<int>> getFacets() {return object_->getFacet();};
+        std::vector<s21::Point> getVertices() {return object_->getVertices();};
+        std::vector<std::vector<int>> getFacets() {return object_->getFacets();};
 
         int getVerticesCount() {return object_->getVertexCount(); };
         int getEdgesCount() {return object_->getEdgeCount();};
@@ -36,7 +36,7 @@ namespace s21 {
         void MoveZForward(double value);
         void MoveZBackward(double value);
 
-        void ClearObject() { object_->Clear();}
+        // void ClearObject() { object_->Clear();}
 
 
     private:

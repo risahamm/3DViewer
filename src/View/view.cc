@@ -80,7 +80,7 @@ void View::OpenClicked() {
     int last_slash_idx = object_path_.lastIndexOf('/');
     ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
 
-    controller_->ClearObject();
+//    controller_->ClearObject();
 
     /* если файл обработан успешно */
     if (controller_->OpenFile(object_path_.toStdString())) {

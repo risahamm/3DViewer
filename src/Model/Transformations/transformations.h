@@ -3,20 +3,24 @@
 
 #include "../object.h"
 
-class TransformationsBaseClass {
+namespace s21 {
 
- public:
+  class TransformationsBaseClass {
 
-  TransformationsBaseClass(s21::Object *obj = nullptr) : object_(obj) {};
-  virtual ~TransformationsBaseClass() = default;
+   public:
 
-  virtual void Modify(double x, double y, double z) = 0;
+    TransformationsBaseClass(s21::Object *obj = nullptr) : object_(obj) {};
+    virtual ~TransformationsBaseClass() = default;
 
- protected:
+    virtual void Modify(double x, double y, double z) = 0;
 
-  s21::Object *object_;
+   protected:
 
-};
+    s21::Object *object_;
+
+  };
+
+} // namespace s21
 
 #endif  // VIEWER_TRANSFORMATIONS_H
 

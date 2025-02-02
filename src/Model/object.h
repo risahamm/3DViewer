@@ -14,9 +14,17 @@
 namespace s21 {
 
 struct Point {
+
   double x;
   double y;
   double z;
+
+  Point() : x(0), y(0), z(0) {};
+  Point(double x_val, double y_val, double z_val) : x(x_val), y(y_val), z(z_val) {};
+
+  bool operator==(const Point &other) const {
+    return (x == other.x && y == other.y && z == other.z);
+  }
 };
 
 class Object {
@@ -29,7 +37,7 @@ class Object {
    *
    * @param path путь к файлу
    */
-  bool Parser(std::string path);
+  bool Parse(std::string path);
   void ReadVertex(std::string &str);
   bool ReadFacet(std::string &str);
 
@@ -40,9 +48,9 @@ class Object {
   double getMaxZ() const { return max_vertex_z_; };
   double getMinZ() const { return min_vertex_z_; };
 
-  std::vector<Point> getVertex() { return vertices_; }
-  std::vector<Point>& getVertexRef() { return vertices_; }
-  std::vector<std::vector<int>> getFacet() { return facets_; }
+  std::vector<Point> getVertices() { return vertices_; }
+  std::vector<Point>& getVerticesRef() { return vertices_; }
+  std::vector<std::vector<int>> getFacets() { return facets_; }
 
   int getVertexCount() const { return vertex_count_; }
   int getEdgeCount() const { return edge_count_; }

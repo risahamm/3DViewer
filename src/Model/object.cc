@@ -1,9 +1,13 @@
 #include "object.h"
 
-bool s21::Object::Parser(std::string path) {
+bool s21::Object::Parse(std::string path) {
 
   bool ret_code = true;
   std::ifstream my_file;
+
+  /* обнулим данные объекта */
+  Clear();
+
   my_file.open(path);
 
   try {
@@ -45,7 +49,7 @@ void s21::Object::ReadVertex(std::string &str) {
 
   /* создаем поток для считывания */
   std::istringstream iss(begin);
-  Point point{};
+  Point point;
 
   /* считываем по разделителю ' ' и кладем в Point */
   if (iss >> point.x >> point.y >> point.z) {
@@ -170,10 +174,7 @@ void s21::Object::Clear() {
   /* очистим vertex_ и добавим нулевую вершину */
   vertices_.clear();
 
-  Point zero_point{};  ///< нулевая вершина-заглушка
-  zero_point.x = 0;
-  zero_point.y = 0;
-  zero_point.z = 0;
+  Point zero_point;  ///< нулевая вершина-заглушка
   vertices_.push_back(zero_point);
 
   facets_.clear();

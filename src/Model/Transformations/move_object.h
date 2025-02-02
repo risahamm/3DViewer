@@ -3,14 +3,16 @@
 
 #include "transformations.h"
 
-class MoveObject : public TransformationsBaseClass {
+namespace s21 {
+  class MoveObject : public TransformationsBaseClass {
 
- public:
+  public:
 
-  MoveObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
+    MoveObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
 
-  void Modify(double x, double y, double z) override;
+    void Modify(double x, double y, double z) override;
 
-};
+  };
+} // namespace s21
 
 #endif  // VIEWER_MOVE_OBJECT_H

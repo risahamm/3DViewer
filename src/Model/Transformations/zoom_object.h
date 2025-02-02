@@ -3,14 +3,16 @@
 
 #include "transformations.h"
 
-class ZoomObject : public TransformationsBaseClass {
+namespace s21 {
+  class ZoomObject : public TransformationsBaseClass {
 
- public:
+  public:
 
-  ZoomObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
+    ZoomObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
 
-  void Modify(double x, double y, double z) override;
+    void Modify(double x, double y, double z) override;
 
-};
+  };
+} // namespace s21
 
 #endif  // VIEWER_ZOOM_OBJECT_H
