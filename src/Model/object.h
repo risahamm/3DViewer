@@ -9,9 +9,10 @@
 #include <string>
 #include <vector>
 
-#include "Transformations/transformations.h"
 
 namespace s21 {
+
+class TransformationsBaseClass;
 
 struct Point {
 

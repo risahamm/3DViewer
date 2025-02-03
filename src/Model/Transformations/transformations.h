@@ -3,7 +3,9 @@
 
 #include "../object.h"
 
+
 namespace s21 {
+
 
   class TransformationsBaseClass {
 
