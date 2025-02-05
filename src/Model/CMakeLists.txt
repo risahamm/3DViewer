@@ -15,5 +15,4 @@ add_executable(3DViewer
         Transformations/move_object.h
         Transformations/zoom_object.cc
         Transformations/zoom_object.h
-        object_wrapper.h
 )
