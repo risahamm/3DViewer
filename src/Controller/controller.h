@@ -2,11 +2,8 @@
 #define CONTROLLER_H
 
 #include "../Model/object.h"
-//#include "../Model/transformations.h"
 #include "../Model/Transformations/move_object.h"
 #include "../Model/Transformations/zoom_object.h"
-
-//class 3dViewer;
 
 namespace s21 {
     class Controller {
