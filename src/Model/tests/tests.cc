@@ -157,3 +157,21 @@ TEST(zoom, zoom_out) {
   std::vector<s21::Point> correct = {a, b, c, d, e, f, g, h, i};
   EXPECT_EQ(res == correct);
 }
+
+TEST(zoom, zoom_out) {
+
+  controller.OpenFile("../../object_files/cube.obj");
+  controller.ZoomOut(0);
+  std::vector<s21::Point> res = controller.getVertices();
+  s21::Point a(0, 0, 0);
+  s21::Point b(1, 1,-1);
+  s21::Point c(1, -1, -1);
+  s21::Point d(1, 1, 1);
+  s21::Point e(1, -1, 1);
+  s21::Point f(-1, 1, -1);
+  s21::Point g(-1, -1, -1);
+  s21::Point h(-1, 1, 1);
+  s21::Point i(-1, -1, 1);
+  std::vector<s21::Point> correct = {a, b, c, d, e, f, g, h, i};
+  EXPECT_EQ(res == correct);
+}
