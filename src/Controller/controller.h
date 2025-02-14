@@ -35,6 +35,9 @@ namespace s21 {
         void MoveZForward(double value);
         void MoveZBackward(double value);
 
+        void ZoomIn(double value);
+        void ZoomOut(double value);
+
         void ClearObject() { object_->Clear();}
 
 
