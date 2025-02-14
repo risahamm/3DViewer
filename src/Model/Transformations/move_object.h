@@ -9,6 +9,7 @@ namespace s21 {
   public:
 
     MoveObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
+    ~MoveObject() = default;
 
     void Modify(double x, double y, double z) override;
 

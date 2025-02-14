@@ -9,6 +9,7 @@ namespace s21 {
   public:
 
     ZoomObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
+    ~ZoomObject() = default;
 
     void Modify(double x, double y, double z) override;
 
