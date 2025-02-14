@@ -47,3 +47,33 @@ void s21::Controller::ZoomOut(double value) {
   }
 }
 
+
+void s21::Controller::RoateXUp(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), 0, value, value);
+}
+
+
+void s21::Controller::RoateXDown(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), 0, -value, -value);
+}
+
+
+void s21::Controller::RoateYRight(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), value, 0, value);
+}
+
+
+void s21::Controller::RoateYLeft(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), -value, 0, -value);
+}
+
+
+void s21::Controller::RoateZClockwise(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), value, value, 0);
+}
+
+
+void s21::Controller::RoateZCClockwise(double value){
+  object_->Modify(std::make_unique<s21::MoveObject>(object_), -value, -value, 0);
+}
+

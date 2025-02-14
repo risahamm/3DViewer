@@ -38,6 +38,13 @@ namespace s21 {
         void ZoomIn(double value);
         void ZoomOut(double value);
 
+        void RoateXUp(double value);
+        void RoateXDown(double value);
+        void RoateYRight(double value);
+        void RoateYLeft(double value);
+        void RoateZClockwise(double value);
+        void RoateZCClockwise(double value);
+
         void ClearObject() { object_->Clear();}
 
 
