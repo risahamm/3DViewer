@@ -13,6 +13,7 @@ namespace s21 {
     void Modify(double x, double y, double z) override;
 
   };
+
 } // namespace s21
 
 #endif  // VIEWER_MOVE_OBJECT_H

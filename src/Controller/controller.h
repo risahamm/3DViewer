@@ -32,11 +32,11 @@ namespace s21 {
         double getMinCoordinateZ() {return object_->getMinZ();};
 
         void MoveXRight(double value);
-        void MoveXLeft(double value);
-        void MoveYUp(double value);
-        void MoveYDown(double value);
-        void MoveZForward(double value);
-        void MoveZBackward(double value);
+        // void MoveXLeft(double value);
+        // void MoveYUp(double value);
+        // void MoveYDown(double value);
+        // void MoveZForward(double value);
+        // void MoveZBackward(double value);
 
         void ClearObject() { object_->Clear();}
 

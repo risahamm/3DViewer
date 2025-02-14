@@ -1,5 +1,7 @@
 #include "object.h"
 
+#include "Transformations/transformations.h"
+
 bool s21::Object::Parse(std::string path) {
 
   bool ret_code = true;
