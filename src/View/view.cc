@@ -188,10 +188,10 @@ void View::LoadSettings() {
 void View::ConnectButtons() {
 
     connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
-    connect(ui_->moveYplus, &QPushButton::clicked, this, &View::MoveUpClicked);
-    connect(ui_->moveYminus, &QPushButton::clicked, this, &View::MoveDownClicked);
-    connect(ui_->moveXplus, &QPushButton::clicked, this, &View::MoveRightClicked);
-    connect(ui_->moveXminus, &QPushButton::clicked, this, &View::MoveLeftClicked);
+    connect(ui_->moveYplus, &QPushButton::pressed, this, &View::MoveUpClicked);
+    connect(ui_->moveYminus, &QPushButton::pressed, this, &View::MoveDownClicked);
+    connect(ui_->moveXplus, &QPushButton::pressed, this, &View::MoveRightClicked);
+    connect(ui_->moveXminus, &QPushButton::pressed, this, &View::MoveLeftClicked);
 
     connect(ui_->background_color_button, &QPushButton::clicked, this, [this]() {
       current_settings.background_color = SetColor();

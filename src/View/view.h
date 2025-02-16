@@ -9,6 +9,7 @@
 #include <QSettings>
 #include <QString>
 #include <QVBoxLayout>
+#include <QTimer>
 
 #include "Controller/controller.h"
 
@@ -64,6 +65,8 @@ class View : public QMainWindow {
   void MoveDownClicked();
   void MoveRightClicked();
   void MoveLeftClicked();
+//  void ZoomInClicked();
+//  void ZoomOutClicked();
 
  private:
   s21::Controller *controller_;
@@ -71,6 +74,8 @@ class View : public QMainWindow {
   QString object_path_;
 
   QSettings *user_settings_;
+
+  QTimer action_tmr_;
 
   double x_step_; ///< шаг для move
   double y_step_;
