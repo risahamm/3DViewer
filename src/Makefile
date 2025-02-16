@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++17
 
 test: clean
-	$(CC) $(CFLAGS) --coverage Model/tests/*.cc Model/*.cc Model/Transformations/*.cc -lgtest -lgtest_main -pthread -o test
+	$(CC) $(CFLAGS) --coverage Model/tests/tests.cc Model/object.cc Model/Transformations/*.cc Controller/controller.cc  -lgtest -lgtest_main -pthread -o test
 	./test
 
 gcov_report: test
@@ -24,9 +24,9 @@ check_style:
 	clang-format -style=Google -n main.cc
 
 fix_style:
-	clang-format -style=Google -i View/*.cc View/*.h
-	clang-format -style=Google -i Controller/*.h
-	clang-format -style=Google -i Model/*.cc Model/*.h
-	clang-format -style=Google -i Model/tests/*.cc
-	clang-format -style=Google -i Model/Transformations/*.cc
-	clang-format -style=Google -i main.cc
+	@clang-format -style=Google -i View/*.cc View/*.h
+	@clang-format -style=Google -i Controller/*.h
+	@clang-format -style=Google -i Model/*.cc Model/*.h
+	@clang-format -style=Google -i Model/tests/*.cc
+	@clang-format -style=Google -i Model/Transformations/*.cc
+	@clang-format -style=Google -i main.cc

@@ -4,24 +4,23 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
-
 
 namespace s21 {
 
 class TransformationsBaseClass;
 
 struct Point {
-
   double x;
   double y;
   double z;
 
   Point() : x(0), y(0), z(0) {};
-  Point(double x_val, double y_val, double z_val) : x(x_val), y(y_val), z(z_val) {};
+  Point(double x_val, double y_val, double z_val)
+      : x(x_val), y(y_val), z(z_val) {};
 
   bool operator==(const Point &other) const {
     return (x == other.x && y == other.y && z == other.z);
@@ -29,7 +28,6 @@ struct Point {
 };
 
 class Object {
-
  public:
   Object() = default;
   ~Object() = default;
@@ -50,13 +48,14 @@ class Object {
   double getMinZ() const { return min_vertex_z_; };
 
   std::vector<Point> getVertices() { return vertices_; }
-  std::vector<Point>& getVerticesRef() { return vertices_; }
+  std::vector<Point> &getVerticesRef() { return vertices_; }
   std::vector<std::vector<int>> getFacets() { return facets_; }
 
   int getVertexCount() const { return vertex_count_; }
   int getEdgeCount() const { return edge_count_; }
 
-  void Modify(std::unique_ptr<TransformationsBaseClass> modify_class, double value_x, double value_y, double value_z);
+  void Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
+              double value_x, double value_y, double value_z);
 
   void Clear();
 
@@ -79,7 +78,6 @@ class Object {
 
   void CenterObject();
   void SetMaxCoordinates();
-
 };
 
 }  // namespace s21

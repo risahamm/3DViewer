@@ -3,7 +3,6 @@
 #include "Transformations/transformations.h"
 
 bool s21::Object::Parse(std::string path) {
-
   bool ret_code = true;
   std::ifstream my_file;
 
@@ -13,7 +12,6 @@ bool s21::Object::Parse(std::string path) {
   my_file.open(path);
 
   try {
-
     if (!my_file.is_open()) {
       throw std::runtime_error("Failed to open file " + path);
 
@@ -45,7 +43,6 @@ bool s21::Object::Parse(std::string path) {
 }
 
 void s21::Object::ReadVertex(std::string &str) {
-
   /* сдвигаем строку на 2 */
   std::string begin = str.substr(2);
 
@@ -61,7 +58,6 @@ void s21::Object::ReadVertex(std::string &str) {
 }
 
 bool s21::Object::ReadFacet(std::string &str) {
-
   /* сдвигаем строку на 2 */
   std::string begin = str.substr(2);
 
@@ -74,39 +70,36 @@ bool s21::Object::ReadFacet(std::string &str) {
 
   /* пока есть данные для считывания */
   while (iss >> vertex_str) {
+    /* если в строке находится число */
+    if (std::isdigit(vertex_str.at(0)) ||
+        (vertex_str.at(0) == '-' && std::isdigit(vertex_str.at(1)))) {
+      vertex_number = stoi(vertex_str);
 
-   /* если в строке находится число */
-   if(std::isdigit(vertex_str.at(0)) || (vertex_str.at(0) == '-' && std::isdigit(vertex_str.at(1)))) {
+      try {
+        /* проевряем, что не индекс вершины не превышает кол-во вершин */
+        if (vertex_number == 0 || vertex_number > vertex_count_) {
+          throw std::out_of_range("Error: invalid object file");
 
-        vertex_number = stoi(vertex_str);
+        } else {
+          /* обработка отрицательных вершин */
+          if (vertex_number < 0) {
+            /* узнаем кол-во вершин */
+            int last_idx = vertices_.size();
 
-        try {
+            /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное
+             * значение */
+            vertex_number = last_idx + vertex_number;
+          }
 
-           /* проевряем, что не индекс вершины не превышает кол-во вершин */
-           if (vertex_number == 0 || vertex_number > vertex_count_) {
-               throw std::out_of_range("Error: invalid object file");
-
-           } else {
-
-               /* обработка отрицательных вершин */
-               if (vertex_number < 0) {
-               /* узнаем кол-во вершин */
-               int last_idx = vertices_.size();
-
-               /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное значение */
-               vertex_number = last_idx + vertex_number;
-               }
-
-               facet.push_back(vertex_number);
-               edge_count_++;
-           }
-
-        } catch (const std::out_of_range &e) {
-            std::cerr << "Error: " << e.what() << std::endl;
-            return false;
+          facet.push_back(vertex_number);
+          edge_count_++;
         }
-   }
 
+      } catch (const std::out_of_range &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return false;
+      }
+    }
   }
 
   facets_.push_back(facet);
@@ -114,7 +107,6 @@ bool s21::Object::ReadFacet(std::string &str) {
 }
 
 void s21::Object::CenterObject() {
-
   double center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
   double center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
   double center_z = 0 - ((max_vertex_z_ + min_vertex_z_) / 2);
@@ -129,7 +121,6 @@ void s21::Object::CenterObject() {
 }
 
 void s21::Object::SetMaxCoordinates() {
-
   max_vertex_x_ = -INFINITY;
   min_vertex_x_ = INFINITY;
   max_vertex_y_ = -INFINITY;
@@ -137,42 +128,39 @@ void s21::Object::SetMaxCoordinates() {
   max_vertex_z_ = -INFINITY;
   min_vertex_z_ = INFINITY;
 
-  //    for(Point point : vertex_) {
-  for (int i = 1; i < vertices_.size(); i++) {
-    if (vertices_[i].x > max_vertex_x_) {
-      max_vertex_x_ = vertices_[i].x;
+  for (Point &point : vertices_) {
+    if (point.x > max_vertex_x_) {
+      max_vertex_x_ = point.x;
     }
 
-    if (vertices_[i].x < min_vertex_x_) {
-      min_vertex_x_ = vertices_[i].x;
+    if (point.x < min_vertex_x_) {
+      min_vertex_x_ = point.x;
     }
 
-    if (vertices_[i].y > max_vertex_y_) {
-      max_vertex_y_ = vertices_[i].y;
+    if (point.y > max_vertex_y_) {
+      max_vertex_y_ = point.y;
     }
 
-    if (vertices_[i].y < min_vertex_y_) {
-      min_vertex_y_ = vertices_[i].y;
+    if (point.y < min_vertex_y_) {
+      min_vertex_y_ = point.y;
     }
 
-    if (vertices_[i].z > max_vertex_z_) {
-      max_vertex_z_ = vertices_[i].z;
+    if (point.z > max_vertex_z_) {
+      max_vertex_z_ = point.z;
     }
 
-    if (vertices_[i].z < min_vertex_z_) {
-      min_vertex_z_ = vertices_[i].z;
+    if (point.z < min_vertex_z_) {
+      min_vertex_z_ = point.z;
     }
   }
 }
 
-
-void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class, double value_x, double value_y, double value_z) {
-
+void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
+                         double value_x, double value_y, double value_z) {
   modify_class->Modify(value_x, value_y, value_z);
 }
 
 void s21::Object::Clear() {
-
   /* очистим vertex_ и добавим нулевую вершину */
   vertices_.clear();
 
@@ -193,9 +181,8 @@ void s21::Object::Clear() {
 /*----------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
-
-  int number = 0;
-  //  for (Point &i : vertex_) {
+  //  int number = 0;
+  //  for (Point &i : vertices_) {
   //    std::cout << "Vertex number " << number++ << ":"
   //              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
   //  }

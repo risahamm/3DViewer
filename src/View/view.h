@@ -1,87 +1,82 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include <QMainWindow>
-#include <QVBoxLayout>
-#include <QFileDialog>
-#include <QString>
-#include <QObject>
 #include <QColor>
 #include <QColorDialog>
+#include <QFileDialog>
+#include <QMainWindow>
+#include <QObject>
 #include <QSettings>
-#include "Controller/controller.h"
+#include <QString>
+#include <QVBoxLayout>
 
+#include "Controller/controller.h"
 
 namespace s21 {
 class Controller;
 }
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class View; }
+namespace Ui {
+class View;
+}
 QT_END_NAMESPACE
 
 class View : public QMainWindow {
+  Q_OBJECT
 
-    Q_OBJECT
+ public:
+  enum class Perspective { ortho, parallel };
 
-public:
+  enum class Line { solid, dashed };
 
-    enum class Perspective {
-        ortho,
-        parallel
-    };
+  enum class Vertex { dot, square, no_vertex };
 
-    enum class Line {
-        solid,
-        dashed
-    };
+  struct Settings {
+    View::Perspective perspective;
+    View::Line line;
+    float line_size;
+    QColor line_color;
+    View::Vertex vertex;
+    float vertex_size;
+    QColor vertex_color;
+    QColor background_color;
+  };
 
-    enum class Vertex {
-        dot,
-        square,
-        no_vertex
-    };
+  View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
+  ~View();
 
-    struct Settings {
-        View::Perspective perspective;
-        View::Line line;
-        float line_size;
-        QColor line_color;
-        View::Vertex vertex;
-        float vertex_size;
-        QColor vertex_color;
-        QColor background_color;
-    };
+  friend class Object3d;
 
-    View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
-    ~View();
+  Settings current_settings;  ///< текущие настройки
 
-    friend class Object3d;
+  Ui::View *GetUiPtr() { return ui_; }
 
-    Settings current_settings; ///< текущие настройки
+ private slots:
 
-    Ui::View* GetUiPtr() { return ui_;}
+  void OpenClicked();
+  void PerspectiveSelected(View::Perspective perspective);
+  void LineViewSelected(View::Line line);
+  void VertexViewSelected(View::Vertex vertex);
+  QColor SetColor();
 
+  void MoveUpClicked();
+  void MoveDownClicked();
+  void MoveRightClicked();
+  void MoveLeftClicked();
 
+ private:
+  s21::Controller *controller_;
+  Ui::View *ui_;
+  QString object_path_;
 
-private slots:
+  QSettings *user_settings_;
 
-    void OpenClicked();
-    void PerspectiveSelected(View::Perspective perspective);
-    void LineViewSelected(View::Line line);
-    void VertexViewSelected(View::Vertex vertex);
-    QColor SetColor();
+  double x_step_; ///< шаг для move
+  double y_step_;
 
-private:
-
-    s21::Controller *controller_;
-    Ui::View *ui_;
-    QString object_path_;
-
-    QSettings *user_settings_;
-
-    void SaveSettings();
-    void LoadSettings();
-
+  void ConnectButtons();
+  void SaveSettings();
+  void LoadSettings();
 };
-#endif // VIEW_H
+#endif  // VIEW_H

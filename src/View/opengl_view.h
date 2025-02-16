@@ -1,44 +1,39 @@
 #ifndef OPENGL_VIEW_H
 #define OPENGL_VIEW_H
 
-#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLWidget>
+
 #include "view.h"
 
 class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
+  Q_OBJECT
 
-    Q_OBJECT
+ public:
+  Object3d(QWidget *parent = nullptr);
+  ~Object3d();
 
-public:
+  friend class View;
 
-    Object3d(QWidget *parent = nullptr);
-    ~Object3d();
+  void SetApplicationWidgetPtr(View *ptr);
 
-    friend class View;
+ protected:
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int w, int h) override;
+  double FindMaxCoordinate();
 
-    void SetApplicationWidgetPtr(View *ptr);
+ private:
+  View *view_;
 
+  void SetUpPerspective();
+  void SetUpBackgroundColor();
+  void SetUpPaintColor(QColor color);
+  void SetUpLineStyle();
+  void SetUpVertexStyle();
 
-protected:
-
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int w, int h) override;
-    double FindMaxCoordinate();
-
-private:
-
-    View *view_;
-
-    void SetUpPerspective();
-    void SetUpBackgroundColor();
-    void SetUpPaintColor(QColor color);
-    void SetUpLineStyle();
-    void SetUpVertexStyle();
-
-    void OrthoPerspective();
-    void ParallelPerspective();
-
+  void OrthoPerspective();
+  void ParallelPerspective();
 };
 
-#endif // OPENGL_VIEW_H
+#endif  // OPENGL_VIEW_H

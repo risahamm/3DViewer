@@ -68,12 +68,11 @@ void s21::Controller::RoateYLeft(double value){
 }
 
 
-void s21::Controller::RoateZClockwise(double value){
+void s21::Controller::RoateZClckWs(double value){
   object_->Modify(std::make_unique<s21::MoveObject>(object_), value, value, 0);
 }
 
 
-void s21::Controller::RoateZCClockwise(double value){
+void s21::Controller::RoateZCClckWs(double value){
   object_->Modify(std::make_unique<s21::MoveObject>(object_), -value, -value, 0);
 }
-

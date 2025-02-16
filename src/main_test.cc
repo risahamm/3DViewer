@@ -1,4 +1,3 @@
-#include "Model/object.h"
 #include "Controller/controller.h"
 
 using namespace std;
@@ -9,17 +8,17 @@ int main() {
   s21::Controller controller(&obj);
 
   controller.OpenFile("../../object_files/cube.obj");
-  controller.ZoomOut(2);
+  controller.MoveYDown(5);
   std::vector<s21::Point> res = controller.getVertices();
-  s21::Point a(0, 0, 0);
-  s21::Point b(0.5, 0.5,-0.5);
-  s21::Point c(0.5, -0.5, -0.5);
-  s21::Point d(0.5, 0.5, 0.5);
-  s21::Point e(0.5, -0.5, 0.5);
-  s21::Point f(-0.5, 0.5, -0.5);
-  s21::Point g(-0.5, -0.5, -0.5);
-  s21::Point h(-0.5, 0.5, 0.5);
-  s21::Point i(-0.5, -0.5, 0.5);
+  s21::Point a(0, -5, 0);
+  s21::Point b(1, -4, -1);
+  s21::Point c(1, -6, -1);
+  s21::Point d(1, -4, 1);
+  s21::Point e(1, -6, 1);
+  s21::Point f(-1, -4, -1);
+  s21::Point g(-1, -6, -1);
+  s21::Point h(-1, -4, 1);
+  s21::Point i(-1, -6, 1);
   std::vector<s21::Point> correct = {a, b, c, d, e, f, g, h, i};
 
   if (correct == res) {
