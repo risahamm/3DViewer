@@ -40,8 +40,8 @@ void View::OpenClicked() {
     QString EdgeCount = QString::number(controller_->getEdgesCount());
     ui_->edges_amount->setText(EdgeCount);
 
-    x_step_ = controller_->getMaxCoordinateX() * 0.3;
-    y_step_ = controller_->getMaxCoordinateY() * 0.3;
+    x_step_ = controller_->getMaxCoordinateX() * 0.1;
+    y_step_ = controller_->getMaxCoordinateY() * 0.1;
 
     ui_->GLwidget->update();
 
@@ -189,9 +189,29 @@ void View::ConnectButtons() {
 
     connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
     connect(ui_->moveYplus, &QPushButton::pressed, this, &View::MoveUpClicked);
+    connect(ui_->moveYplus, &QPushButton::released, this, [this](){
+        if(action_tmr_.isActive()) {
+            action_tmr_.stop();
+        }
+    });
     connect(ui_->moveYminus, &QPushButton::pressed, this, &View::MoveDownClicked);
+    connect(ui_->moveYminus, &QPushButton::released, this, [this](){
+        if(action_tmr_.isActive()) {
+            action_tmr_.stop();
+        }
+    });
     connect(ui_->moveXplus, &QPushButton::pressed, this, &View::MoveRightClicked);
+    connect(ui_->moveXplus, &QPushButton::released, this, [this](){
+        if(action_tmr_.isActive()) {
+            action_tmr_.stop();
+        }
+    });
     connect(ui_->moveXminus, &QPushButton::pressed, this, &View::MoveLeftClicked);
+    connect(ui_->moveXminus, &QPushButton::released, this, [this](){
+        if(action_tmr_.isActive()) {
+            action_tmr_.stop();
+        }
+    });
 
     connect(ui_->background_color_button, &QPushButton::clicked, this, [this]() {
       current_settings.background_color = SetColor();
@@ -248,27 +268,44 @@ void View::ConnectButtons() {
 
 void View::MoveUpClicked() {
 
-    controller_->MoveYUp(y_step_);
-    ui_->GLwidget->update();
+    /* каждый раз по таймауту отрисовываем объект */
+    connect(&action_tmr_, &QTimer::timeout, this, [this](){
+        controller_->MoveYUp(y_step_);
+        ui_->GLwidget->update();
+    });
+    action_tmr_.start(100);
+
 }
 
 
 void View::MoveDownClicked() {
 
-    controller_->MoveYDown(y_step_);
-    ui_->GLwidget->update();
+    /* каждый раз по таймауту отрисовываем объект */
+    connect(&action_tmr_, &QTimer::timeout, this, [this](){
+        controller_->MoveYDown(y_step_);
+        ui_->GLwidget->update();
+    });
+    action_tmr_.start(100);
 }
 
 
 void View::MoveRightClicked() {
 
-    controller_->MoveXRight(x_step_);
-    ui_->GLwidget->update();
+    /* каждый раз по таймауту отрисовываем объект */
+    connect(&action_tmr_, &QTimer::timeout, this, [this](){
+        controller_->MoveXRight(x_step_);
+        ui_->GLwidget->update();
+    });
+    action_tmr_.start(100);
 }
 
 
 void View::MoveLeftClicked() {
 
-    controller_->MoveXLeft(x_step_);
-    ui_->GLwidget->update();
+    /* каждый раз по таймауту отрисовываем объект */
+    connect(&action_tmr_, &QTimer::timeout, this, [this](){
+        controller_->MoveXLeft(x_step_);
+        ui_->GLwidget->update();
+    });
+    action_tmr_.start(100);
 }

@@ -75,7 +75,7 @@ class View : public QMainWindow {
 
   QSettings *user_settings_;
 
-  QTimer action_tmr_;
+  QTimer action_tmr_; ///< таймер для зажатия transformations buttons
 
   double x_step_; ///< шаг для move
   double y_step_;
