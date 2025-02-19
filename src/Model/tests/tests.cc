@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "../../Controller/controller.h"
 
 /* MOVE TRANSFORMATIONS */
@@ -112,7 +113,7 @@ TEST(move, move_back) {
 
 TEST(zoom, zoom_in) {
   controller.OpenFile("object_files/cube.obj");
-  controller.ZoomIn(2);
+  controller.Zoom(2);
   std::vector<s21::Point> res = controller.getVertices();
   s21::Point a(0, 0, 0);
   s21::Point b(2, 2, -2);
@@ -129,7 +130,7 @@ TEST(zoom, zoom_in) {
 
 TEST(zoom, zoom_out_1) {
   controller.OpenFile("object_files/cube.obj");
-  controller.ZoomOut(2);
+  controller.Zoom(0.5);
   std::vector<s21::Point> res = controller.getVertices();
   s21::Point a(0, 0, 0);
   s21::Point b(0.5, 0.5, -0.5);
@@ -146,7 +147,7 @@ TEST(zoom, zoom_out_1) {
 
 TEST(zoom, zoom_out_2) {
   controller.OpenFile("object_files/cube.obj");
-  controller.ZoomOut(0);
+  controller.Zoom(0);
   std::vector<s21::Point> res = controller.getVertices();
   s21::Point a(0, 0, 0);
   s21::Point b(1, 1, -1);

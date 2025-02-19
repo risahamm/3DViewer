@@ -48,8 +48,11 @@ class Object {
   double getMinZ() const { return min_vertex_z_; };
 
   std::vector<Point> getVertices() { return vertices_; }
+  std::vector<Point> &getInitialVeritcesRef() { return initial_vertices_; }
   std::vector<Point> &getVerticesRef() { return vertices_; }
   std::vector<std::vector<int>> getFacets() { return facets_; }
+
+  void setInitialVertices() { initial_vertices_ = vertices_; }
 
   int getVertexCount() const { return vertex_count_; }
   int getEdgeCount() const { return edge_count_; }
@@ -65,6 +68,8 @@ class Object {
 
  private:
   std::vector<Point> vertices_;
+  std::vector<Point>
+      initial_vertices_;  ///< начальные значения вершин (до zoom)
   std::vector<std::vector<int>> facets_;
   int vertex_count_ = 0;
   int edge_count_ = 0;
@@ -77,7 +82,7 @@ class Object {
   double min_vertex_z_;
 
   void CenterObject();
-  void SetMaxCoordinates();
+  void setMaxCoordinates();
 };
 
 }  // namespace s21

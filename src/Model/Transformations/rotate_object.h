@@ -11,7 +11,7 @@ namespace s21 {
     RotateObject(s21::Object *obj) : TransformationsBaseClass(obj) {};
     ~RotateObject() = default;
 
-//    void Modify(double x, double y, double z) override;
+    void Modify(double x, double y, double z) override;
 
   };
 

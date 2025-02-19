@@ -30,7 +30,7 @@ void View::OpenClicked() {
   int last_slash_idx = object_path_.lastIndexOf('/');
   ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
 
-  //    controller_->ClearObject();
+  ui_->zoomInOut->setValue(100);
 
   /* если файл обработан успешно */
   if (controller_->OpenFile(object_path_.toStdString())) {
@@ -184,128 +184,128 @@ void View::LoadSettings() {
                  .toString());  // black
 }
 
-
 void View::ConnectButtons() {
+  connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
 
-    connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
-    connect(ui_->moveYplus, &QPushButton::pressed, this, &View::MoveUpClicked);
-    connect(ui_->moveYplus, &QPushButton::released, this, [this](){
-        if(action_tmr_.isActive()) {
-            action_tmr_.stop();
-        }
-    });
-    connect(ui_->moveYminus, &QPushButton::pressed, this, &View::MoveDownClicked);
-    connect(ui_->moveYminus, &QPushButton::released, this, [this](){
-        if(action_tmr_.isActive()) {
-            action_tmr_.stop();
-        }
-    });
-    connect(ui_->moveXplus, &QPushButton::pressed, this, &View::MoveRightClicked);
-    connect(ui_->moveXplus, &QPushButton::released, this, [this](){
-        if(action_tmr_.isActive()) {
-            action_tmr_.stop();
-        }
-    });
-    connect(ui_->moveXminus, &QPushButton::pressed, this, &View::MoveLeftClicked);
-    connect(ui_->moveXminus, &QPushButton::released, this, [this](){
-        if(action_tmr_.isActive()) {
-            action_tmr_.stop();
-        }
-    });
+  connect(ui_->moveYplus, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
+    action_tmr_.start(50);
+  });
+  connect(ui_->moveYplus, &QPushButton::released, this, &View::MoveUpReleased);
 
-    connect(ui_->background_color_button, &QPushButton::clicked, this, [this]() {
-      current_settings.background_color = SetColor();
-      ui_->GLwidget->update();
-    });
-    connect(ui_->line_color_button, &QPushButton::clicked, this, [this]() {
-      current_settings.line_color = SetColor();
-      ui_->GLwidget->update();
-    });
-    connect(ui_->vertex_color_button, &QPushButton::clicked, this, [this]() {
-      current_settings.vertex_color = SetColor();
-      ui_->GLwidget->update();
-    });
-    connect(ui_->ortho_proj_button, &QPushButton::clicked, this, [this]() {
-      PerspectiveSelected(View::Perspective::ortho);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->parall_proj_button, &QPushButton::clicked, this, [this]() {
-      PerspectiveSelected(View::Perspective::parallel);
-      ui_->GLwidget->update();
-    });
+  connect(ui_->moveYminus, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
+    action_tmr_.start(50);
+  });
+  connect(ui_->moveYminus, &QPushButton::released, this,
+          &View::MoveDownReleased);
 
-    connect(ui_->solid_line_button, &QPushButton::clicked, this, [this]() {
-      LineViewSelected(View::Line::solid);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->dashed_line_button, &QPushButton::clicked, this, [this]() {
-      LineViewSelected(View::Line::dashed);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->dot_vertex_button, &QPushButton::clicked, this, [this]() {
-      VertexViewSelected(View::Vertex::dot);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->square_vertex_button, &QPushButton::clicked, this, [this]() {
-      VertexViewSelected(View::Vertex::square);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->no_vertex_button, &QPushButton::clicked, this, [this]() {
-      VertexViewSelected(View::Vertex::no_vertex);
-      ui_->GLwidget->update();
-    });
-    connect(ui_->edge_size_slider, &QSlider::valueChanged, this, [this]() {
-      current_settings.line_size = ui_->edge_size_slider->value();
-      ui_->GLwidget->update();
-    });
-    connect(ui_->vertex_size_slider, &QSlider::valueChanged, this, [this]() {
-      current_settings.vertex_size = ui_->vertex_size_slider->value();
-      ui_->GLwidget->update();
-    });
+  connect(ui_->moveXplus, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
+    action_tmr_.start(50);
+  });
+  connect(ui_->moveXplus, &QPushButton::released, this,
+          &View::MoveRightReleased);
 
+  connect(ui_->moveXminus, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
+    action_tmr_.start(50);
+  });
+  connect(ui_->moveXminus, &QPushButton::released, this,
+          &View::MoveLeftReleased);
+
+  connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
+    controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) / 100.0);
+    ui_->GLwidget->update();
+  });
+
+  connect(ui_->background_color_button, &QPushButton::clicked, this, [this]() {
+    current_settings.background_color = SetColor();
+    ui_->GLwidget->update();
+  });
+  connect(ui_->line_color_button, &QPushButton::clicked, this, [this]() {
+    current_settings.line_color = SetColor();
+    ui_->GLwidget->update();
+  });
+  connect(ui_->vertex_color_button, &QPushButton::clicked, this, [this]() {
+    current_settings.vertex_color = SetColor();
+    ui_->GLwidget->update();
+  });
+  connect(ui_->ortho_proj_button, &QPushButton::clicked, this, [this]() {
+    PerspectiveSelected(View::Perspective::ortho);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->parall_proj_button, &QPushButton::clicked, this, [this]() {
+    PerspectiveSelected(View::Perspective::parallel);
+    ui_->GLwidget->update();
+  });
+
+  connect(ui_->solid_line_button, &QPushButton::clicked, this, [this]() {
+    LineViewSelected(View::Line::solid);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->dashed_line_button, &QPushButton::clicked, this, [this]() {
+    LineViewSelected(View::Line::dashed);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->dot_vertex_button, &QPushButton::clicked, this, [this]() {
+    VertexViewSelected(View::Vertex::dot);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->square_vertex_button, &QPushButton::clicked, this, [this]() {
+    VertexViewSelected(View::Vertex::square);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->no_vertex_button, &QPushButton::clicked, this, [this]() {
+    VertexViewSelected(View::Vertex::no_vertex);
+    ui_->GLwidget->update();
+  });
+  connect(ui_->edge_size_slider, &QSlider::valueChanged, this, [this]() {
+    current_settings.line_size = ui_->edge_size_slider->value();
+    ui_->GLwidget->update();
+  });
+  connect(ui_->vertex_size_slider, &QSlider::valueChanged, this, [this]() {
+    current_settings.vertex_size = ui_->vertex_size_slider->value();
+    ui_->GLwidget->update();
+  });
 }
 
-
-void View::MoveUpClicked() {
-
-    /* каждый раз по таймауту отрисовываем объект */
-    connect(&action_tmr_, &QTimer::timeout, this, [this](){
-        controller_->MoveYUp(y_step_);
-        ui_->GLwidget->update();
-    });
-    action_tmr_.start(100);
-
+void View::MoveUp() {
+  controller_->MoveYUp(y_step_);
+  ui_->GLwidget->update();
 }
 
-
-void View::MoveDownClicked() {
-
-    /* каждый раз по таймауту отрисовываем объект */
-    connect(&action_tmr_, &QTimer::timeout, this, [this](){
-        controller_->MoveYDown(y_step_);
-        ui_->GLwidget->update();
-    });
-    action_tmr_.start(100);
+void View::MoveUpReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
 }
 
-
-void View::MoveRightClicked() {
-
-    /* каждый раз по таймауту отрисовываем объект */
-    connect(&action_tmr_, &QTimer::timeout, this, [this](){
-        controller_->MoveXRight(x_step_);
-        ui_->GLwidget->update();
-    });
-    action_tmr_.start(100);
+void View::MoveDown() {
+  controller_->MoveYDown(y_step_);
+  ui_->GLwidget->update();
 }
 
+void View::MoveDownReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
+}
 
-void View::MoveLeftClicked() {
+void View::MoveRight() {
+  controller_->MoveXRight(x_step_);
+  ui_->GLwidget->update();
+}
 
-    /* каждый раз по таймауту отрисовываем объект */
-    connect(&action_tmr_, &QTimer::timeout, this, [this](){
-        controller_->MoveXLeft(x_step_);
-        ui_->GLwidget->update();
-    });
-    action_tmr_.start(100);
+void View::MoveRightReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
+}
+
+void View::MoveLeft() {
+  controller_->MoveXLeft(x_step_);
+  ui_->GLwidget->update();
+}
+
+void View::MoveLeftReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
 }

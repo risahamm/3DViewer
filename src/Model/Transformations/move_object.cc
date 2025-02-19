@@ -6,4 +6,5 @@ void s21::MoveObject::Modify(double x, double y, double z) {
     point.y += y;
     point.z += z;
   }
+  //  object_->setInitialVertices();
 }

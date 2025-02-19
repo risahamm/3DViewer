@@ -35,16 +35,8 @@ void s21::Controller::MoveZBackward(double value) {
 }
 
 
-void s21::Controller::ZoomIn(double value){
+void s21::Controller::Zoom(double value) {
   object_->Modify(std::make_unique<s21::ZoomObject>(object_), value, value, value);
-}
-
-
-void s21::Controller::ZoomOut(double value) {
-  if (value) {
-    double new_val = (10 / value) / 10;
-    object_->Modify(std::make_unique<s21::ZoomObject>(object_), new_val, new_val, new_val);
-  }
 }
 
 

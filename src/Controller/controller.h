@@ -33,8 +33,7 @@ class Controller {
   void MoveZForward(double value);
   void MoveZBackward(double value);
 
-  void ZoomIn(double value);
-  void ZoomOut(double value);
+  void Zoom(double value);
 
   void RoateXUp(double value);
   void RoateXDown(double value);

@@ -30,7 +30,7 @@ bool s21::Object::Parse(std::string path) {
 
       my_file.close();
 
-      SetMaxCoordinates();
+      setMaxCoordinates();
       CenterObject();
     }
 
@@ -117,10 +117,11 @@ void s21::Object::CenterObject() {
     i.z += center_z;
   }
 
-  SetMaxCoordinates();
+  setMaxCoordinates();
+  setInitialVertices();
 }
 
-void s21::Object::SetMaxCoordinates() {
+void s21::Object::setMaxCoordinates() {
   max_vertex_x_ = -INFINITY;
   min_vertex_x_ = INFINITY;
   max_vertex_y_ = -INFINITY;

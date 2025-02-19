@@ -8,8 +8,8 @@
 #include <QObject>
 #include <QSettings>
 #include <QString>
-#include <QVBoxLayout>
 #include <QTimer>
+#include <QVBoxLayout>
 
 #include "Controller/controller.h"
 
@@ -61,12 +61,14 @@ class View : public QMainWindow {
   void VertexViewSelected(View::Vertex vertex);
   QColor SetColor();
 
-  void MoveUpClicked();
-  void MoveDownClicked();
-  void MoveRightClicked();
-  void MoveLeftClicked();
-//  void ZoomInClicked();
-//  void ZoomOutClicked();
+  void MoveUp();
+  void MoveUpReleased();
+  void MoveDown();
+  void MoveDownReleased();
+  void MoveRight();
+  void MoveRightReleased();
+  void MoveLeft();
+  void MoveLeftReleased();
 
  private:
   s21::Controller *controller_;
@@ -75,9 +77,9 @@ class View : public QMainWindow {
 
   QSettings *user_settings_;
 
-  QTimer action_tmr_; ///< таймер для зажатия transformations buttons
+  QTimer action_tmr_;  ///< таймер для зажатия transformations buttons
 
-  double x_step_; ///< шаг для move
+  double x_step_;  ///< шаг для move
   double y_step_;
 
   void ConnectButtons();
