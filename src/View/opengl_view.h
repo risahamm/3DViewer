@@ -21,7 +21,6 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int w, int h) override;
-  double FindMaxCoordinate();
 
  private:
   View *view_;
@@ -34,6 +33,8 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
 
   void OrthoPerspective();
   void ParallelPerspective();
+
+  double FindMaxCoordinate();
 };
 
 #endif  // OPENGL_VIEW_H

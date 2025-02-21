@@ -1597,6 +1597,24 @@ QPushButton::pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>1015</x>
+      <y>666</y>
+      <width>281</width>
+      <height>1</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Line {
+background: #696969;
+}</string>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
    <zorder>background_label</zorder>
    <zorder>Open</zorder>
    <zorder>moveXplus</zorder>
@@ -1636,6 +1654,7 @@ QPushButton::pressed {
    <zorder>rotate_z_minus_button</zorder>
    <zorder>rotate_z_plus_button</zorder>
    <zorder>background_color_label</zorder>
+   <zorder>line</zorder>
   </widget>
  </widget>
  <customwidgets>
