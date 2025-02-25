@@ -39,8 +39,8 @@ class Controller {
   void RoateXDown(double value);
   void RoateYRight(double value);
   void RoateYLeft(double value);
-  void RoateZClckWs(double value);   ///< по часовой
-  void RoateZCClckWs(double value);  ///< против часовой
+  void RoateZClckWs(double value);   ///< вращение по часовой
+  void RoateZCClckWs(double value);  ///< вращение против часовой
 
   void ClearObject() { object_->Clear(); }
 
