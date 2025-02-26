@@ -50,37 +50,55 @@ class Object {
 
   /**
    * @brief Открывает файл по указанному пути и считывает содержимое построчно.
-   * Обрабатывает строки, начинающиеся с "v " для чтения вершин и "f " для
-   * чтения граней. Если файл не удается открыть, выбрасывается исключение с
+   * @details Обрабатывает строки, начинающиеся с "v " для чтения вершин и "f "
+   * для чтения граней. Если файл не удается открыть, выбрасывается исключение с
    * соответствующим сообщением об ошибке.
    * @param path Путь к файлу.
-   * @return true Если парсинг выполнен успешно, иначе false.
+   * @return true если парсинг выполнен успешно, иначе false.
    */
   bool Parse(std::string path);
+
+  /**
+   * @brief Читает координаты вершины из строки и добавляет её в список вершин.
+   * @details Если считывание прошло успешно, вершина добавляется
+   * в вектор вершин объекта, и увеличивается счетчик вершин.
+   * @param str Ссылка на строку, содержащую данные о вершине,
+   * начинающиеся с "v ".
+   */
   void ReadVertex(std::string &str);
+
+  /**
+   * @brief Читает данные о грани из строки и добавляет её в список граней.
+   * @details Если индекс превышает количество вершин или является недопустимым,
+   * выбрасывается исключение. Если индекс отрицательный, он преобразуется
+   * в положительный, основываясь на количестве вершин в объекте.
+   * После успешного считывания, грань добавляется в вектор граней,
+   * а счетчик рёбер увеличивается.
+   * @param str Ссылка на строку, содержащую данные о грани,
+   * начинающиеся с "f ".
+   * @return true если чтение грани прошло успешно, иначе false.
+   */
   bool ReadFacet(std::string &str);
 
-  double getMaxX() const { return max_vertex_x_; };
-  double getMinX() const { return min_vertex_x_; };
-  double getMaxY() const { return max_vertex_y_; };
-  double getMinY() const { return min_vertex_y_; };
-  double getMaxZ() const { return max_vertex_z_; };
-  double getMinZ() const { return min_vertex_z_; };
+  double GetMaxX() const { return max_vertex_x_; };
+  double GetMinX() const { return min_vertex_x_; };
+  double GetMaxY() const { return max_vertex_y_; };
+  double GetMinY() const { return min_vertex_y_; };
+  double GetMaxZ() const { return max_vertex_z_; };
+  double GetMinZ() const { return min_vertex_z_; };
 
-  std::vector<Point> getVertices() { return vertices_; }
-  std::vector<Point> &getInitialVeritcesRef() { return initial_vertices_; }
-  std::vector<Point> &getVerticesRef() { return vertices_; }
-  std::vector<std::vector<int>> getFacets() { return facets_; }
+  std::vector<Point> GetVertices() { return vertices_; }
+  std::vector<Point> &GetInitialVeritcesRef() { return initial_vertices_; }
+  std::vector<Point> &GetVerticesRef() { return vertices_; }
+  std::vector<std::vector<int>> GetFacets() { return facets_; }
 
-  void setInitialVertices() { initial_vertices_ = vertices_; }
+  void SetInitialVertices() { initial_vertices_ = vertices_; }
 
-  int getVertexCount() const { return vertex_count_; }
-  int getEdgeCount() const { return edge_count_; }
+  int GetVertexCount() const { return vertex_count_; }
+  int GetEdgeCount() const { return edge_count_; }
 
   void Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
               double value_x, double value_y, double value_z);
-
-  void Clear();
 
  private:
   std::vector<Point> vertices_; ///< текущие вершины объекта
@@ -98,7 +116,9 @@ class Object {
   double min_vertex_z_; ///< минимальное значение по оси Z
 
   void CenterObject();
-  void setMaxCoordinates();
+  void SetMaxCoordinates();
+
+  void Clear();
 
   /* служебные методы */
   void PrintVertices();

@@ -13,18 +13,18 @@ class Controller {
 
   bool OpenFile(const std::string &path);
 
-  std::vector<s21::Point> getVertices() { return object_->getVertices(); };
-  std::vector<std::vector<int>> getFacets() { return object_->getFacets(); };
+  std::vector<s21::Point> getVertices() { return object_->GetVertices(); };
+  std::vector<std::vector<int>> getFacets() { return object_->GetFacets(); };
 
-  int getVerticesCount() { return object_->getVertexCount(); };
-  int getEdgesCount() { return object_->getEdgeCount(); };
+  int getVerticesCount() { return object_->GetVertexCount(); };
+  int getEdgesCount() { return object_->GetEdgeCount(); };
 
-  double getMaxCoordinateX() { return object_->getMaxX(); };
-  double getMinCoordinateX() { return object_->getMinX(); };
-  double getMaxCoordinateY() { return object_->getMaxY(); };
-  double getMinCoordinateY() { return object_->getMinY(); };
-  double getMaxCoordinateZ() { return object_->getMaxZ(); };
-  double getMinCoordinateZ() { return object_->getMinZ(); };
+  double getMaxCoordinateX() { return object_->GetMaxX(); };
+  double getMinCoordinateX() { return object_->GetMinX(); };
+  double getMaxCoordinateY() { return object_->GetMaxY(); };
+  double getMinCoordinateY() { return object_->GetMinY(); };
+  double getMaxCoordinateZ() { return object_->GetMaxZ(); };
+  double getMinCoordinateZ() { return object_->GetMinZ(); };
 
   void MoveXRight(double value);
   void MoveXLeft(double value);

@@ -30,7 +30,7 @@ bool s21::Object::Parse(std::string path) {
 
       my_file.close();
 
-      setMaxCoordinates();
+      SetMaxCoordinates();
       CenterObject();
     }
 
@@ -86,7 +86,7 @@ bool s21::Object::ReadFacet(std::string &str) {
             /* узнаем кол-во вершин */
             int last_idx = vertices_.size();
 
-            /* т.к. vertex_ хранит кол-во вершин + 1, получится корректное
+            /* т.к. vertices_ хранит кол-во вершин + 1, получится корректное
              * значение */
             vertex_number = last_idx + vertex_number;
           }
@@ -117,11 +117,11 @@ void s21::Object::CenterObject() {
     i.z += center_z;
   }
 
-  setMaxCoordinates();
-  setInitialVertices();
+  SetMaxCoordinates();
+  SetInitialVertices();
 }
 
-void s21::Object::setMaxCoordinates() {
+void s21::Object::SetMaxCoordinates() {
   max_vertex_x_ = -INFINITY;
   min_vertex_x_ = INFINITY;
   max_vertex_y_ = -INFINITY;
