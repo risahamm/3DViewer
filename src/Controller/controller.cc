@@ -40,6 +40,14 @@ void s21::Controller::Zoom(double value) {
 }
 
 
+void s21::Controller::ZoomIn(double value) {
+
+}
+void s21::Controller::ZoomOut(double value) {
+
+}
+
+
 void s21::Controller::RoateXUp(double value){
   object_->Modify(std::make_unique<s21::MoveObject>(object_), 0, value, value);
 }

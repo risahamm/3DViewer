@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef VIEWER_SRC_MODEL_OBJECT_H
+#define VIEWER_SRC_MODEL_OBJECT_H
 
 #include <cmath>
 #include <fstream>
@@ -162,6 +162,11 @@ class Object {
   void Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
               double value_x, double value_y, double value_z);
 
+  /**
+   * Очищает данные объекта и сбрасывает его состояние.
+   */
+  void Clear();
+
  private:
   std::vector<Point> vertices_; ///< текущие вершины объекта
   std::vector<Point>
@@ -192,11 +197,6 @@ class Object {
    */
   void SetMaxCoordinates();
 
-  /**
-   * Очищает данные объекта и сбрасывает его состояние.
-   */
-  void Clear();
-
   /* служебные методы */
   void PrintVertices();
   void PrintFacets();
@@ -204,4 +204,4 @@ class Object {
 
 }  // namespace s21
 
-#endif  // OBJECT_H
+#endif  // VIEWER_SRC_MODEL_OBJECT_H

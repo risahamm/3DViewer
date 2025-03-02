@@ -34,14 +34,14 @@ void View::OpenClicked() {
 
   /* если файл обработан успешно */
   if (controller_->OpenFile(object_path_.toStdString())) {
-    QString verticesCount = QString::number(controller_->getVerticesCount());
+    QString verticesCount = QString::number(controller_->GetVerticesCount());
     ui_->vertices_amount->setText(verticesCount);
 
-    QString EdgeCount = QString::number(controller_->getEdgesCount());
+    QString EdgeCount = QString::number(controller_->GetEdgesCount());
     ui_->edges_amount->setText(EdgeCount);
 
-    x_step_ = controller_->getMaxCoordinateX() * 0.1;
-    y_step_ = controller_->getMaxCoordinateY() * 0.1;
+    x_step_ = controller_->GetMaxCoordinateX() * 0.1;
+    y_step_ = controller_->GetMaxCoordinateY() * 0.1;
 
     ui_->GLwidget->update();
 
