@@ -80,23 +80,85 @@ class Object {
    */
   bool ReadFacet(std::string &str);
 
+  /**
+   * @brief Возвращает значение максимальной координаты по оси X.
+   * @return Максимальная координата по оси X.
+   */
   double GetMaxX() const { return max_vertex_x_; };
+
+  /**
+   * @brief Возвращает значение минимальной координаты по оси X.
+   * @return Минимальная координата по оси X.
+   */
   double GetMinX() const { return min_vertex_x_; };
+
+  /**
+   * @brief Возвращает значение максимальной координаты по оси Y.
+   * @return Максимальная координата по оси Y.
+   */
   double GetMaxY() const { return max_vertex_y_; };
+
+  /**
+   * @brief Возвращает значение минимальной координаты по оси Y.
+   * @return Минимальная координата по оси Y.
+   */
   double GetMinY() const { return min_vertex_y_; };
+
+  /**
+   * @brief Возвращает значение максимальной координаты по оси Z.
+   * @return Максимальная координата по оси Z.
+   */
   double GetMaxZ() const { return max_vertex_z_; };
+
+  /**
+   * @brief Возвращает значение минимальной координаты по оси Z.
+   * @return Минимальная координата по оси Z.
+   */
   double GetMinZ() const { return min_vertex_z_; };
 
+  /**
+   * @brief Возвращает копию вектора вершин объекта.
+   * @return Копия вектора вершин объекта.
+   */
   std::vector<Point> GetVertices() { return vertices_; }
+
   std::vector<Point> &GetInitialVeritcesRef() { return initial_vertices_; }
+
+  /**
+   * @brief Возвращет ссылку на вектор вершин объекта.
+   * @return Ссылка на вектор вершин объекта.
+   */
   std::vector<Point> &GetVerticesRef() { return vertices_; }
+
+  /**
+   * @brief Возвращает копию вектора полигонов объекта.
+   * @return Копия вектора полигонов объекта.
+   */
   std::vector<std::vector<int>> GetFacets() { return facets_; }
 
   void SetInitialVertices() { initial_vertices_ = vertices_; }
 
+  /**
+   * @brief Возвращает количество вершин в объекте.
+   * @return Количество вершин в объекте.
+   */
   int GetVertexCount() const { return vertex_count_; }
+
+  /**
+   * @brief Возвращает количество граней объекта.
+   * @return Количество граней объекта.
+   */
   int GetEdgeCount() const { return edge_count_; }
 
+  /**
+   * @brief В зависимости от выбранной стратегии реализует способ преобразования
+   * объекта.
+   * @param modify_class Указатель на экземпляр класса, производного от
+   * TransformationsBaseClass, который определяет поведение преобразования.
+   * @param value_x Значение для изменения координаты x объекта.
+   * @param value_y Значение для изменения координаты y объекта.
+   * @param value_z Значение для изменения координаты z объекта.
+   */
   void Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
               double value_x, double value_y, double value_z);
 
@@ -115,9 +177,24 @@ class Object {
   double max_vertex_z_; ///< максимальное значение по оси Z
   double min_vertex_z_; ///< минимальное значение по оси Z
 
+  /**
+   * @brief Центрирует объект относительно начала координат.
+   * @details Вычисляет центр объекта на основе его максимальных и минимальных
+   * координат по осям x, y и z и смещает все вершины объекта так,
+   * чтобы центр оказался в начале координат (0, 0, 0).
+   */
   void CenterObject();
+
+  /**
+   * @brief Устанавливает максимальные и минимальные координаты объекта.
+   * @details Проходит по всем вершинам объекта и определяет максимальные и
+   * минимальные значения координат по осям x, y и z.
+   */
   void SetMaxCoordinates();
 
+  /**
+   * Очищает данные объекта и сбрасывает его состояние.
+   */
   void Clear();
 
   /* служебные методы */
