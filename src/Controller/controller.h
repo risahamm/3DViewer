@@ -144,8 +144,6 @@ class Controller {
 
   void Zoom(double value);
 
-  void ZoomIn(double value);
-  void ZoomOut(double value);
 
   /**
    * @brief Вращает объект относительно оси X вверх.

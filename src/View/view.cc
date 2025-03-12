@@ -31,6 +31,7 @@ void View::OpenClicked() {
   ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
 
   ui_->zoomInOut->setValue(100);
+  current_scale_ = 100.0;
 
   /* если файл обработан успешно */
   if (controller_->OpenFile(object_path_.toStdString())) {
@@ -52,16 +53,16 @@ void View::OpenClicked() {
 }
 
 /* одновременно может выбрана только одна проекция */
-void View::PerspectiveSelected(View::Perspective perspective) {
-  if (perspective == View::Perspective::ortho) {
+void View::ProjectionSelected(View::Projection projection) {
+  if (projection == View::Projection::ortho) {
     ui_->ortho_proj_button->setChecked(true);
-    ui_->parall_proj_button->setChecked(false);
-    current_settings.perspective = View::Perspective::ortho;
+    ui_->perspect_proj_button->setChecked(false);
+    current_settings.projection = View::Projection::ortho;
 
-  } else if (perspective == View::Perspective::parallel) {
-    ui_->parall_proj_button->setChecked(true);
+  } else if (projection == View::Projection::perspect) {
+    ui_->perspect_proj_button->setChecked(true);
     ui_->ortho_proj_button->setChecked(false);
-    current_settings.perspective = View::Perspective::parallel;
+    current_settings.projection = View::Projection::perspect;
   }
 }
 
@@ -112,7 +113,7 @@ void View::SaveSettings() {
   user_settings_->setValue("ortho_proj_button_checked",
                            ui_->ortho_proj_button->isChecked());
   user_settings_->setValue("parall_proj_button_checked",
-                           ui_->parall_proj_button->isChecked());
+                           ui_->perspect_proj_button->isChecked());
   user_settings_->setValue("solid_line_button_checked",
                            ui_->solid_line_button->isChecked());
   user_settings_->setValue("dashed_line_button_checked",
@@ -125,7 +126,7 @@ void View::SaveSettings() {
                            ui_->no_vertex_button->isChecked());
 
   user_settings_->setValue("projection",
-                           static_cast<int>(current_settings.perspective));
+                           static_cast<int>(current_settings.projection));
   user_settings_->setValue("line_type",
                            static_cast<int>(current_settings.line));
   user_settings_->setValue("line_size", ui_->edge_size_slider->value());
@@ -144,7 +145,7 @@ void View::LoadSettings() {
   /* второй параметр - настройки по умолчанию */
   ui_->ortho_proj_button->setChecked(
       user_settings_->value("ortho_proj_button_checked", true).toBool());
-  ui_->parall_proj_button->setChecked(
+  ui_->perspect_proj_button->setChecked(
       user_settings_->value("parall_proj_button_checked", false).toBool());
   ui_->solid_line_button->setChecked(
       user_settings_->value("solid_line_button_checked", true).toBool());
@@ -157,9 +158,9 @@ void View::LoadSettings() {
   ui_->no_vertex_button->setChecked(
       user_settings_->value("no_vertex_button_checked", false).toBool());
 
-  current_settings.perspective = static_cast<View::Perspective>(
+  current_settings.projection = static_cast<View::Projection>(
       user_settings_
-          ->value("projection", static_cast<int>(View::Perspective::ortho))
+          ->value("projection", static_cast<int>(View::Projection::ortho))
           .toInt());
   current_settings.line = static_cast<View::Line>(
       user_settings_->value("line_type", static_cast<int>(View::Line::solid))
@@ -215,7 +216,15 @@ void View::ConnectButtons() {
           &View::MoveLeftReleased);
 
   connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
-    controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) / 100.0);
+
+    controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) / current_scale_);
+
+//    if (ui_->zoomInOut->value() > current_scale_) {
+//        controller_->Zoom(1.1);
+//    } else {
+//        controller_->Zoom(0.9);
+//    }
+    current_scale_ = static_cast<double>(ui_->zoomInOut->value());
     ui_->GLwidget->update();
   });
 
@@ -232,11 +241,11 @@ void View::ConnectButtons() {
     ui_->GLwidget->update();
   });
   connect(ui_->ortho_proj_button, &QPushButton::clicked, this, [this]() {
-    PerspectiveSelected(View::Perspective::ortho);
+    ProjectionSelected(View::Projection::ortho);
     ui_->GLwidget->update();
   });
-  connect(ui_->parall_proj_button, &QPushButton::clicked, this, [this]() {
-    PerspectiveSelected(View::Perspective::parallel);
+  connect(ui_->perspect_proj_button, &QPushButton::clicked, this, [this]() {
+    ProjectionSelected(View::Projection::perspect);
     ui_->GLwidget->update();
   });
 
@@ -291,7 +300,8 @@ void View::MoveDownReleased() {
 }
 
 void View::MoveRight() {
-  controller_->MoveXRight(x_step_);
+//  controller_->MoveXRight(x_step_);
+    ui_->GLwidget->MoveXAxis(x_step_);
   ui_->GLwidget->update();
 }
 

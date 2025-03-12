@@ -1,6 +1,8 @@
 #ifndef OPENGL_VIEW_H
 #define OPENGL_VIEW_H
 
+#define GL_SILENCE_DEPRECATION
+
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
@@ -17,6 +19,8 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
 
   void SetApplicationWidgetPtr(View *ptr);
 
+  void MoveXAxis(double x);
+
  protected:
   void initializeGL() override;
   void paintGL() override;
@@ -25,16 +29,18 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
  private:
   View *view_;
 
-  void SetUpPerspective();
+  void SetUpProjection();
   void SetUpBackgroundColor();
   void SetUpPaintColor(QColor color);
   void SetUpLineStyle();
   void SetUpVertexStyle();
 
-  void OrthoPerspective();
-  void ParallelPerspective();
+  void OrthoProjection();
+  void PerspectProjection();
 
   double FindMaxCoordinate();
+
+
 };
 
 #endif  // OPENGL_VIEW_H

@@ -937,7 +937,7 @@ QPushButton::checked {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="parall_proj_button">
+   <widget class="QPushButton" name="perspect_proj_button">
     <property name="geometry">
      <rect>
       <x>1230</x>
@@ -947,7 +947,7 @@ QPushButton::checked {
      </rect>
     </property>
     <property name="toolTip">
-     <string>parallel projection</string>
+     <string>perspective projection</string>
     </property>
     <property name="toolTipDuration">
      <number>1000</number>
@@ -1608,7 +1608,7 @@ QPushButton::pressed {
     </property>
     <property name="styleSheet">
      <string notr="true">Line {
-background: #696969;
+color: #696969;
 }</string>
     </property>
     <property name="orientation">
@@ -1640,7 +1640,7 @@ background: #696969;
    <zorder>solid_line_button</zorder>
    <zorder>dashed_line_button</zorder>
    <zorder>ortho_proj_button</zorder>
-   <zorder>parall_proj_button</zorder>
+   <zorder>perspect_proj_button</zorder>
    <zorder>dot_vertex_button</zorder>
    <zorder>square_vertex_button</zorder>
    <zorder>no_vertex_button</zorder>

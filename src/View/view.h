@@ -27,14 +27,14 @@ class View : public QMainWindow {
   Q_OBJECT
 
  public:
-  enum class Perspective { ortho, parallel };
+  enum class Projection { ortho, perspect };
 
   enum class Line { solid, dashed };
 
   enum class Vertex { dot, square, no_vertex };
 
   struct Settings {
-    View::Perspective perspective;
+    View::Projection projection;
     View::Line line;
     float line_size;
     QColor line_color;
@@ -56,7 +56,7 @@ class View : public QMainWindow {
  private slots:
 
   void OpenClicked();
-  void PerspectiveSelected(View::Perspective perspective);
+  void ProjectionSelected(View::Projection perspective);
   void LineViewSelected(View::Line line);
   void VertexViewSelected(View::Vertex vertex);
   QColor SetColor();
@@ -81,6 +81,8 @@ class View : public QMainWindow {
 
   double x_step_;  ///< шаг для move
   double y_step_;
+
+  double current_scale_; ///< текущий масштаб отображения объекта
 
   void ConnectButtons();
   void SaveSettings();
