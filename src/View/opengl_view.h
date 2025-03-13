@@ -39,8 +39,6 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
   void PerspectProjection();
 
   double FindMaxCoordinate();
-
-
 };
 
 #endif  // OPENGL_VIEW_H

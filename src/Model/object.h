@@ -168,19 +168,19 @@ class Object {
   void Clear();
 
  private:
-  std::vector<Point> vertices_; ///< текущие вершины объекта
+  std::vector<Point> vertices_;  ///< текущие вершины объекта
   std::vector<Point>
       initial_vertices_;  ///< начальные значения вершин (до zoom)
-  std::vector<std::vector<int>> facets_; ///< полигоны
-  int vertex_count_ = 0; ///< количество вершин
-  int edge_count_ = 0; ///< количество рёбер
+  std::vector<std::vector<int>> facets_;  ///< полигоны
+  int vertex_count_ = 0;                  ///< количество вершин
+  int edge_count_ = 0;                    ///< количество рёбер
 
-  double max_vertex_x_; ///< максимальное значение по оси X
-  double min_vertex_x_; ///< минимальное значение по оси X
-  double max_vertex_y_; ///< максимальное значение по оси Y
-  double min_vertex_y_; ///< минимальное значение по оси Y
-  double max_vertex_z_; ///< максимальное значение по оси Z
-  double min_vertex_z_; ///< минимальное значение по оси Z
+  double max_vertex_x_;  ///< максимальное значение по оси X
+  double min_vertex_x_;  ///< минимальное значение по оси X
+  double max_vertex_y_;  ///< максимальное значение по оси Y
+  double min_vertex_y_;  ///< минимальное значение по оси Y
+  double max_vertex_z_;  ///< максимальное значение по оси Z
+  double min_vertex_z_;  ///< минимальное значение по оси Z
 
   /**
    * @brief Центрирует объект относительно начала координат.

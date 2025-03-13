@@ -82,7 +82,7 @@ class View : public QMainWindow {
 
   QTimer action_tmr_;  ///< таймер для зажатия transformations buttons
 
-  double current_scale_; ///< текущий масштаб отображения объекта
+  double current_scale_;  ///< текущий масштаб отображения объекта
 
   void ConnectButtons();
   void SaveSettings();

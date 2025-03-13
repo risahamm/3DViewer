@@ -16,7 +16,6 @@ namespace s21 {
  */
 class Controller {
  public:
-
   /**
    * @brief Конструктор класса Controller.
    * @details Инициализирует объект Controller с указателем на
@@ -144,7 +143,6 @@ class Controller {
 
   void Zoom(double value);
 
-
   /**
    * @brief Вращает объект относительно оси X вверх.
    * @details Использует объект типа RotateObject для выполнения преобразования.
@@ -193,7 +191,7 @@ class Controller {
   void ClearObject() { object_->Clear(); }
 
  private:
-  Object *object_; ///< указатель на объект
+  Object *object_;  ///< указатель на объект
 };
 }  // namespace s21
 

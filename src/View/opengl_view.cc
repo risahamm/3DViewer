@@ -53,12 +53,10 @@ void Object3d::paintGL() {
     }
     glEnd();
   }
-
 }
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
 void Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
-
 
 void Object3d::SetUpBackgroundColor() {
   GLfloat red =
@@ -102,7 +100,6 @@ void Object3d::SetUpVertexStyle() {
   }
 }
 
-
 void Object3d::SetUpProjection() {
   if (view_->current_settings.projection == View::Projection::ortho) {
     OrthoProjection();
@@ -111,7 +108,6 @@ void Object3d::SetUpProjection() {
     PerspectProjection();  // TODO исправить
   }
 }
-
 
 void Object3d::OrthoProjection() {
   glMatrixMode(GL_PROJECTION);
@@ -123,14 +119,14 @@ void Object3d::OrthoProjection() {
   double max_z = view_->controller_->GetMaxCoordinateZ();
 
   glOrtho(-max, max, -max, max, min_z * 2, max_z * 2);
-  glTranslatef(static_cast<GLfloat>(view_->x_step), static_cast<GLfloat>(view_->y_step), 0.0f);
+  glTranslatef(static_cast<GLfloat>(view_->x_step),
+               static_cast<GLfloat>(view_->y_step), 0.0f);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
 
 void Object3d::PerspectProjection() {
-
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 

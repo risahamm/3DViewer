@@ -216,7 +216,8 @@ void View::ConnectButtons() {
           &View::MoveLeftReleased);
 
   connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
-    controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) / current_scale_);
+    controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) /
+                      current_scale_);
     current_scale_ = static_cast<double>(ui_->zoomInOut->value());
     ui_->GLwidget->update();
   });
