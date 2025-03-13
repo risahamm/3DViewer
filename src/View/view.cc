@@ -41,8 +41,8 @@ void View::OpenClicked() {
     QString EdgeCount = QString::number(controller_->GetEdgesCount());
     ui_->edges_amount->setText(EdgeCount);
 
-    x_step_ = controller_->GetMaxCoordinateX() * 0.1;
-    y_step_ = controller_->GetMaxCoordinateY() * 0.1;
+    x_step = 0.0;
+    y_step = 0.0;
 
     ui_->GLwidget->update();
 
@@ -216,14 +216,7 @@ void View::ConnectButtons() {
           &View::MoveLeftReleased);
 
   connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
-
     controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) / current_scale_);
-
-//    if (ui_->zoomInOut->value() > current_scale_) {
-//        controller_->Zoom(1.1);
-//    } else {
-//        controller_->Zoom(0.9);
-//    }
     current_scale_ = static_cast<double>(ui_->zoomInOut->value());
     ui_->GLwidget->update();
   });
@@ -280,7 +273,7 @@ void View::ConnectButtons() {
 }
 
 void View::MoveUp() {
-  controller_->MoveYUp(y_step_);
+  y_step += controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
@@ -290,7 +283,7 @@ void View::MoveUpReleased() {
 }
 
 void View::MoveDown() {
-  controller_->MoveYDown(y_step_);
+  y_step -= controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
@@ -300,8 +293,7 @@ void View::MoveDownReleased() {
 }
 
 void View::MoveRight() {
-//  controller_->MoveXRight(x_step_);
-    ui_->GLwidget->MoveXAxis(x_step_);
+  x_step += controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
@@ -311,7 +303,7 @@ void View::MoveRightReleased() {
 }
 
 void View::MoveLeft() {
-  controller_->MoveXLeft(x_step_);
+  x_step -= controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 

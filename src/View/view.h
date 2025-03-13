@@ -51,6 +51,9 @@ class View : public QMainWindow {
 
   Settings current_settings;  ///< текущие настройки
 
+  double x_step;  ///< шаг для move
+  double y_step;
+
   Ui::View *GetUiPtr() { return ui_; }
 
  private slots:
@@ -78,9 +81,6 @@ class View : public QMainWindow {
   QSettings *user_settings_;
 
   QTimer action_tmr_;  ///< таймер для зажатия transformations buttons
-
-  double x_step_;  ///< шаг для move
-  double y_step_;
 
   double current_scale_; ///< текущий масштаб отображения объекта
 

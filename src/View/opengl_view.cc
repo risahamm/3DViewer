@@ -122,7 +122,8 @@ void Object3d::OrthoProjection() {
   double min_z = view_->controller_->GetMinCoordinateZ();
   double max_z = view_->controller_->GetMaxCoordinateZ();
 
-  glOrtho(-max + 0.5, max + 0.5, -max, max, min_z * 2, max_z * 2);
+  glOrtho(-max, max, -max, max, min_z * 2, max_z * 2);
+  glTranslatef(static_cast<GLfloat>(view_->x_step), static_cast<GLfloat>(view_->y_step), 0.0f);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -159,13 +160,4 @@ double Object3d::FindMaxCoordinate() {
 
   MAX *= 2;
   return MAX;
-}
-
-
-void Object3d::MoveXAxis(double x) {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glTranslatef(x, 0, 0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 }
