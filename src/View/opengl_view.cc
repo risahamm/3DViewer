@@ -9,6 +9,25 @@ Object3d::~Object3d() {}
 
 void Object3d::initializeGL() { initializeOpenGLFunctions(); }
 
+
+/* вызывается только один раз в самом начале при отрисовке виджета */
+void Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
+
+
+void Object3d::SetUpBackgroundColor() {
+  GLfloat red =
+      static_cast<GLfloat>(view_->current_settings.background_color.redF());
+  GLfloat green =
+      static_cast<GLfloat>(view_->current_settings.background_color.greenF());
+  GLfloat blue =
+      static_cast<GLfloat>(view_->current_settings.background_color.blueF());
+  GLfloat alpha =
+      static_cast<GLfloat>(view_->current_settings.background_color.alphaF());
+
+  glClearColor(red, green, blue, alpha);
+}
+
+
 void Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
 
 /* вызывается каждый раз, когда вызываем update() */
@@ -55,21 +74,6 @@ void Object3d::paintGL() {
   }
 }
 
-/* вызывается только один раз в самом начале при отрисовке виджета */
-void Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
-
-void Object3d::SetUpBackgroundColor() {
-  GLfloat red =
-      static_cast<GLfloat>(view_->current_settings.background_color.redF());
-  GLfloat green =
-      static_cast<GLfloat>(view_->current_settings.background_color.greenF());
-  GLfloat blue =
-      static_cast<GLfloat>(view_->current_settings.background_color.blueF());
-  GLfloat alpha =
-      static_cast<GLfloat>(view_->current_settings.background_color.alphaF());
-
-  glClearColor(red, green, blue, alpha);
-}
 
 void Object3d::SetUpPaintColor(QColor color) {
   GLfloat red = static_cast<GLfloat>(color.redF());
@@ -78,6 +82,7 @@ void Object3d::SetUpPaintColor(QColor color) {
 
   glColor3f(red, green, blue);
 }
+
 
 void Object3d::SetUpLineStyle() {
   if (view_->current_settings.line == View::Line::dashed) {
@@ -92,6 +97,7 @@ void Object3d::SetUpLineStyle() {
   }
 }
 
+
 void Object3d::SetUpVertexStyle() {
   if (view_->current_settings.vertex == View::Vertex::dot) {
     glEnable(GL_POINT_SMOOTH);
@@ -99,6 +105,7 @@ void Object3d::SetUpVertexStyle() {
     glDisable(GL_POINT_SMOOTH);
   }
 }
+
 
 void Object3d::SetUpProjection() {
   if (view_->current_settings.projection == View::Projection::ortho) {
@@ -108,6 +115,7 @@ void Object3d::SetUpProjection() {
     PerspectProjection();  // TODO исправить
   }
 }
+
 
 void Object3d::OrthoProjection() {
   glMatrixMode(GL_PROJECTION);
@@ -119,12 +127,15 @@ void Object3d::OrthoProjection() {
   double max_z = view_->controller_->GetMaxCoordinateZ();
 
   glOrtho(-max, max, -max, max, min_z * 2, max_z * 2);
+
+  /* значения, на которые необходимо сдивнуть объект при вызове move */
   glTranslatef(static_cast<GLfloat>(view_->x_step),
                static_cast<GLfloat>(view_->y_step), 0.0f);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
+
 
 void Object3d::PerspectProjection() {
   glMatrixMode(GL_PROJECTION);
@@ -135,11 +146,36 @@ void Object3d::PerspectProjection() {
   double max_z = view_->controller_->GetMaxCoordinateZ();
 
   /* установка проекции */
-  glFrustum(-max, max, -max, max, min_z, max_z);
+//  glFrustum(-max, max, -max, max, min_z, max_z);
+
+  GLdouble zNear = 0.01;
+  GLdouble zFar = max_z * 10.0;
+
+  if (max < 1) {
+    max = 2;
+  }
+
+  GLdouble fovy = 75.0;
+  GLdouble aspect = static_cast<GLdouble>(width()) / height();
+  GLdouble fovyRad = fovy * M_PI / 180.0;
+  GLdouble top = zNear * tan(fovyRad / 2.0);
+  GLdouble bottom = -top;
+  GLdouble right = top * aspect;
+  GLdouble left = -right;
+  qDebug() << "left = " << left;
+  qDebug() << "right = " << right;
+  qDebug() << "bottom = " << bottom;
+  qDebug() << "top = " << top;
+  glFrustum(left, right, bottom, top, zNear, zFar);
+
+  /* значения, на которые необходимо сдивнуть объект при вызове move */
+  glTranslatef(static_cast<GLfloat>(view_->x_step),
+               static_cast<GLfloat>(view_->y_step), 0.0f);
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
+
 
 double Object3d::FindMaxCoordinate() {
   double xMax = view_->controller_->GetMaxCoordinateX();
