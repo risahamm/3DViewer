@@ -148,25 +148,21 @@ void Object3d::PerspectProjection() {
   /* установка проекции */
 //  glFrustum(-max, max, -max, max, min_z, max_z);
 
-  GLdouble zNear = 0.01;
-  GLdouble zFar = max_z * 10.0;
-
-  if (max < 1) {
-    max = 2;
+  if (max <= 1) {
+    max *= 3;
+  } else {
+    max *= 2;
   }
 
-  GLdouble fovy = 75.0;
-  GLdouble aspect = static_cast<GLdouble>(width()) / height();
-  GLdouble fovyRad = fovy * M_PI / 180.0;
-  GLdouble top = zNear * tan(fovyRad / 2.0);
-  GLdouble bottom = -top;
-  GLdouble right = top * aspect;
-  GLdouble left = -right;
-  qDebug() << "left = " << left;
-  qDebug() << "right = " << right;
-  qDebug() << "bottom = " << bottom;
-  qDebug() << "top = " << top;
-  glFrustum(left, right, bottom, top, zNear, zFar);
+  GLdouble zNear = 0.01;
+  GLdouble zFar = max * 10;
+  if (max <= 0.5) {
+    max = 2;
+  }
+  GLdouble fovY = 90;
+  GLdouble fH = tan(fovY / 360 * M_PI) * zNear;
+  GLdouble fW = fH * 1.42;
+  glFrustum(-fW *2.5, fW*2.5, -fH*2.5, fH*2.5, zNear*2, zFar*2);
 
   /* значения, на которые необходимо сдивнуть объект при вызове move */
   glTranslatef(static_cast<GLfloat>(view_->x_step),
