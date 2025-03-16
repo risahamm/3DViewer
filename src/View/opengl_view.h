@@ -5,6 +5,7 @@
 
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
+#include <QtConcurrent>
 
 #include "view.h"
 
@@ -144,7 +145,7 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
    * @brief Нахождение максимальной координаты.
    * @details Метод вычисляет максимальное значение координат по
    * осям X и Y, получая их из контроллера представления.
-   * @return Максимальное значение координаты, умноженное на 2.
+   * @return Максимальное значение координаты.
    */
   double FindMaxCoordinate();
 };
