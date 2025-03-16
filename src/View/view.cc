@@ -43,6 +43,7 @@ void View::OpenClicked() {
 
     x_step = 0.0;
     y_step = 0.0;
+    z_step = 0.0;
 
     ui_->GLwidget->update();
 

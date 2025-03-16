@@ -53,6 +53,7 @@ class View : public QMainWindow {
 
   double x_step;  ///< шаг для move
   double y_step;
+  double z_step;
 
   Ui::View *GetUiPtr() { return ui_; }
 

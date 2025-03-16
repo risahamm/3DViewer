@@ -122,7 +122,6 @@ class Object {
    */
   std::vector<Point> GetVertices() { return vertices_; }
 
-
   /**
    * @brief Возвращет ссылку на вектор вершин объекта.
    * @return Ссылка на вектор вершин объекта.
@@ -134,7 +133,6 @@ class Object {
    * @return Копия вектора полигонов объекта.
    */
   std::vector<std::vector<int>> GetFacets() { return facets_; }
-
 
   /**
    * @brief Возвращает количество вершин в объекте.

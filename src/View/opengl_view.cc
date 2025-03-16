@@ -9,10 +9,8 @@ Object3d::~Object3d() {}
 
 void Object3d::initializeGL() { initializeOpenGLFunctions(); }
 
-
 /* вызывается только один раз в самом начале при отрисовке виджета */
 void Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
-
 
 void Object3d::SetUpBackgroundColor() {
   GLfloat red =
@@ -26,7 +24,6 @@ void Object3d::SetUpBackgroundColor() {
 
   glClearColor(red, green, blue, alpha);
 }
-
 
 void Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
 
@@ -74,7 +71,6 @@ void Object3d::paintGL() {
   }
 }
 
-
 void Object3d::SetUpPaintColor(QColor color) {
   GLfloat red = static_cast<GLfloat>(color.redF());
   GLfloat green = static_cast<GLfloat>(color.greenF());
@@ -82,7 +78,6 @@ void Object3d::SetUpPaintColor(QColor color) {
 
   glColor3f(red, green, blue);
 }
-
 
 void Object3d::SetUpLineStyle() {
   if (view_->current_settings.line == View::Line::dashed) {
@@ -97,7 +92,6 @@ void Object3d::SetUpLineStyle() {
   }
 }
 
-
 void Object3d::SetUpVertexStyle() {
   if (view_->current_settings.vertex == View::Vertex::dot) {
     glEnable(GL_POINT_SMOOTH);
@@ -106,23 +100,21 @@ void Object3d::SetUpVertexStyle() {
   }
 }
 
-
 void Object3d::SetUpProjection() {
   if (view_->current_settings.projection == View::Projection::ortho) {
     OrthoProjection();
 
   } else {
-    PerspectProjection();  // TODO исправить
+    PerspectProjection();
   }
 }
-
 
 void Object3d::OrthoProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
   /* установка проекции */
-  double max = FindMaxCoordinate();
+  double max = FindMaxCoordinate() * 2;
   double min_z = view_->controller_->GetMinCoordinateZ();
   double max_z = view_->controller_->GetMaxCoordinateZ();
 
@@ -136,17 +128,11 @@ void Object3d::OrthoProjection() {
   glLoadIdentity();
 }
 
-
 void Object3d::PerspectProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
   double max = FindMaxCoordinate();
-  double min_z = view_->controller_->GetMinCoordinateZ();
-  double max_z = view_->controller_->GetMaxCoordinateZ();
-
-  /* установка проекции */
-//  glFrustum(-max, max, -max, max, min_z, max_z);
 
   if (max <= 1) {
     max *= 3;
@@ -154,24 +140,30 @@ void Object3d::PerspectProjection() {
     max *= 2;
   }
 
-  GLdouble zNear = 0.01;
-  GLdouble zFar = max * 10;
+  GLdouble z_near = 0.01;
+  GLdouble z_far = max * 1000;
+
   if (max <= 0.5) {
     max = 2;
   }
-  GLdouble fovY = 90;
-  GLdouble fH = tan(fovY / 360 * M_PI) * zNear;
-  GLdouble fW = fH * 1.42;
-  glFrustum(-fW *2.5, fW*2.5, -fH*2.5, fH*2.5, zNear*2, zFar*2);
+
+  GLdouble fov_y = 75; ///< угол обзора по вертикали
+  GLdouble height = tan(fov_y / 360 * M_PI) * z_near;
+  GLdouble width = height;
+
+  /* установка проекции */
+  glFrustum(-width, width, -height, height, z_near, z_far);
+
+  view_->z_step = -max;
 
   /* значения, на которые необходимо сдивнуть объект при вызове move */
   glTranslatef(static_cast<GLfloat>(view_->x_step),
-               static_cast<GLfloat>(view_->y_step), 0.0f);
+               static_cast<GLfloat>(view_->y_step),
+               static_cast<GLfloat>(view_->z_step));
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
-
 
 double Object3d::FindMaxCoordinate() {
   double xMax = view_->controller_->GetMaxCoordinateX();
@@ -186,6 +178,6 @@ double Object3d::FindMaxCoordinate() {
     MAX = yMax;
   };
 
-  MAX *= 2;
+  //  MAX *= 2;
   return MAX;
 }
