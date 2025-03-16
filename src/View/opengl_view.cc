@@ -29,6 +29,7 @@ void Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
 
 /* вызывается каждый раз, когда вызываем update() */
 void Object3d::paintGL() {
+
   /* если объект не выбран, ничего не рисуем */
   if (view_->object_path_ == nullptr) {
     return;
@@ -69,7 +70,6 @@ void Object3d::paintGL() {
     }
     glEnd();
   }
-
 }
 
 void Object3d::SetUpPaintColor(QColor color) {

@@ -5,7 +5,6 @@
 
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
-#include <QtConcurrent>
 
 #include "view.h"
 
