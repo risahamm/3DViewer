@@ -122,7 +122,6 @@ class Object {
    */
   std::vector<Point> GetVertices() { return vertices_; }
 
-  std::vector<Point> &GetInitialVeritcesRef() { return initial_vertices_; }
 
   /**
    * @brief Возвращет ссылку на вектор вершин объекта.
@@ -136,7 +135,6 @@ class Object {
    */
   std::vector<std::vector<int>> GetFacets() { return facets_; }
 
-  void SetInitialVertices() { initial_vertices_ = vertices_; }
 
   /**
    * @brief Возвращает количество вершин в объекте.
@@ -169,8 +167,6 @@ class Object {
 
  private:
   std::vector<Point> vertices_;  ///< текущие вершины объекта
-  std::vector<Point>
-      initial_vertices_;  ///< начальные значения вершин (до zoom)
   std::vector<std::vector<int>> facets_;  ///< полигоны
   int vertex_count_ = 0;                  ///< количество вершин
   int edge_count_ = 0;                    ///< количество рёбер

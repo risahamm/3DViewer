@@ -118,7 +118,6 @@ void s21::Object::CenterObject() {
   }
 
   SetMaxCoordinates();
-  SetInitialVertices();
 }
 
 void s21::Object::SetMaxCoordinates() {
