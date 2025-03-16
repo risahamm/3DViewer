@@ -1,5 +1,5 @@
-#ifndef VIEWER_TRANSFORMATIONS_H
-#define VIEWER_TRANSFORMATIONS_H
+#ifndef VIEWER_SRC_MODEL_TRANSFORMATIONS_H
+#define VIEWER_SRC_MODEL_TRANSFORMATIONS_H
 
 #include "../object.h"
 
@@ -55,5 +55,5 @@ namespace s21 {
 
 } // namespace s21
 
-#endif  // VIEWER_TRANSFORMATIONS_H
+#endif  // VIEWER_SRC_MODEL_TRANSFORMATIONS_H
 

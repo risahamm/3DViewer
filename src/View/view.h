@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef VIEWER_SRC_VIEW_HVIEW_H
+#define VIEWER_SRC_VIEW_HVIEW_H
 
 #include <QColor>
 #include <QColorDialog>
@@ -55,8 +55,6 @@ class View : public QMainWindow {
   double y_step;
   double z_step;
 
-  Ui::View *GetUiPtr() { return ui_; }
-
  private slots:
 
   void OpenClicked();
@@ -89,4 +87,4 @@ class View : public QMainWindow {
   void SaveSettings();
   void LoadSettings();
 };
-#endif  // VIEW_H
+#endif  // VIEWER_SRC_VIEW_HVIEW_H

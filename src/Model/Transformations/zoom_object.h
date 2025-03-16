@@ -1,5 +1,5 @@
-#ifndef VIEWER_ZOOM_OBJECT_H
-#define VIEWER_ZOOM_OBJECT_H
+#ifndef VIEWER_SRC_MODEL_TRANSFORMATIONS_ZOOM_OBJECT_H
+#define VIEWER_SRC_MODEL_TRANSFORMATIONS_ZOOM_OBJECT_H
 
 #include "transformations.h"
 
@@ -16,4 +16,4 @@ namespace s21 {
   };
 } // namespace s21
 
-#endif  // VIEWER_ZOOM_OBJECT_H
+#endif  // VIEWER_SRC_MODEL_TRANSFORMATIONS_ZOOM_OBJECT_H

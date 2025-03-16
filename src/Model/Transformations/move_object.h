@@ -1,5 +1,5 @@
-#ifndef VIEWER_MOVE_OBJECT_H
-#define VIEWER_MOVE_OBJECT_H
+#ifndef VIEWER_SRC_MODEL_TRANSFORMATIONS_MOVE_OBJECT_H
+#define VIEWER_SRC_MODEL_TRANSFORMATIONS_MOVE_OBJECT_H
 
 #include "transformations.h"
 
@@ -17,4 +17,4 @@ namespace s21 {
 
 } // namespace s21
 
-#endif  // VIEWER_MOVE_OBJECT_H
+#endif  // VIEWER_SRC_MODEL_TRANSFORMATIONS_MOVE_OBJECT_H

@@ -1,5 +1,5 @@
-#ifndef OPENGL_VIEW_H
-#define OPENGL_VIEW_H
+#ifndef VIEWER_SRC_VIEW_OPENGL_VIEW_H
+#define VIEWER_SRC_VIEW_OPENGL_VIEW_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -149,4 +149,4 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
   double FindMaxCoordinate();
 };
 
-#endif  // OPENGL_VIEW_H
+#endif  // VIEWER_SRC_VIEW_OPENGL_VIEW_H
