@@ -178,6 +178,5 @@ double Object3d::FindMaxCoordinate() {
     MAX = yMax;
   };
 
-  //  MAX *= 2;
   return MAX;
 }
