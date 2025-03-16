@@ -43,19 +43,6 @@ void Object3d::paintGL() {
 
   std::vector<s21::Point> vertices = view_->controller_->GetVertices();
 
-  /* сначала соединяем вершины */
-  SetUpPaintColor(view_->current_settings.line_color);
-  SetUpLineStyle();
-  glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
-  std::vector<std::vector<int>> facets = view_->controller_->GetFacets();
-  for (std::vector<int> &facet : facets) {
-    glBegin(GL_LINE_LOOP);
-    for (int &vertex : facet) {
-      glVertex3d(vertices[vertex].x, vertices[vertex].y, vertices[vertex].z);
-    }
-    glEnd();
-  }
-
   /* рисуем вершины */
   if (view_->current_settings.vertex == View::Vertex::dot ||
       view_->current_settings.vertex == View::Vertex::square) {
@@ -69,6 +56,20 @@ void Object3d::paintGL() {
     }
     glEnd();
   }
+
+  /* соединяем вершины */
+  SetUpPaintColor(view_->current_settings.line_color);
+  SetUpLineStyle();
+  glLineWidth(static_cast<GLfloat>(view_->current_settings.line_size));
+  std::vector<std::vector<int>> facets = view_->controller_->GetFacets();
+  for (std::vector<int> &facet : facets) {
+    glBegin(GL_LINE_LOOP);
+    for (int &vertex : facet) {
+      glVertex3d(vertices[vertex].x, vertices[vertex].y, vertices[vertex].z);
+    }
+    glEnd();
+  }
+
 }
 
 void Object3d::SetUpPaintColor(QColor color) {
