@@ -166,17 +166,17 @@ void Object3d::PerspectProjection() {
 }
 
 double Object3d::FindMaxCoordinate() {
-  double xMax = view_->controller_->GetMaxCoordinateX();
-  double yMax = view_->controller_->GetMaxCoordinateY();
+  double x_max = view_->controller_->GetMaxCoordinateX();
+  double y_max = view_->controller_->GetMaxCoordinateY();
 
-  double MAX = 0.0;
+  double max = 0.0;
 
-  if (xMax > yMax) {
-    MAX = xMax;
+  if (x_max > y_max) {
+    max = x_max;
 
   } else {
-    MAX = yMax;
+    max = y_max;
   };
 
-  return MAX;
+  return max;
 }
