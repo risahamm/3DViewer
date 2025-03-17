@@ -3,12 +3,6 @@
 // #include "Model/object.h"
 
 
-s21::Object3d::Object3d(QWidget *parent) : QOpenGLWidget(parent) {}
-
-
-s21::Object3d::~Object3d() {}
-
-
 void s21::Object3d::initializeGL() { initializeOpenGLFunctions(); }
 
 

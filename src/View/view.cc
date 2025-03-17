@@ -2,7 +2,8 @@
 
 #include "ui_view.h"
 
-View::View(QWidget *parent, s21::Controller *controller)
+
+s21::View::View(QWidget *parent, s21::Controller *controller)
     : QMainWindow(parent),
       controller_(controller),
       user_settings_(new QSettings("s21Soft", "3D Viewer")),
@@ -16,177 +17,14 @@ View::View(QWidget *parent, s21::Controller *controller)
   LoadSettings();
 }
 
-View::~View() {
+
+s21::View::~View() {
   SaveSettings();
   delete ui_;
 }
 
-void View::OpenClicked() {
-  object_path_ = QFileDialog::getOpenFileName(
-      this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
-  ui_->message_window->setText(object_path_);
 
-  /* находим индекс последнего символа '/' */
-  int last_slash_idx = object_path_.lastIndexOf('/');
-  ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
-
-  ui_->zoomInOut->setValue(100);
-  current_scale_ = 100.0;
-
-  /* если файл обработан успешно */
-  if (controller_->OpenFile(object_path_.toStdString())) {
-    QString verticesCount = QString::number(controller_->GetVerticesCount());
-    ui_->vertices_amount->setText(verticesCount);
-
-    QString EdgeCount = QString::number(controller_->GetEdgesCount());
-    ui_->edges_amount->setText(EdgeCount);
-
-    x_step = 0.0;
-    y_step = 0.0;
-    z_step = 0.0;
-
-    ui_->GLwidget->update();
-
-  } else {
-    controller_->ClearObject();
-    ui_->message_window->setText("Error: Invalid object file: " + object_path_);
-  }
-}
-
-/* одновременно может выбрана только одна проекция */
-void View::ProjectionSelected(View::Projection projection) {
-  if (projection == View::Projection::ortho) {
-    ui_->ortho_proj_button->setChecked(true);
-    ui_->perspect_proj_button->setChecked(false);
-    current_settings.projection = View::Projection::ortho;
-
-  } else if (projection == View::Projection::perspect) {
-    ui_->perspect_proj_button->setChecked(true);
-    ui_->ortho_proj_button->setChecked(false);
-    current_settings.projection = View::Projection::perspect;
-  }
-}
-
-/* одновременно может выбран только один тип отображения граней */
-void View::LineViewSelected(View::Line line) {
-  if (line == View::Line::solid) {
-    ui_->solid_line_button->setChecked(true);
-    ui_->dashed_line_button->setChecked(false);
-    current_settings.line = View::Line::solid;
-
-  } else if (line == View::Line::dashed) {
-    ui_->dashed_line_button->setChecked(true);
-    ui_->solid_line_button->setChecked(false);
-    current_settings.line = View::Line::dashed;
-  }
-}
-
-/* одновременно может выбран только один тип отображения вершин */
-void View::VertexViewSelected(View::Vertex vertex) {
-  if (vertex == View::Vertex::dot) {
-    ui_->dot_vertex_button->setChecked(true);
-    ui_->square_vertex_button->setChecked(false);
-    ui_->no_vertex_button->setChecked(false);
-    current_settings.vertex = View::Vertex::dot;
-
-  } else if (vertex == View::Vertex::square) {
-    ui_->square_vertex_button->setChecked(true);
-    ui_->dot_vertex_button->setChecked(false);
-    ui_->no_vertex_button->setChecked(false);
-    current_settings.vertex = View::Vertex::square;
-
-  } else if (vertex == View::Vertex::no_vertex) {
-    ui_->no_vertex_button->setChecked(true);
-    ui_->dot_vertex_button->setChecked(false);
-    ui_->square_vertex_button->setChecked(false);
-    current_settings.vertex = View::Vertex::no_vertex;
-  }
-}
-
-QColor View::SetColor() {
-  QColor selected_color =
-      QColorDialog::getColor(Qt::black, this, "Select color");
-
-  return selected_color;
-}
-
-void View::SaveSettings() {
-  user_settings_->setValue("ortho_proj_button_checked",
-                           ui_->ortho_proj_button->isChecked());
-  user_settings_->setValue("parall_proj_button_checked",
-                           ui_->perspect_proj_button->isChecked());
-  user_settings_->setValue("solid_line_button_checked",
-                           ui_->solid_line_button->isChecked());
-  user_settings_->setValue("dashed_line_button_checked",
-                           ui_->dashed_line_button->isChecked());
-  user_settings_->setValue("dot_vertex_button_checked",
-                           ui_->dot_vertex_button->isChecked());
-  user_settings_->setValue("square_vertex_button_checked",
-                           ui_->square_vertex_button->isChecked());
-  user_settings_->setValue("no_vertex_button_checked",
-                           ui_->no_vertex_button->isChecked());
-
-  user_settings_->setValue("projection",
-                           static_cast<int>(current_settings.projection));
-  user_settings_->setValue("line_type",
-                           static_cast<int>(current_settings.line));
-  user_settings_->setValue("line_size", ui_->edge_size_slider->value());
-  user_settings_->setValue("vertex_type",
-                           static_cast<int>(current_settings.vertex));
-  user_settings_->setValue("vertex_size", ui_->vertex_size_slider->value());
-
-  user_settings_->setValue("line_color", current_settings.line_color.name());
-  user_settings_->setValue("vertex_color",
-                           current_settings.vertex_color.name());
-  user_settings_->setValue("background_color",
-                           current_settings.background_color.name());
-}
-
-void View::LoadSettings() {
-  /* второй параметр - настройки по умолчанию */
-  ui_->ortho_proj_button->setChecked(
-      user_settings_->value("ortho_proj_button_checked", true).toBool());
-  ui_->perspect_proj_button->setChecked(
-      user_settings_->value("parall_proj_button_checked", false).toBool());
-  ui_->solid_line_button->setChecked(
-      user_settings_->value("solid_line_button_checked", true).toBool());
-  ui_->dashed_line_button->setChecked(
-      user_settings_->value("dashed_line_button_checked", false).toBool());
-  ui_->dot_vertex_button->setChecked(
-      user_settings_->value("dot_vertex_button_checked", true).toBool());
-  ui_->square_vertex_button->setChecked(
-      user_settings_->value("square_vertex_button_checked", false).toBool());
-  ui_->no_vertex_button->setChecked(
-      user_settings_->value("no_vertex_button_checked", false).toBool());
-
-  current_settings.projection = static_cast<View::Projection>(
-      user_settings_
-          ->value("projection", static_cast<int>(View::Projection::ortho))
-          .toInt());
-  current_settings.line = static_cast<View::Line>(
-      user_settings_->value("line_type", static_cast<int>(View::Line::solid))
-          .toInt());
-  current_settings.line_size = user_settings_->value("line_size", 2).toFloat();
-  ui_->edge_size_slider->setValue(
-      user_settings_->value("line_size", 2).toInt());
-  current_settings.vertex = static_cast<View::Vertex>(
-      user_settings_->value("vertex_type", static_cast<int>(View::Vertex::dot))
-          .toInt());
-  current_settings.vertex_size =
-      user_settings_->value("vertex_size", 2).toFloat();
-  ui_->vertex_size_slider->setValue(
-      user_settings_->value("vertex_size", 2).toInt());
-
-  current_settings.line_color = QColor(
-      user_settings_->value("line_color", "#FFFFFF").toString());  // white
-  current_settings.vertex_color = QColor(
-      user_settings_->value("vertex_color", "#FFFFFF").toString());  // white
-  current_settings.background_color =
-      QColor(user_settings_->value("background_color", "#000000")
-                 .toString());  // black
-}
-
-void View::ConnectButtons() {
+void s21::View::ConnectButtons() {
   connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
 
   connect(ui_->moveYplus, &QPushButton::pressed, this, [this]() {
@@ -274,42 +112,222 @@ void View::ConnectButtons() {
   });
 }
 
-void View::MoveUp() {
-  y_step += controller_->GetMaxCoordinateX() * 0.1;
+
+void s21::View::OpenClicked() {
+  object_path_ = QFileDialog::getOpenFileName(
+      this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
+  ui_->message_window->setText(object_path_);
+
+  /* находим индекс последнего символа '/' */
+  int last_slash_idx = object_path_.lastIndexOf('/');
+  ui_->file_name_label->setText(object_path_.mid(last_slash_idx + 1));
+
+  ui_->zoomInOut->setValue(100);
+  current_scale_ = 100.0;
+
+  /* если файл обработан успешно */
+  if (controller_->OpenFile(object_path_.toStdString())) {
+    QString verticesCount = QString::number(controller_->GetVerticesCount());
+    ui_->vertices_amount->setText(verticesCount);
+
+    QString EdgeCount = QString::number(controller_->GetEdgesCount());
+    ui_->edges_amount->setText(EdgeCount);
+
+    x_step = 0.0;
+    y_step = 0.0;
+    z_step = 0.0;
+
+    ui_->GLwidget->update();
+
+  } else {
+    controller_->ClearObject();
+    ui_->message_window->setText("Error: Invalid object file: " + object_path_);
+  }
+}
+
+
+/* одновременно может выбрана только одна проекция */
+void s21::View::ProjectionSelected(View::Projection projection) {
+  if (projection == View::Projection::ortho) {
+    ui_->ortho_proj_button->setChecked(true);
+    ui_->perspect_proj_button->setChecked(false);
+    current_settings.projection = View::Projection::ortho;
+
+  } else if (projection == View::Projection::perspect) {
+    ui_->perspect_proj_button->setChecked(true);
+    ui_->ortho_proj_button->setChecked(false);
+    current_settings.projection = View::Projection::perspect;
+  }
+}
+
+
+/* одновременно может выбран только один тип отображения граней */
+void s21::View::LineViewSelected(View::Line line) {
+  if (line == View::Line::solid) {
+    ui_->solid_line_button->setChecked(true);
+    ui_->dashed_line_button->setChecked(false);
+    current_settings.line = View::Line::solid;
+
+  } else if (line == View::Line::dashed) {
+    ui_->dashed_line_button->setChecked(true);
+    ui_->solid_line_button->setChecked(false);
+    current_settings.line = View::Line::dashed;
+  }
+}
+
+
+/* одновременно может выбран только один тип отображения вершин */
+void s21::View::VertexViewSelected(View::Vertex vertex) {
+  if (vertex == View::Vertex::dot) {
+    ui_->dot_vertex_button->setChecked(true);
+    ui_->square_vertex_button->setChecked(false);
+    ui_->no_vertex_button->setChecked(false);
+    current_settings.vertex = View::Vertex::dot;
+
+  } else if (vertex == View::Vertex::square) {
+    ui_->square_vertex_button->setChecked(true);
+    ui_->dot_vertex_button->setChecked(false);
+    ui_->no_vertex_button->setChecked(false);
+    current_settings.vertex = View::Vertex::square;
+
+  } else if (vertex == View::Vertex::no_vertex) {
+    ui_->no_vertex_button->setChecked(true);
+    ui_->dot_vertex_button->setChecked(false);
+    ui_->square_vertex_button->setChecked(false);
+    current_settings.vertex = View::Vertex::no_vertex;
+  }
+}
+
+
+QColor s21::View::SetColor() {
+  QColor selected_color =
+      QColorDialog::getColor(Qt::black, this, "Select color");
+
+  return selected_color;
+}
+
+
+void s21::View::SaveSettings() {
+  user_settings_->setValue("ortho_proj_button_checked",
+                           ui_->ortho_proj_button->isChecked());
+  user_settings_->setValue("parall_proj_button_checked",
+                           ui_->perspect_proj_button->isChecked());
+  user_settings_->setValue("solid_line_button_checked",
+                           ui_->solid_line_button->isChecked());
+  user_settings_->setValue("dashed_line_button_checked",
+                           ui_->dashed_line_button->isChecked());
+  user_settings_->setValue("dot_vertex_button_checked",
+                           ui_->dot_vertex_button->isChecked());
+  user_settings_->setValue("square_vertex_button_checked",
+                           ui_->square_vertex_button->isChecked());
+  user_settings_->setValue("no_vertex_button_checked",
+                           ui_->no_vertex_button->isChecked());
+
+  user_settings_->setValue("projection",
+                           static_cast<int>(current_settings.projection));
+  user_settings_->setValue("line_type",
+                           static_cast<int>(current_settings.line));
+  user_settings_->setValue("line_size", ui_->edge_size_slider->value());
+  user_settings_->setValue("vertex_type",
+                           static_cast<int>(current_settings.vertex));
+  user_settings_->setValue("vertex_size", ui_->vertex_size_slider->value());
+
+  user_settings_->setValue("line_color", current_settings.line_color.name());
+  user_settings_->setValue("vertex_color",
+                           current_settings.vertex_color.name());
+  user_settings_->setValue("background_color",
+                           current_settings.background_color.name());
+}
+
+
+void s21::View::LoadSettings() {
+  /* второй параметр - настройки по умолчанию */
+  ui_->ortho_proj_button->setChecked(
+      user_settings_->value("ortho_proj_button_checked", true).toBool());
+  ui_->perspect_proj_button->setChecked(
+      user_settings_->value("parall_proj_button_checked", false).toBool());
+  ui_->solid_line_button->setChecked(
+      user_settings_->value("solid_line_button_checked", true).toBool());
+  ui_->dashed_line_button->setChecked(
+      user_settings_->value("dashed_line_button_checked", false).toBool());
+  ui_->dot_vertex_button->setChecked(
+      user_settings_->value("dot_vertex_button_checked", true).toBool());
+  ui_->square_vertex_button->setChecked(
+      user_settings_->value("square_vertex_button_checked", false).toBool());
+  ui_->no_vertex_button->setChecked(
+      user_settings_->value("no_vertex_button_checked", false).toBool());
+
+  current_settings.projection = static_cast<View::Projection>(
+      user_settings_
+          ->value("projection", static_cast<int>(View::Projection::ortho))
+          .toInt());
+  current_settings.line = static_cast<View::Line>(
+      user_settings_->value("line_type", static_cast<int>(View::Line::solid))
+          .toInt());
+  current_settings.line_size = user_settings_->value("line_size", 2).toFloat();
+  ui_->edge_size_slider->setValue(
+      user_settings_->value("line_size", 2).toInt());
+  current_settings.vertex = static_cast<View::Vertex>(
+      user_settings_->value("vertex_type", static_cast<int>(View::Vertex::dot))
+          .toInt());
+  current_settings.vertex_size =
+      user_settings_->value("vertex_size", 2).toFloat();
+  ui_->vertex_size_slider->setValue(
+      user_settings_->value("vertex_size", 2).toInt());
+
+  current_settings.line_color = QColor(
+      user_settings_->value("line_color", "#FFFFFF").toString());  // white
+  current_settings.vertex_color = QColor(
+      user_settings_->value("vertex_color", "#FFFFFF").toString());  // white
+  current_settings.background_color =
+      QColor(user_settings_->value("background_color", "#000000")
+                 .toString());  // black
+}
+
+
+void s21::View::MoveUp() {
+  y_step += controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
 
-void View::MoveUpReleased() {
+
+void s21::View::MoveUpReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
 }
 
-void View::MoveDown() {
-  y_step -= controller_->GetMaxCoordinateX() * 0.1;
+
+void s21::View::MoveDown() {
+  y_step -= controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
 
-void View::MoveDownReleased() {
+
+void s21::View::MoveDownReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
 }
 
-void View::MoveRight() {
+
+void s21::View::MoveRight() {
   x_step += controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
-void View::MoveRightReleased() {
+
+void s21::View::MoveRightReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
 }
 
-void View::MoveLeft() {
+
+void s21::View::MoveLeft() {
   x_step -= controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
-void View::MoveLeftReleased() {
+
+void s21::View::MoveLeftReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
 }

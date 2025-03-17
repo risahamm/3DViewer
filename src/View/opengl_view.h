@@ -26,13 +26,13 @@ namespace s21 {
    /**
     * @brief Конструктор по умолчанию.
     */
-    Object3d(QWidget *parent = nullptr);
+    Object3d(QWidget *parent = nullptr) : QOpenGLWidget(parent) {};
 
 
    /**
     * @brief Деструктор по умолчанию.
     */
-    ~Object3d();
+    ~Object3d() {};
 
     friend class View;
 

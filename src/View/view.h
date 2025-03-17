@@ -13,78 +13,253 @@
 
 #include "../Controller/controller.h"
 
-namespace s21 {
-  class Controller;
-}
+// namespace s21 {
+//   class Controller;
+// }
 
 QT_BEGIN_NAMESPACE
+
 namespace Ui {
-class View;
+  class View;
 }
+
 QT_END_NAMESPACE
 
-class View : public QMainWindow {
-  Q_OBJECT
+namespace s21 {
 
- public:
-  enum class Projection { ortho, perspect };
+  class Controller;
 
-  enum class Line { solid, dashed };
+ /**
+  * @brief Класс представления для 3D объектов.
+  * @details Класс наследует от QMainWindow и управляет отображением
+  * 3D объектов, а также их настройками. Он предоставляет
+  * функциональность для изменения проекции, линий, вершин и
+  * обработки пользовательского ввода.
+  */
+  class View : public QMainWindow {
+    Q_OBJECT
 
-  enum class Vertex { dot, square, no_vertex };
+   public:
 
-  struct Settings {
-    View::Projection projection;
-    View::Line line;
-    float line_size;
-    QColor line_color;
-    View::Vertex vertex;
-    float vertex_size;
-    QColor vertex_color;
-    QColor background_color;
+   /**
+    * @brief Перечисление для типов проекций.
+    */
+    enum class Projection {
+      ortho,   ///< ортографическая проекция
+      perspect  ///< перспективная проекция
   };
 
-  View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
-  ~View();
+   /**
+    * @brief Перечисление для типов линий.
+    */
+    enum class Line {
+      solid,   ///< сплошная линия
+      dashed   ///< пунктирная линия
+  };
 
-  friend class Object3d;
+   /**
+    * @brief Перечисление для типов вершин.
+    */
+    enum class Vertex {
+      dot,        ///< точка
+      square,     ///< квадрат
+      no_vertex   ///< без вершин
+  };
 
-  Settings current_settings;  ///< текущие настройки
 
-  double x_step;  ///< шаг для move
-  double y_step;
-  double z_step;
+   /**
+    * @brief Структура для хранения настроек представления.
+    * @details Содержит параметры, определяющие внешний вид
+    * и поведение 3D объектов в классе View.
+    */
+    struct Settings {
+      View::Projection projection; ///< тип проекции (ортографическая или перспективная)
+      View::Line line; ///< тип линии (сплошная или пунктирная)
+      float line_size; ///< размер линии
+      QColor line_color; ///< цвет линии
+      View::Vertex vertex; ///< тип вершины (точка, квадрат или без вершин)
+      float vertex_size; ///< размер вершины
+      QColor vertex_color; ///< цвет вершины
+      QColor background_color; ///< цвет фона
+    };
 
- private slots:
 
-  void OpenClicked();
-  void ProjectionSelected(View::Projection perspective);
-  void LineViewSelected(View::Line line);
-  void VertexViewSelected(View::Vertex vertex);
-  QColor SetColor();
+    /**
+    * @brief Конструктор класса View.
+    * @details Инициализирует объект представления, настраивает пользовательский
+    * интерфейс, устанавливает указатели на контроллер и настройки, а также
+    * восстанавливает предыдущие настройки приложения.
+    * @param parent Указатель на родительский виджет.
+    * @param controller Указатель на контроллер для управления объектами.
+    */
+    View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
 
-  void MoveUp();
-  void MoveUpReleased();
-  void MoveDown();
-  void MoveDownReleased();
-  void MoveRight();
-  void MoveRightReleased();
-  void MoveLeft();
-  void MoveLeftReleased();
 
- private:
-  s21::Controller *controller_;
-  Ui::View *ui_;
-  QString object_path_;
+   /**
+    * @brief Деструктор класса View.
+    * @details Освобождает ресурсы, используемые объектом представления.
+    * Сохраняет текущие настройки перед уничтожением объекта.
+    */
+    ~View();
 
-  QSettings *user_settings_;
+    friend class Object3d;
 
-  QTimer action_tmr_;  ///< таймер для зажатия transformations buttons
+    Settings current_settings;  ///< текущие настройки
 
-  double current_scale_;  ///< текущий масштаб отображения объекта
+    double x_step;  ///< сдвиг для перемещения объекта по оси X
+    double y_step;  ///< сдвиг для перемещения объекта по оси Y
+    double z_step;  ///< сдвиг для перемещения объекта по оси Z
 
-  void ConnectButtons();
-  void SaveSettings();
-  void LoadSettings();
-};
+    private slots:
+
+   /**
+    * @brief Обработчик события нажатия кнопки "Open File".
+    * @details Открывает диалоговое окно для выбора файла, загружает выбранный
+    * объект и обновляет интерфейс с информацией о загруженных данных.
+    */
+    void OpenClicked();
+
+
+   /**
+    * @brief Обработчик выбора проекции.
+    * @details Устанавливает выбранную проекцию (ортогональную или
+    * перспективную) и обновляет состояние кнопок интерфейса в соответствии
+    * с выбором.
+    * @param projection Выбранная проекция (ортогональная или перспективная).
+    */
+    void ProjectionSelected(View::Projection perspective);
+
+
+   /**
+    * @brief Обработчик выбора типа линии.
+    * @details Устанавливает выбранный тип линии (сплошная или пунктирная)
+    * и обновляет состояние кнопок интерфейса в соответствии с выбором.
+    * @param line Выбранный тип линии (сплошная или пунктирная).
+    */
+    void LineViewSelected(View::Line line);
+
+
+   /**
+    * @brief Обработчик выбора типа вершины.
+    * @details Устанавливает выбранный тип вершины (точка, квадрат или
+    * без вершины) и обновляет состояние кнопок интерфейса в соответствии
+    * с выбором.
+    * @param vertex Выбранный тип вершины (точка, квадрат или без вершины).
+    */
+    void VertexViewSelected(View::Vertex vertex);
+
+
+   /**
+    * @brief Открывает диалог выбора цвета.
+    * @details Позволяет пользователю выбрать цвет из диалогового окна
+    * и возвращает выбранный цвет. По умолчанию используется черный цвет.
+    * @return QColor Выбранный цвет.
+    */
+    QColor SetColor();
+
+
+   /**
+    * @brief Обработчик события нажатия кнопки "Move Up".
+    * @details Увеличивает сдвиг для перемещения объекта по оси Y на 10%
+    * от максимальной координаты y, полученной из контроллера.
+    * Пока кнопка зажата, обновляет виджет для отображения изменений.
+    */
+    void MoveUp();
+
+
+   /**
+    * @brief Обрабатывает отпускание кнопки "Move Up".
+    * @details Останавливает таймер и отключает сигнал таймера от метода
+    * перемещения вверх.
+    */
+    void MoveUpReleased();
+
+
+   /**
+    * @brief Обработчик события нажатия кнопки "Move Down".
+    * @details Уменьшает сдвиг для перемещения объекта по оси Y на 10%
+    * от максимальной координаты y, полученной из контроллера.
+    * Пока кнопка зажата, обновляет виджет для отображения изменений.
+    */
+    void MoveDown();
+
+
+   /**
+    * @brief Обрабатывает отпускание кнопки "Move Down".
+    * @details Останавливает таймер и отключает сигнал таймера от метода
+    * перемещения вниз.
+    */
+    void MoveDownReleased();
+
+
+   /**
+    * @brief Обработчик события нажатия кнопки "Move Right".
+    * @details Увеличивает сдвиг для перемещения объекта по оси X на 10%
+    * от максимальной координаты x, полученной из контроллера.
+    * Пока кнопка зажата, обновляет виджет для отображения изменений.
+    */
+    void MoveRight();
+
+
+   /**
+    * @brief Обрабатывает отпускание кнопки "Move Right".
+    * @details Останавливает таймер и отключает сигнал таймера от метода
+    * перемещения вправо.
+    */
+    void MoveRightReleased();
+
+
+   /**
+    * @brief Обработчик события нажатия кнопки "Move Left".
+    * @details Уменьшает сдвиг для перемещения объекта по оси X на 10%
+    * от максимальной координаты x, полученной из контроллера.
+    * Пока кнопка зажата, обновляет виджет для отображения изменений.
+    */
+    void MoveLeft();
+
+
+    /**
+    * @brief Обрабатывает отпускание кнопки "Move Right".
+    * @details Останавливает таймер и отключает сигнал таймера от метода
+    * перемещения влево.
+    */
+    void MoveLeftReleased();
+
+  private:
+    s21::Controller *controller_; ///< указатель на контроллер
+    Ui::View *ui_; ///< указатель на интерфейс пользователя
+    QString object_path_; ///< путь к объекту
+    QSettings *user_settings_; ///< указатель на настройки пользователя
+    QTimer action_tmr_;  ///< таймер для зажатия transformations buttons
+    double current_scale_;  ///< текущий масштаб отображения объекта
+
+
+   /**
+    * @brief Подключает сигналы кнопок к соответствующим слотам.
+    * @details Метод устанавливает соединения между кнопками интерфейса и
+    * соответствующими слотами, которые обрабатывают действия пользователя.
+    */
+    void ConnectButtons();
+
+
+   /**
+    * @brief Сохраняет настройки пользователя.
+    * @details Метод сохраняет текущее состояние элементов интерфейса,
+    * таких как кнопки проекции, типы линий и вершины, а также значения
+    * ползунков и цвета, в объект настроек пользователя.
+    */
+    void SaveSettings();
+
+
+   /**
+    * @brief Загружает настройки пользователя.
+    * @details Метод загружает сохраненные настройки из объекта настроек пользователя
+    * и применяет их к элементам интерфейса и текущим настройкам.
+    * Если настройки отсутствуют, используются значения по умолчанию.
+    */
+    void LoadSettings();
+  };
+
+}  // namespace s21
+
 #endif  // VIEWER_SRC_VIEW_VIEW_H
