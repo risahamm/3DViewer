@@ -1,6 +1,6 @@
 #include "object.h"
-
 #include "Transformations/transformations.h"
+
 
 bool s21::Object::Parse(std::string path) {
   bool ret_code = true;
@@ -42,6 +42,7 @@ bool s21::Object::Parse(std::string path) {
   return ret_code;
 }
 
+
 void s21::Object::ReadVertex(std::string &str) {
   /* сдвигаем строку на 2 */
   std::string begin = str.substr(2);
@@ -56,6 +57,7 @@ void s21::Object::ReadVertex(std::string &str) {
     vertex_count_++;
   }
 }
+
 
 bool s21::Object::ReadFacet(std::string &str) {
   /* сдвигаем строку на 2 */
@@ -106,6 +108,7 @@ bool s21::Object::ReadFacet(std::string &str) {
   return true;
 }
 
+
 void s21::Object::CenterObject() {
   double center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
   double center_y = 0 - ((max_vertex_y_ + min_vertex_y_) / 2);
@@ -119,6 +122,7 @@ void s21::Object::CenterObject() {
 
   SetMaxCoordinates();
 }
+
 
 void s21::Object::SetMaxCoordinates() {
   max_vertex_x_ = -INFINITY;
@@ -155,10 +159,12 @@ void s21::Object::SetMaxCoordinates() {
   }
 }
 
+
 void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
                          double value_x, double value_y, double value_z) {
   modify_class->Modify(value_x, value_y, value_z);
 }
+
 
 void s21::Object::Clear() {
   /* очистим vertex_ и добавим нулевую вершину */
@@ -178,6 +184,7 @@ void s21::Object::Clear() {
   max_vertex_z_ = 0;
   min_vertex_z_ = 0;
 }
+
 /*----------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
@@ -196,6 +203,7 @@ void s21::Object::PrintVertices() {
   std::cout << "Total number of vertices: " << vertex_count_ << std::endl
             << std::endl;
 }
+
 
 void s21::Object::PrintFacets() {
   int number = 1;

@@ -1,5 +1,5 @@
-#ifndef VIEWER_SRC_VIEW_HVIEW_H
-#define VIEWER_SRC_VIEW_HVIEW_H
+#ifndef VIEWER_SRC_VIEW_VIEW_H
+#define VIEWER_SRC_VIEW_VIEW_H
 
 #include <QColor>
 #include <QColorDialog>
@@ -11,10 +11,10 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-#include "Controller/controller.h"
+#include "../Controller/controller.h"
 
 namespace s21 {
-class Controller;
+  class Controller;
 }
 
 QT_BEGIN_NAMESPACE
@@ -87,4 +87,4 @@ class View : public QMainWindow {
   void SaveSettings();
   void LoadSettings();
 };
-#endif  // VIEWER_SRC_VIEW_HVIEW_H
+#endif  // VIEWER_SRC_VIEW_VIEW_H

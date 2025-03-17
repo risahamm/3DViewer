@@ -9,7 +9,6 @@ add_executable(3DViewer
         ../main_test.cc
         ../Controller/controller.h
         ../Controller/controller.cc
-        Transformations/transformations.cc
         Transformations/transformations.h
         Transformations/move_object.cc
         Transformations/move_object.h
@@ -17,4 +16,8 @@ add_executable(3DViewer
         Transformations/zoom_object.h
         Transformations/rotate_object.cc
         Transformations/rotate_object.h
+        ../View/view.h
+        ../View/opengl_view.h
+        ../View/opengl_view.cc
+        ../View/view.cc
 )

@@ -33,7 +33,6 @@ set(PROJECT_SOURCES
         Model/object.cc
         Model/object.h
         Model/Transformations/transformations.h
-        Model/Transformations/transformations.cc
         Model/Transformations/move_object.h
         Model/Transformations/move_object.cc
         Model/Transformations/zoom_object.h
