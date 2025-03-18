@@ -7,7 +7,11 @@
 s21::Object obj;
 s21::Controller controller(&obj);
 
-TEST(Mytest, Move_right) {
+TEST(open_file, non_existent_file) {
+  EXPECT_THROW(contrioller.OpenFile("nonexistent_file.obj"));
+}
+
+TEST(move, move_right) {
   controller.OpenFile("object_files/cube.obj");
   controller.MoveXRight(2);
   std::vector<s21::Point> res = controller.getVertices();

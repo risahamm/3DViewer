@@ -16,8 +16,8 @@ add_executable(3DViewer
         Transformations/zoom_object.h
         Transformations/rotate_object.cc
         Transformations/rotate_object.h
-        ../View/view.h
-        ../View/opengl_view.h
-        ../View/opengl_view.cc
-        ../View/view.cc
+#        ../View/view.h
+#        ../View/opengl_view.h
+#        ../View/opengl_view.cc
+#        ../View/view.cc
 )
