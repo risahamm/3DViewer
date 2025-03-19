@@ -7,7 +7,7 @@ test: clean
 
 gcov_report: test
 	@lcov -t "test_model" -o model.info -c -d . --ignore-errors mismatch,inconsistent
-	@lcov -e model.info '*/src/model/*.cc' -o model_filtered.info --ignore-errors mismatch,inconsistent
+	@lcov -e model.info '*/src/Model/*.cc' -o model_filtered.info --ignore-errors mismatch,inconsistent
 	@genhtml -o ../gcov_report model_filtered.info --ignore-errors mismatch,inconsistent
 	@open ./../gcov_report/index.html
 

@@ -50,8 +50,8 @@ namespace s21 {
     * @brief Деструктор по умолчанию.
     */
     ~Object() = default;
-
-
+    void PrintVertices();
+    void PrintFacets();
    /**
     * @brief Открывает файл по указанному пути и считывает содержимое построчно.
     * @details Обрабатывает строки, начинающиеся с "v " для чтения вершин и "f "
@@ -213,8 +213,8 @@ namespace s21 {
 
 
     /* служебные методы */
-    void PrintVertices();
-    void PrintFacets();
+//    void PrintVertices();
+//    void PrintFacets();
   };
 
 }  // namespace s21

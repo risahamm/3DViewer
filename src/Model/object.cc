@@ -1,6 +1,6 @@
 #include "object.h"
-#include "Transformations/transformations.h"
 
+#include "Transformations/transformations.h"
 
 bool s21::Object::Parse(std::string path) {
   bool ret_code = true;
@@ -13,7 +13,7 @@ bool s21::Object::Parse(std::string path) {
 
   try {
     if (!my_file.is_open()) {
-      throw std::runtime_error("Failed to open file " + path);
+      throw std::runtime_error("Error: Failed to open file " + path);
 
     } else {
       std::string str;
@@ -35,13 +35,12 @@ bool s21::Object::Parse(std::string path) {
     }
 
   } catch (const std::runtime_error &e) {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << e.what() << std::endl;
     return false;
   }
 
   return ret_code;
 }
-
 
 void s21::Object::ReadVertex(std::string &str) {
   /* сдвигаем строку на 2 */
@@ -57,7 +56,6 @@ void s21::Object::ReadVertex(std::string &str) {
     vertex_count_++;
   }
 }
-
 
 bool s21::Object::ReadFacet(std::string &str) {
   /* сдвигаем строку на 2 */
@@ -98,7 +96,7 @@ bool s21::Object::ReadFacet(std::string &str) {
         }
 
       } catch (const std::out_of_range &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
         return false;
       }
     }
@@ -107,7 +105,6 @@ bool s21::Object::ReadFacet(std::string &str) {
   facets_.push_back(facet);
   return true;
 }
-
 
 void s21::Object::CenterObject() {
   double center_x = 0 - ((max_vertex_x_ + min_vertex_x_) / 2);
@@ -123,8 +120,8 @@ void s21::Object::CenterObject() {
   SetMaxCoordinates();
 }
 
-
 void s21::Object::SetMaxCoordinates() {
+
   max_vertex_x_ = -INFINITY;
   min_vertex_x_ = INFINITY;
   max_vertex_y_ = -INFINITY;
@@ -132,39 +129,39 @@ void s21::Object::SetMaxCoordinates() {
   max_vertex_z_ = -INFINITY;
   min_vertex_z_ = INFINITY;
 
-  for (Point &point : vertices_) {
-    if (point.x > max_vertex_x_) {
-      max_vertex_x_ = point.x;
+  int size = vertices_.size();
+
+  for (int i = 1; i < size; i++) {
+    if (vertices_[i].x > max_vertex_x_) {
+      max_vertex_x_ = vertices_[i].x;
     }
 
-    if (point.x < min_vertex_x_) {
-      min_vertex_x_ = point.x;
+    if (vertices_[i].x < min_vertex_x_) {
+      min_vertex_x_ = vertices_[i].x;
     }
 
-    if (point.y > max_vertex_y_) {
-      max_vertex_y_ = point.y;
+    if (vertices_[i].y > max_vertex_y_) {
+      max_vertex_y_ = vertices_[i].y;
     }
 
-    if (point.y < min_vertex_y_) {
-      min_vertex_y_ = point.y;
+    if (vertices_[i].y < min_vertex_y_) {
+      min_vertex_y_ = vertices_[i].y;
     }
 
-    if (point.z > max_vertex_z_) {
-      max_vertex_z_ = point.z;
+    if (vertices_[i].z > max_vertex_z_) {
+      max_vertex_z_ = vertices_[i].z;
     }
 
-    if (point.z < min_vertex_z_) {
-      min_vertex_z_ = point.z;
+    if (vertices_[i].z < min_vertex_z_) {
+      min_vertex_z_ = vertices_[i].z;
     }
   }
 }
-
 
 void s21::Object::Modify(std::unique_ptr<TransformationsBaseClass> modify_class,
                          double value_x, double value_y, double value_z) {
   modify_class->Modify(value_x, value_y, value_z);
 }
-
 
 void s21::Object::Clear() {
   /* очистим vertex_ и добавим нулевую вершину */
@@ -188,11 +185,11 @@ void s21::Object::Clear() {
 /*----------------------------------------------------------------------------*/
 
 void s21::Object::PrintVertices() {
-  //  int number = 0;
-  //  for (Point &i : vertices_) {
-  //    std::cout << "Vertex number " << number++ << ":"
-  //              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
-  //  }
+  int number = 0;
+  for (Point &i : vertices_) {
+    std::cout << "Vertex number " << number++ << ":"
+              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
+  }
 
   std::cout << "max X vertex :" << max_vertex_x_ << std::endl;
   std::cout << "max Y vertex :" << max_vertex_y_ << std::endl;
@@ -203,7 +200,6 @@ void s21::Object::PrintVertices() {
   std::cout << "Total number of vertices: " << vertex_count_ << std::endl
             << std::endl;
 }
-
 
 void s21::Object::PrintFacets() {
   int number = 1;

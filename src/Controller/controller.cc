@@ -37,7 +37,9 @@ void s21::Controller::MoveZBackward(double value) {
 
 
 void s21::Controller::Zoom(double value) {
-  object_->Modify(std::make_unique<s21::ZoomObject>(object_), value, value, value);
+  if (value != 0.0) {
+    object_->Modify(std::make_unique<s21::ZoomObject>(object_), value, value, value);
+  }
 }
 
 

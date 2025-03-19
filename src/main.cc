@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 
   s21::Object object;
   s21::Controller controller(&object);
-  View view(nullptr, &controller);
+  s21::View view(nullptr, &controller);
 
   view.show();
   view.setWindowTitle("3D Viewer");
