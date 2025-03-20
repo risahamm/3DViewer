@@ -13,6 +13,8 @@ namespace s21 {
 
     void Modify(double x, double y, double z) override;
 
+    void RotateAxis(double angle, double &coord_a, double &coord_b);
+
   };
 
 } // s21

@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
         Model/Transformations/move_object.cc
         Model/Transformations/zoom_object.h
         Model/Transformations/zoom_object.cc
+        Model/Transformations/rotate_object.h
+        Model/Transformations/rotate_object.cc
         resources.qrc
 )
 

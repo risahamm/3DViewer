@@ -43,9 +43,9 @@ TEST(read_facet, negative_vertices) {
   EXPECT_TRUE(res == correct);
 }
 
-//TEST(read_facet, no_such_pos_idx) {
-//  EXPECT_FALSE(controller.OpenFile("object_files/no_such_pos_index.obj"));
-//}
+// TEST(read_facet, no_such_pos_idx) {
+//   EXPECT_FALSE(controller.OpenFile("object_files/no_such_pos_index.obj"));
+// }
 
 TEST(read_facet, no_such_neg_idx) {
   EXPECT_TRUE(controller.OpenFile("object_files/no_such_neg_index.obj"));
@@ -55,9 +55,9 @@ TEST(read_facet, many_indexes) {
   EXPECT_TRUE(controller.OpenFile("object_files/many_indexes.obj"));
 }
 
-//TEST(read_facet, no_vertex) {
-//  EXPECT_FALSE(controller.OpenFile("object_files/no_vertex.obj"));
-//}
+// TEST(read_facet, no_vertex) {
+//   EXPECT_FALSE(controller.OpenFile("object_files/no_vertex.obj"));
+// }
 
 TEST(read_facet, flawed_facet) {
   controller.OpenFile("object_files/no_facet.obj");

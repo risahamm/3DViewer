@@ -2,7 +2,6 @@
 
 #include "ui_view.h"
 
-
 s21::View::View(QWidget *parent, s21::Controller *controller)
     : QMainWindow(parent),
       controller_(controller),
@@ -17,12 +16,10 @@ s21::View::View(QWidget *parent, s21::Controller *controller)
   LoadSettings();
 }
 
-
 s21::View::~View() {
   SaveSettings();
   delete ui_;
 }
-
 
 void s21::View::ConnectButtons() {
   connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
@@ -110,8 +107,12 @@ void s21::View::ConnectButtons() {
     current_settings.vertex_size = ui_->vertex_size_slider->value();
     ui_->GLwidget->update();
   });
+  connect(ui_->rotate_left_button, &QPushButton::clicked, this, [this]() {
+    //    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
+    RotateLeft();
+    //    action_tmr_.start(50);
+  });
 }
-
 
 void s21::View::OpenClicked() {
   object_path_ = QFileDialog::getOpenFileName(
@@ -145,7 +146,6 @@ void s21::View::OpenClicked() {
   }
 }
 
-
 /* одновременно может выбрана только одна проекция */
 void s21::View::ProjectionSelected(View::Projection projection) {
   if (projection == View::Projection::ortho) {
@@ -160,7 +160,6 @@ void s21::View::ProjectionSelected(View::Projection projection) {
   }
 }
 
-
 /* одновременно может выбран только один тип отображения граней */
 void s21::View::LineViewSelected(View::Line line) {
   if (line == View::Line::solid) {
@@ -174,7 +173,6 @@ void s21::View::LineViewSelected(View::Line line) {
     current_settings.line = View::Line::dashed;
   }
 }
-
 
 /* одновременно может выбран только один тип отображения вершин */
 void s21::View::VertexViewSelected(View::Vertex vertex) {
@@ -198,14 +196,12 @@ void s21::View::VertexViewSelected(View::Vertex vertex) {
   }
 }
 
-
 QColor s21::View::SetColor() {
   QColor selected_color =
       QColorDialog::getColor(Qt::black, this, "Select color");
 
   return selected_color;
 }
-
 
 void s21::View::SaveSettings() {
   user_settings_->setValue("ortho_proj_button_checked",
@@ -238,7 +234,6 @@ void s21::View::SaveSettings() {
   user_settings_->setValue("background_color",
                            current_settings.background_color.name());
 }
-
 
 void s21::View::LoadSettings() {
   /* второй параметр - настройки по умолчанию */
@@ -284,50 +279,52 @@ void s21::View::LoadSettings() {
                  .toString());  // black
 }
 
-
 void s21::View::MoveUp() {
   y_step += controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
-
 
 void s21::View::MoveUpReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
 }
 
-
 void s21::View::MoveDown() {
   y_step -= controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
-
 
 void s21::View::MoveDownReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
 }
 
-
 void s21::View::MoveRight() {
   x_step += controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
-
 
 void s21::View::MoveRightReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
 }
 
-
 void s21::View::MoveLeft() {
   x_step -= controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
-
 void s21::View::MoveLeftReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
+}
+
+void s21::View::RotateLeft() {
+  controller_->RoateYLeft(5);
+  ui_->GLwidget->update();
+}
+
+void s21::View::RotateLeftReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
 }

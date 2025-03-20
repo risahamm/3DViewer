@@ -2,13 +2,10 @@
 // #include "Controller/controller.h"
 // #include "Model/object.h"
 
-
 void s21::Object3d::initializeGL() { initializeOpenGLFunctions(); }
-
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
 void s21::Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
-
 
 void s21::Object3d::SetUpBackgroundColor() {
   GLfloat red =
@@ -23,13 +20,10 @@ void s21::Object3d::SetUpBackgroundColor() {
   glClearColor(red, green, blue, alpha);
 }
 
-
 void s21::Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
-
 
 /* вызывается каждый раз, когда вызываем update() */
 void s21::Object3d::paintGL() {
-
   /* если объект не выбран, ничего не рисуем */
   if (view_->object_path_ == nullptr) {
     return;
@@ -72,7 +66,6 @@ void s21::Object3d::paintGL() {
   }
 }
 
-
 void s21::Object3d::SetUpPaintColor(QColor color) {
   GLfloat red = static_cast<GLfloat>(color.redF());
   GLfloat green = static_cast<GLfloat>(color.greenF());
@@ -80,7 +73,6 @@ void s21::Object3d::SetUpPaintColor(QColor color) {
 
   glColor3f(red, green, blue);
 }
-
 
 void s21::Object3d::SetUpLineStyle() {
   if (view_->current_settings.line == View::Line::dashed) {
@@ -95,7 +87,6 @@ void s21::Object3d::SetUpLineStyle() {
   }
 }
 
-
 void s21::Object3d::SetUpVertexStyle() {
   if (view_->current_settings.vertex == View::Vertex::dot) {
     glEnable(GL_POINT_SMOOTH);
@@ -103,7 +94,6 @@ void s21::Object3d::SetUpVertexStyle() {
     glDisable(GL_POINT_SMOOTH);
   }
 }
-
 
 void s21::Object3d::SetUpProjection() {
   if (view_->current_settings.projection == View::Projection::ortho) {
@@ -113,7 +103,6 @@ void s21::Object3d::SetUpProjection() {
     PerspectProjection();
   }
 }
-
 
 void s21::Object3d::OrthoProjection() {
   glMatrixMode(GL_PROJECTION);
@@ -134,7 +123,6 @@ void s21::Object3d::OrthoProjection() {
   glLoadIdentity();
 }
 
-
 void s21::Object3d::PerspectProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -154,7 +142,7 @@ void s21::Object3d::PerspectProjection() {
     max = 2;
   }
 
-  GLdouble fov_y = 75; ///< угол обзора по вертикали
+  GLdouble fov_y = 75;  ///< угол обзора по вертикали
   GLdouble height = tan(fov_y / 360 * M_PI) * z_near;
   GLdouble width = height;
 
@@ -171,7 +159,6 @@ void s21::Object3d::PerspectProjection() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
-
 
 double s21::Object3d::FindMaxCoordinate() {
   double x_max = view_->controller_->GetMaxCoordinateX();
