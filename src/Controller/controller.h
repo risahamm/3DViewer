@@ -2,8 +2,8 @@
 #define VIEWER_SRC_CONTROLLER_CONTROLLER_H
 
 #include "../Model/Transformations/move_object.h"
-#include "../Model/Transformations/zoom_object.h"
 #include "../Model/Transformations/rotate_object.h"
+#include "../Model/Transformations/zoom_object.h"
 #include "../Model/object.h"
 
 namespace s21 {

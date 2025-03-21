@@ -60,42 +60,48 @@ void s21::View::ConnectButtons() {
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_left_button, &QPushButton::released, this, &View::RotateLeftReleased);
+  connect(ui_->rotate_left_button, &QPushButton::released, this,
+          &View::RotateLeftReleased);
 
   connect(ui_->rotate_right_button, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::RotateRight);
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_right_button, &QPushButton::released, this, &View::RotateRightReleased);
+  connect(ui_->rotate_right_button, &QPushButton::released, this,
+          &View::RotateRightReleased);
 
   connect(ui_->rotate_up_button, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::RotateUp);
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_up_button, &QPushButton::released, this, &View::RotateUpReleased);
+  connect(ui_->rotate_up_button, &QPushButton::released, this,
+          &View::RotateUpReleased);
 
   connect(ui_->rotate_down_button, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::RotateDown);
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_down_button, &QPushButton::released, this, &View::RotateDownReleased);
+  connect(ui_->rotate_down_button, &QPushButton::released, this,
+          &View::RotateDownReleased);
 
   connect(ui_->rotate_z_plus_button, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::RotateClckWise);
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_z_plus_button, &QPushButton::released, this, &View::RotateClckWiseReleased);
+  connect(ui_->rotate_z_plus_button, &QPushButton::released, this,
+          &View::RotateClckWiseReleased);
 
   connect(ui_->rotate_z_minus_button, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::RotateCClckWise);
     action_tmr_.start(50);
   });
 
-  connect(ui_->rotate_z_minus_button, &QPushButton::released, this, &View::RotateCClckWiseReleased);
+  connect(ui_->rotate_z_minus_button, &QPushButton::released, this,
+          &View::RotateCClckWiseReleased);
 
   connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
     controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) /
@@ -163,7 +169,6 @@ void s21::View::ConnectButtons() {
     current_settings.vertex_size = ui_->vertex_size_slider->value();
     ui_->GLwidget->update();
   });
-
 }
 
 void s21::View::OpenClicked() {
@@ -382,8 +387,8 @@ void s21::View::RotateLeftReleased() {
 }
 
 void s21::View::RotateRight() {
-   controller_->RoateYRight(5);
-   ui_->GLwidget->update();
+  controller_->RoateYRight(5);
+  ui_->GLwidget->update();
 }
 
 void s21::View::RotateRightReleased() {
@@ -392,8 +397,8 @@ void s21::View::RotateRightReleased() {
 }
 
 void s21::View::RotateUp() {
-   controller_->RoateXUp(5);
-   ui_->GLwidget->update();
+  controller_->RoateXUp(5);
+  ui_->GLwidget->update();
 }
 
 void s21::View::RotateUpReleased() {
@@ -402,8 +407,8 @@ void s21::View::RotateUpReleased() {
 }
 
 void s21::View::RotateDown() {
-   controller_->RoateXDown(5);
-   ui_->GLwidget->update();
+  controller_->RoateXDown(5);
+  ui_->GLwidget->update();
 }
 
 void s21::View::RotateDownReleased() {
@@ -412,8 +417,8 @@ void s21::View::RotateDownReleased() {
 }
 
 void s21::View::RotateClckWise() {
-   controller_->RoateZClckWs(5);
-   ui_->GLwidget->update();
+  controller_->RoateZClckWs(5);
+  ui_->GLwidget->update();
 }
 
 void s21::View::RotateClckWiseReleased() {
@@ -422,8 +427,8 @@ void s21::View::RotateClckWiseReleased() {
 }
 
 void s21::View::RotateCClckWise() {
-   controller_->RoateZCClckWs(5);
-   ui_->GLwidget->update();
+  controller_->RoateZCClckWs(5);
+  ui_->GLwidget->update();
 }
 
 void s21::View::RotateCClckWiseReleased() {
