@@ -28,12 +28,14 @@ void s21::View::ConnectButtons() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
     action_tmr_.start(50);
   });
+
   connect(ui_->moveYplus, &QPushButton::released, this, &View::MoveUpReleased);
 
   connect(ui_->moveYminus, &QPushButton::pressed, this, [this]() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
     action_tmr_.start(50);
   });
+
   connect(ui_->moveYminus, &QPushButton::released, this,
           &View::MoveDownReleased);
 
@@ -41,6 +43,7 @@ void s21::View::ConnectButtons() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
     action_tmr_.start(50);
   });
+
   connect(ui_->moveXplus, &QPushButton::released, this,
           &View::MoveRightReleased);
 
@@ -48,8 +51,51 @@ void s21::View::ConnectButtons() {
     connect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
     action_tmr_.start(50);
   });
+
   connect(ui_->moveXminus, &QPushButton::released, this,
           &View::MoveLeftReleased);
+
+  connect(ui_->rotate_left_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_left_button, &QPushButton::released, this, &View::RotateLeftReleased);
+
+  connect(ui_->rotate_right_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateRight);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_right_button, &QPushButton::released, this, &View::RotateRightReleased);
+
+  connect(ui_->rotate_up_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateUp);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_up_button, &QPushButton::released, this, &View::RotateUpReleased);
+
+  connect(ui_->rotate_down_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateDown);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_down_button, &QPushButton::released, this, &View::RotateDownReleased);
+
+  connect(ui_->rotate_z_plus_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateClckWise);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_z_plus_button, &QPushButton::released, this, &View::RotateClckWiseReleased);
+
+  connect(ui_->rotate_z_minus_button, &QPushButton::pressed, this, [this]() {
+    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateCClckWise);
+    action_tmr_.start(50);
+  });
+
+  connect(ui_->rotate_z_minus_button, &QPushButton::released, this, &View::RotateCClckWiseReleased);
 
   connect(ui_->zoomInOut, &QSlider::valueChanged, this, [this]() {
     controller_->Zoom(static_cast<double>(ui_->zoomInOut->value()) /
@@ -62,18 +108,22 @@ void s21::View::ConnectButtons() {
     current_settings.background_color = SetColor();
     ui_->GLwidget->update();
   });
+
   connect(ui_->line_color_button, &QPushButton::clicked, this, [this]() {
     current_settings.line_color = SetColor();
     ui_->GLwidget->update();
   });
+
   connect(ui_->vertex_color_button, &QPushButton::clicked, this, [this]() {
     current_settings.vertex_color = SetColor();
     ui_->GLwidget->update();
   });
+
   connect(ui_->ortho_proj_button, &QPushButton::clicked, this, [this]() {
     ProjectionSelected(View::Projection::ortho);
     ui_->GLwidget->update();
   });
+
   connect(ui_->perspect_proj_button, &QPushButton::clicked, this, [this]() {
     ProjectionSelected(View::Projection::perspect);
     ui_->GLwidget->update();
@@ -83,35 +133,37 @@ void s21::View::ConnectButtons() {
     LineViewSelected(View::Line::solid);
     ui_->GLwidget->update();
   });
+
   connect(ui_->dashed_line_button, &QPushButton::clicked, this, [this]() {
     LineViewSelected(View::Line::dashed);
     ui_->GLwidget->update();
   });
+
   connect(ui_->dot_vertex_button, &QPushButton::clicked, this, [this]() {
     VertexViewSelected(View::Vertex::dot);
     ui_->GLwidget->update();
   });
+
   connect(ui_->square_vertex_button, &QPushButton::clicked, this, [this]() {
     VertexViewSelected(View::Vertex::square);
     ui_->GLwidget->update();
   });
+
   connect(ui_->no_vertex_button, &QPushButton::clicked, this, [this]() {
     VertexViewSelected(View::Vertex::no_vertex);
     ui_->GLwidget->update();
   });
+
   connect(ui_->edge_size_slider, &QSlider::valueChanged, this, [this]() {
     current_settings.line_size = ui_->edge_size_slider->value();
     ui_->GLwidget->update();
   });
+
   connect(ui_->vertex_size_slider, &QSlider::valueChanged, this, [this]() {
     current_settings.vertex_size = ui_->vertex_size_slider->value();
     ui_->GLwidget->update();
   });
-  connect(ui_->rotate_left_button, &QPushButton::clicked, this, [this]() {
-    //    connect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
-    RotateLeft();
-    //    action_tmr_.start(50);
-  });
+
 }
 
 void s21::View::OpenClicked() {
@@ -327,4 +379,54 @@ void s21::View::RotateLeft() {
 void s21::View::RotateLeftReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
+}
+
+void s21::View::RotateRight() {
+   controller_->RoateYRight(5);
+   ui_->GLwidget->update();
+}
+
+void s21::View::RotateRightReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateRight);
+}
+
+void s21::View::RotateUp() {
+   controller_->RoateXUp(5);
+   ui_->GLwidget->update();
+}
+
+void s21::View::RotateUpReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateUp);
+}
+
+void s21::View::RotateDown() {
+   controller_->RoateXDown(5);
+   ui_->GLwidget->update();
+}
+
+void s21::View::RotateDownReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateDown);
+}
+
+void s21::View::RotateClckWise() {
+   controller_->RoateZClckWs(5);
+   ui_->GLwidget->update();
+}
+
+void s21::View::RotateClckWiseReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateClckWise);
+}
+
+void s21::View::RotateCClckWise() {
+   controller_->RoateZCClckWs(5);
+   ui_->GLwidget->update();
+}
+
+void s21::View::RotateCClckWiseReleased() {
+  action_tmr_.stop();
+  disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateCClckWise);
 }

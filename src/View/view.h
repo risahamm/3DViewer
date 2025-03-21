@@ -210,6 +210,26 @@ class View : public QMainWindow {
 
   void RotateLeftReleased();
 
+  void RotateRight();
+
+  void RotateRightReleased();
+
+  void RotateUp();
+
+  void RotateUpReleased();
+
+  void RotateDown();
+
+  void RotateDownReleased();
+
+  void RotateClckWise();
+
+  void RotateClckWiseReleased();
+
+  void RotateCClckWise();
+
+  void RotateCClckWiseReleased();
+
  private:
   s21::Controller *controller_;  ///< указатель на контроллер
   Ui::View *ui_;  ///< указатель на интерфейс пользователя
