@@ -16,6 +16,7 @@ namespace s21 {
  * вращения объекта в трехмерном пространстве.
  */
 class Controller {
+
  public:
   /**
    * @brief Конструктор класса Controller.
