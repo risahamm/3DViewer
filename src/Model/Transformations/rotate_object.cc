@@ -2,6 +2,8 @@
 
 void s21::RotateObject::Modify(double x, double y, double z) {
   double angle = (x == 0 ? y : x);
+
+  /* перевод в радианы */
   angle = angle * M_PI / 180;
 
   for (Point &point : object_->GetVerticesRef()) {
