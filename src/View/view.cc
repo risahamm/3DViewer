@@ -2,7 +2,7 @@
 
 #include "ui_view.h"
 
-s21::View::View(QWidget *parent, s21::Controller *controller)
+View::View(QWidget *parent, s21::Controller *controller)
     : QMainWindow(parent),
       controller_(controller),
       user_settings_(new QSettings("s21Soft", "3D Viewer")),
@@ -16,12 +16,12 @@ s21::View::View(QWidget *parent, s21::Controller *controller)
   LoadSettings();
 }
 
-s21::View::~View() {
+View::~View() {
   SaveSettings();
   delete ui_;
 }
 
-void s21::View::ConnectButtons() {
+void View::ConnectButtons() {
   connect(ui_->Open, &QPushButton::clicked, this, &View::OpenClicked);
 
   connect(ui_->moveYplus, &QPushButton::pressed, this, [this]() {
@@ -171,7 +171,7 @@ void s21::View::ConnectButtons() {
   });
 }
 
-void s21::View::OpenClicked() {
+void View::OpenClicked() {
   object_path_ = QFileDialog::getOpenFileName(
       this, "Choose file", "/Users/", "All files (*.*);; Object file (*.obj)");
   ui_->message_window->setText(object_path_);
@@ -204,7 +204,7 @@ void s21::View::OpenClicked() {
 }
 
 /* одновременно может выбрана только одна проекция */
-void s21::View::ProjectionSelected(View::Projection projection) {
+void View::ProjectionSelected(View::Projection projection) {
   if (projection == View::Projection::ortho) {
     ui_->ortho_proj_button->setChecked(true);
     ui_->perspect_proj_button->setChecked(false);
@@ -218,7 +218,7 @@ void s21::View::ProjectionSelected(View::Projection projection) {
 }
 
 /* одновременно может выбран только один тип отображения граней */
-void s21::View::LineViewSelected(View::Line line) {
+void View::LineViewSelected(View::Line line) {
   if (line == View::Line::solid) {
     ui_->solid_line_button->setChecked(true);
     ui_->dashed_line_button->setChecked(false);
@@ -232,7 +232,7 @@ void s21::View::LineViewSelected(View::Line line) {
 }
 
 /* одновременно может выбран только один тип отображения вершин */
-void s21::View::VertexViewSelected(View::Vertex vertex) {
+void View::VertexViewSelected(View::Vertex vertex) {
   if (vertex == View::Vertex::dot) {
     ui_->dot_vertex_button->setChecked(true);
     ui_->square_vertex_button->setChecked(false);
@@ -253,14 +253,14 @@ void s21::View::VertexViewSelected(View::Vertex vertex) {
   }
 }
 
-QColor s21::View::SetColor() {
+QColor View::SetColor() {
   QColor selected_color =
       QColorDialog::getColor(Qt::black, this, "Select color");
 
   return selected_color;
 }
 
-void s21::View::SaveSettings() {
+void View::SaveSettings() {
   user_settings_->setValue("ortho_proj_button_checked",
                            ui_->ortho_proj_button->isChecked());
   user_settings_->setValue("parall_proj_button_checked",
@@ -292,7 +292,7 @@ void s21::View::SaveSettings() {
                            current_settings.background_color.name());
 }
 
-void s21::View::LoadSettings() {
+void View::LoadSettings() {
   /* второй параметр - настройки по умолчанию */
   ui_->ortho_proj_button->setChecked(
       user_settings_->value("ortho_proj_button_checked", true).toBool());
@@ -336,102 +336,102 @@ void s21::View::LoadSettings() {
                  .toString());  // black
 }
 
-void s21::View::MoveUp() {
+void View::MoveUp() {
   y_step += controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
 
-void s21::View::MoveUpReleased() {
+void View::MoveUpReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveUp);
 }
 
-void s21::View::MoveDown() {
+void View::MoveDown() {
   y_step -= controller_->GetMaxCoordinateY() * 0.1;
   ui_->GLwidget->update();
 }
 
-void s21::View::MoveDownReleased() {
+void View::MoveDownReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveDown);
 }
 
-void s21::View::MoveRight() {
+void View::MoveRight() {
   x_step += controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
-void s21::View::MoveRightReleased() {
+void View::MoveRightReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveRight);
 }
 
-void s21::View::MoveLeft() {
+void View::MoveLeft() {
   x_step -= controller_->GetMaxCoordinateX() * 0.1;
   ui_->GLwidget->update();
 }
 
-void s21::View::MoveLeftReleased() {
+void View::MoveLeftReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::MoveLeft);
 }
 
-void s21::View::RotateLeft() {
+void View::RotateLeft() {
   controller_->RoateYLeft(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateLeftReleased() {
+void View::RotateLeftReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateLeft);
 }
 
-void s21::View::RotateRight() {
+void View::RotateRight() {
   controller_->RoateYRight(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateRightReleased() {
+void View::RotateRightReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateRight);
 }
 
-void s21::View::RotateUp() {
+void View::RotateUp() {
   controller_->RoateXUp(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateUpReleased() {
+void View::RotateUpReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateUp);
 }
 
-void s21::View::RotateDown() {
+void View::RotateDown() {
   controller_->RoateXDown(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateDownReleased() {
+void View::RotateDownReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateDown);
 }
 
-void s21::View::RotateClckWise() {
+void View::RotateClckWise() {
   controller_->RoateZClckWs(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateClckWiseReleased() {
+void View::RotateClckWiseReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateClckWise);
 }
 
-void s21::View::RotateCClckWise() {
+void View::RotateCClckWise() {
   controller_->RoateZCClckWs(5);
   ui_->GLwidget->update();
 }
 
-void s21::View::RotateCClckWiseReleased() {
+void View::RotateCClckWiseReleased() {
   action_tmr_.stop();
   disconnect(&action_tmr_, &QTimer::timeout, this, &View::RotateCClckWise);
 }

@@ -1,6 +1,30 @@
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++17
 
+cmake:
+	@mkdir -p build && cd build && cmake ..
+
+install: uinstall cmake
+	@echo "\033[46mInstallation\033[0m"
+	@cd build && make
+	@echo "\033[46mApplication installed\033[0m"
+	@#make dvi
+	@cd build && open 3DViewer.app
+
+uninstall: clean
+	@rm -rf build
+	@#rm -rf ../dist
+	@echo "\033[46mApplication removed\033[0m"
+
+dvi:
+	@open ./../dvi_report/html/index.html
+
+dist:
+	@mkdir -p ../dist
+	@cp -R build/3DViwer.app ../dist
+	@cd ../dist && tar cvzf 3DViwer.tar *
+	@cd ../dist && rm -rf 3DViwer.app README.md
+
 test: clean
 	$(CC) $(CFLAGS) --coverage Model/tests/tests.cc Model/object.cc Model/Transformations/*.cc Controller/controller.cc  -lgtest -lgtest_main -pthread -o test
 	./test

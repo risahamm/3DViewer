@@ -22,8 +22,8 @@ class View;
 QT_END_NAMESPACE
 
 namespace s21 {
-
 class Controller;
+}
 
 /**
  * @brief Класс представления для 3D объектов.
@@ -321,7 +321,5 @@ class View : public QMainWindow {
    */
   void LoadSettings();
 };
-
-}  // namespace s21
 
 #endif  // VIEWER_SRC_VIEW_VIEW_H

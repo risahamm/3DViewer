@@ -8,8 +8,6 @@
 
 #include "view.h"
 
-namespace s21 {
-
 /**
  * @brief Класс для представления и отображения 3D объектов с использованием
  * OpenGL.
@@ -150,7 +148,5 @@ class Object3d : public QOpenGLWidget, protected QOpenGLFunctions {
    */
   double FindMaxCoordinate();
 };
-
-}  // namespace s21
 
 #endif  // VIEWER_SRC_VIEW_OPENGL_VIEW_H

@@ -183,31 +183,31 @@ void s21::Object::Clear() {
 
 /*----------------------------------------------------------------------------*/
 
-void s21::Object::PrintVertices() {
-  int number = 0;
-  for (Point &i : vertices_) {
-    std::cout << "Vertex number " << number++ << ":"
-              << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
-  }
-
-  std::cout << "max X vertex :" << max_vertex_x_ << std::endl;
-  std::cout << "max Y vertex :" << max_vertex_y_ << std::endl;
-  std::cout << "max Z vertex :" << max_vertex_z_ << std::endl;
-  std::cout << "min X vertex :" << min_vertex_x_ << std::endl;
-  std::cout << "min Y vertex :" << min_vertex_y_ << std::endl;
-  std::cout << "min Z vertex :" << min_vertex_z_ << std::endl;
-  std::cout << "Total number of vertices: " << vertex_count_ << std::endl
-            << std::endl;
-}
-
-void s21::Object::PrintFacets() {
-  int number = 1;
-  for (std::vector<int> &i : facets_) {
-    std::cout << "Facet number " << number++ << ". Vertices:";
-    for (int &j : i) {
-      std::cout << "\t" << j << " ";
-    }
-    std::cout << std::endl;
-  }
-  std::cout << "Total number of edges: " << edge_count_ << std::endl;
-}
+// void s21::Object::PrintVertices() {
+//   int number = 0;
+//   for (Point &i : vertices_) {
+//     std::cout << "Vertex number " << number++ << ":"
+//               << "\t" << i.x << "\t" << i.y << "\t" << i.z << std::endl;
+//   }
+//
+//   std::cout << "max X vertex :" << max_vertex_x_ << std::endl;
+//   std::cout << "max Y vertex :" << max_vertex_y_ << std::endl;
+//   std::cout << "max Z vertex :" << max_vertex_z_ << std::endl;
+//   std::cout << "min X vertex :" << min_vertex_x_ << std::endl;
+//   std::cout << "min Y vertex :" << min_vertex_y_ << std::endl;
+//   std::cout << "min Z vertex :" << min_vertex_z_ << std::endl;
+//   std::cout << "Total number of vertices: " << vertex_count_ << std::endl
+//             << std::endl;
+// }
+//
+// void s21::Object::PrintFacets() {
+//   int number = 1;
+//   for (std::vector<int> &i : facets_) {
+//     std::cout << "Facet number " << number++ << ". Vertices:";
+//     for (int &j : i) {
+//       std::cout << "\t" << j << " ";
+//     }
+//     std::cout << std::endl;
+//   }
+//   std::cout << "Total number of edges: " << edge_count_ << std::endl;
+// }

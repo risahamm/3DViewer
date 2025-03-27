@@ -8,7 +8,7 @@ int main() {
   s21::Controller controller(&obj);
 
   bool result = controller.OpenFile("../../object_files/cube.obj");
-  controller.RoateXUp(90);
+  controller.RoateZCClckWs(90);
 //   controller.MoveXRight(2);
    std::vector<s21::Point> res = controller.GetVertices();
    s21::Point a(0, 0, 0);
@@ -22,7 +22,7 @@ int main() {
    s21::Point i(-1, -1, -0.99999999999999988);
    std::vector<s21::Point> correct = {a, b, c, d, e, f, g, h, i};
 
-  obj.PrintVertices();
+//  obj.PrintVertices();
 //  obj.PrintFacets();
 
 //  cout << "ver 1 z = " << obj.GetVerticesRef().at(1).z << endl;

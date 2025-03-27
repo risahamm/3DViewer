@@ -1,13 +1,11 @@
 #include "opengl_view.h"
-// #include "Controller/controller.h"
-// #include "Model/object.h"
 
-void s21::Object3d::initializeGL() { initializeOpenGLFunctions(); }
+void Object3d::initializeGL() { initializeOpenGLFunctions(); }
 
 /* вызывается только один раз в самом начале при отрисовке виджета */
-void s21::Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
+void Object3d::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
-void s21::Object3d::SetUpBackgroundColor() {
+void Object3d::SetUpBackgroundColor() {
   GLfloat red =
       static_cast<GLfloat>(view_->current_settings.background_color.redF());
   GLfloat green =
@@ -20,10 +18,10 @@ void s21::Object3d::SetUpBackgroundColor() {
   glClearColor(red, green, blue, alpha);
 }
 
-void s21::Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
+void Object3d::SetApplicationWidgetPtr(View *ptr) { view_ = ptr; };
 
 /* вызывается каждый раз, когда вызываем update() */
-void s21::Object3d::paintGL() {
+void Object3d::paintGL() {
   /* если объект не выбран, ничего не рисуем */
   if (view_->object_path_ == nullptr) {
     return;
@@ -66,7 +64,7 @@ void s21::Object3d::paintGL() {
   }
 }
 
-void s21::Object3d::SetUpPaintColor(QColor color) {
+void Object3d::SetUpPaintColor(QColor color) {
   GLfloat red = static_cast<GLfloat>(color.redF());
   GLfloat green = static_cast<GLfloat>(color.greenF());
   GLfloat blue = static_cast<GLfloat>(color.blueF());
@@ -74,7 +72,7 @@ void s21::Object3d::SetUpPaintColor(QColor color) {
   glColor3f(red, green, blue);
 }
 
-void s21::Object3d::SetUpLineStyle() {
+void Object3d::SetUpLineStyle() {
   if (view_->current_settings.line == View::Line::dashed) {
     glEnable(GL_LINE_STIPPLE);
 
@@ -87,7 +85,7 @@ void s21::Object3d::SetUpLineStyle() {
   }
 }
 
-void s21::Object3d::SetUpVertexStyle() {
+void Object3d::SetUpVertexStyle() {
   if (view_->current_settings.vertex == View::Vertex::dot) {
     glEnable(GL_POINT_SMOOTH);
   } else {
@@ -95,7 +93,7 @@ void s21::Object3d::SetUpVertexStyle() {
   }
 }
 
-void s21::Object3d::SetUpProjection() {
+void Object3d::SetUpProjection() {
   if (view_->current_settings.projection == View::Projection::ortho) {
     OrthoProjection();
 
@@ -104,7 +102,7 @@ void s21::Object3d::SetUpProjection() {
   }
 }
 
-void s21::Object3d::OrthoProjection() {
+void Object3d::OrthoProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
@@ -123,7 +121,7 @@ void s21::Object3d::OrthoProjection() {
   glLoadIdentity();
 }
 
-void s21::Object3d::PerspectProjection() {
+void Object3d::PerspectProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
@@ -160,7 +158,7 @@ void s21::Object3d::PerspectProjection() {
   glLoadIdentity();
 }
 
-double s21::Object3d::FindMaxCoordinate() {
+double Object3d::FindMaxCoordinate() {
   double x_max = view_->controller_->GetMaxCoordinateX();
   double y_max = view_->controller_->GetMaxCoordinateY();
 
