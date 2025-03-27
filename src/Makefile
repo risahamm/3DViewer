@@ -4,7 +4,7 @@ CFLAGS=-Wall -Werror -Wextra -std=c++17
 cmake:
 	@mkdir -p build && cd build && cmake ..
 
-install: uinstall cmake
+install: uninstall cmake
 	@echo "\033[46mInstallation\033[0m"
 	@cd build && make
 	@echo "\033[46mApplication installed\033[0m"
