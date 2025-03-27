@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['getedgecount_0',['GetEdgeCount',['../classs21_1_1_object.html#a93eb39abae4fc4bbfd0d30e4d51a95ee',1,'s21::Object']]],
+  ['getedgescount_1',['GetEdgesCount',['../classs21_1_1_controller.html#a822cf381386a4772b464ef75131ffc9c',1,'s21::Controller']]],
+  ['getfacets_2',['GetFacets',['../classs21_1_1_controller.html#a1c21dec0d6dac5e8c3f3929c088ad7a2',1,'s21::Controller::GetFacets()'],['../classs21_1_1_object.html#a974b05d486f4494e593b38ed1e6c135e',1,'s21::Object::GetFacets()']]],
+  ['getmaxcoordinatex_3',['GetMaxCoordinateX',['../classs21_1_1_controller.html#a691679fbddd0ddcb3536876619ba1ec3',1,'s21::Controller']]],
+  ['getmaxcoordinatey_4',['GetMaxCoordinateY',['../classs21_1_1_controller.html#ac116d8e200eac037f1b3e663ca0b647d',1,'s21::Controller']]],
+  ['getmaxcoordinatez_5',['GetMaxCoordinateZ',['../classs21_1_1_controller.html#af63604cf65b9300311c3ab75304d6b17',1,'s21::Controller']]],
+  ['getmaxx_6',['GetMaxX',['../classs21_1_1_object.html#a141afbcadc879cf77a561d621e348995',1,'s21::Object']]],
+  ['getmaxy_7',['GetMaxY',['../classs21_1_1_object.html#a1d7298b2e00effe56fa5d4d6f3774875',1,'s21::Object']]],
+  ['getmaxz_8',['GetMaxZ',['../classs21_1_1_object.html#ae54ab7e5babf8c95d661b262cf34a9ef',1,'s21::Object']]],
+  ['getmincoordinatex_9',['GetMinCoordinateX',['../classs21_1_1_controller.html#a923d839c992dcb2a692285e249de6c35',1,'s21::Controller']]],
+  ['getmincoordinatey_10',['GetMinCoordinateY',['../classs21_1_1_controller.html#af3fd6ee55f004d4c21c8cd3746bb68f3',1,'s21::Controller']]],
+  ['getmincoordinatez_11',['GetMinCoordinateZ',['../classs21_1_1_controller.html#a395cf3f00eaceaa2aec2b68cdecd0969',1,'s21::Controller']]],
+  ['getminx_12',['GetMinX',['../classs21_1_1_object.html#a4d5fd1c9811d6dd3b1355623638e7385',1,'s21::Object']]],
+  ['getminy_13',['GetMinY',['../classs21_1_1_object.html#af9eb94efcc96f54750dc7a8fac873fba',1,'s21::Object']]],
+  ['getminz_14',['GetMinZ',['../classs21_1_1_object.html#a1ff72fe4bf398730979f36354aff5ffc',1,'s21::Object']]],
+  ['getvertexcount_15',['GetVertexCount',['../classs21_1_1_object.html#a93de7db596e693b198bbad569075260b',1,'s21::Object']]],
+  ['getvertices_16',['GetVertices',['../classs21_1_1_controller.html#a26f757cfe48434a66575e1c58ef66839',1,'s21::Controller::GetVertices()'],['../classs21_1_1_object.html#a25083f4a767859f122a4ba08d5465ff2',1,'s21::Object::GetVertices()']]],
+  ['getverticescount_17',['GetVerticesCount',['../classs21_1_1_controller.html#aee5006ed80edf8a7e6dd51c7443d2f42',1,'s21::Controller']]],
+  ['getverticesref_18',['GetVerticesRef',['../classs21_1_1_object.html#a89bbb44beb28c67bef9c67fce658e022',1,'s21::Object']]]
+];

@@ -8,12 +8,12 @@ install: uninstall cmake
 	@echo "\033[46mInstallation\033[0m"
 	@cd build && make
 	@echo "\033[46mApplication installed\033[0m"
-	@#make dvi
+	@make dvi
 	@cd build && open 3DViewer.app
 
 uninstall: clean
 	@rm -rf build
-	@#rm -rf ../dist
+	@rm -rf ../dist
 	@echo "\033[46mApplication removed\033[0m"
 
 dvi:
