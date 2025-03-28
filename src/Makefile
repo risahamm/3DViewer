@@ -21,7 +21,7 @@ dvi:
 
 dist:
 	@mkdir -p ../dist
-	@cp -R build/3DViwer.app ../dist
+	@cp -R build/3DViewer.app ../dist
 	@cd ../dist && tar cvzf 3DViwer.tar *
 	@cd ../dist && rm -rf 3DViwer.app README.md
 
