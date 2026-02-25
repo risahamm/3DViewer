@@ -67,6 +67,10 @@ endif()
 
 target_link_libraries(3DViewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
         Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
+        
+if(WIN32)
+    target_link_libraries(3DViewer PRIVATE opengl32 glu32)
+endif()
 
 
 set_target_properties(3DViewer PROPERTIES
